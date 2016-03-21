@@ -2,7 +2,7 @@
 
 
 
-
+https://blackboard.uwe.ac.uk/bbcswebdav/pid-4634231-dt-content-rid-8695402_2/courses/UFCFWA-30-1_15sep_1/Worksheet%2013%283%29.pdf
 */
 
 #include "GameScene.h"
@@ -10,32 +10,38 @@ USING_NS_CC;
 
 
 
-cocos2d::Scene* GameScene::createScene()
+cocos2d::Scene * GameScene::createScene()
 {
-	// 'scene' & 'layer' are an autoreleased objects
-	cocos2d::Scene* gameScene = Scene::create();
-	auto gameLayer = GameScene::create();
+	// 'scene' & 'layer' are autoreleased objects
+	cocos2d::Scene* playScene = Scene::create();
+	auto playLayer = GameScene::create();
 
-	//add layer as a child object
-	gameScene->addChild(gameLayer);
+	// add layer as a child to a scene
+	playScene->addChild(playLayer);
+	playLayer->initLayer();
 
-	//return scene
-	return gameScene;
+	// return the scene
+	return playScene;
 }
 
 
-
-bool GameScene::init()
+bool GameScene::initLayer()
 {
-	getWindowWidth();
-	getWindowHeight();
+	if (!Layer::init())
+	{
+		return false;
+	}
 
-	initBackground();
+	//getWindowWidth();
+	//getWindowHeight();
+
+	//initBackground();
+	sliceImage();
 
 	return true;
 }
 
-
+/*
 float GameScene::getWindowWidth()
 {
 	Size visibleSize = Director::getInstance()->getVisibleSize();
@@ -43,8 +49,9 @@ float GameScene::getWindowWidth()
 
 	return this->windowWidth; //windowWidth = visibleSize.width;
 }
+*/
 
-
+/*
 float GameScene::getWindowHeight()
 {
 	Size visibleSize = Director::getInstance()->getVisibleSize();
@@ -52,8 +59,9 @@ float GameScene::getWindowHeight()
 
 	return this->windowHeight; //windowHeight = visibleSize.height;
 }
+*/
 
-
+/*
 void GameScene::initBackground()
 {
 	auto backdrop = Sprite::create("PatternPictureFrame.jpg");
@@ -62,18 +70,48 @@ void GameScene::initBackground()
 	backdrop->setPosition(Vec2(0, 0));
 	this->addChild(backdrop, -50);
 
-	addPuzzle();
+	addPuzzleImage();
+}
+*/
+
+void GameScene::sliceImage()
+{
+	cocos2d::Size visibleSize = Director::getInstance()->getVisibleSize();
+	cocos2d::Vector<Sprite*> segmentList;
+
+	for (unsigned int i = 0; i <= 15 /*total number of segments - 1 */; i++)
+	{
+		/*CREATE AN ARRAY OF IMAGES THAT THE PLAYER CAN PICK AND REPLACE p_hamsterRunning WITH AN IMAGE CODE*/
+		// Create a sprite
+		Sprite* puzzleSprite = Sprite::create("p_hamsterRunning.jpg");
+
+		/*REPLACE THE 4 WITH THE NUMBER OF SEGMENTS*/
+		// Get the height and width of a segment
+		float segmentWidth = puzzleSprite->getBoundingBox().size.width / 4;
+		float segmentHeight = puzzleSprite->getBoundingBox().size.height / 4;
+
+		float xOrigin = (i % 4) * segmentWidth;
+		float yOrigin = ((int)i / 4) * segmentHeight;
+
+		puzzleSprite->setTextureRect(Rect(xOrigin, yOrigin, segmentWidth, segmentHeight));
+		segmentList.pushBack(puzzleSprite);
+	}
+
+	displayPuzzle(segmentList);
 }
 
 
+
 // Create function to add and cut segment puzzle
-void GameScene::addPuzzle()
+void GameScene::displayPuzzle(Vector<Sprite*> *segmentList)
 {
-	auto puzzleImage = Sprite::create("HamsterRunning.png");
+	/*
+	auto puzzleImage = Sprite::create("HamsterRunning.jpg");
 	puzzleImage->setScale(1);
-	puzzleImage->setAnchorPoint(Vec2(windowWidth / 2, windowHeight / 2));
+	puzzleImage->setAnchorPoint(Vec2(0,0));
 	puzzleImage->setPosition(Vec2(0, 0));
 	this->addChild(puzzleImage, -5);
+	*/
 }
 
 

@@ -45,7 +45,6 @@ bool PuzzleGame::initLayer()
 void PuzzleGame::initMenu()
 {
 	backgroundAndTitle();
-
 	menuButtons();
 }
 
@@ -73,7 +72,7 @@ void PuzzleGame::menuButtons()
 	// Create the play game menu item
 	MenuItemSprite* runGameScene = new MenuItemSprite();
 	runGameScene->initWithNormalSprite(
-		Sprite::create("PlayNormal.png"),
+		Sprite::create("PlayUnselected.png"),
 		Sprite::create("PlaySelected.png"),
 		nullptr,
 		CC_CALLBACK_1(PuzzleGame::menuStartGame, this));
@@ -98,7 +97,7 @@ void PuzzleGame::menuButtons()
 void PuzzleGame::menuStartGame(cocos2d::Ref* sender)
 {
 	// change the type of transition between the scenes
-	Director::getInstance()->replaceScene(
+	cocos2d::Director::getInstance()->replaceScene(
 		TransitionSlideInR::create(2, GameScene::createScene()));
 }
 
@@ -107,7 +106,7 @@ void PuzzleGame::menuStartGame(cocos2d::Ref* sender)
 if the window is closed*/
 void PuzzleGame::menuCloseCallback(cocos2d::Ref* pSender)
 {
-	Director::getInstance()->end();
+	cocos2d::Director::getInstance()->end();
 }
 
 
