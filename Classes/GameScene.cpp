@@ -21,8 +21,7 @@ cocos2d::Scene * GameScene::createScene()
 	playLayer->initLayer();
 
 	// return the scene
-	return playScene;
-}
+	return playScene;}
 
 
 bool GameScene::initLayer()
@@ -76,43 +75,171 @@ void GameScene::initBackground()
 
 void GameScene::sliceImage()
 {
-	cocos2d::Size visibleSize = Director::getInstance()->getVisibleSize();
-	cocos2d::Vector<Sprite*> segmentList;
+	//cocos2d::Size visibleSize = Director::getInstance()->getVisibleSize();
+	//cocos2d::Vector<Sprite*> segmentList;
 
-	for (unsigned int i = 0; i <= 15 /*total number of segments - 1 */; i++)
+
+	
+	auto puzzleSprite = Sprite::create("p_hamsterRunning.jpg");
+	puzzleSprite->setAnchorPoint(Vec2(0, 0));
+	puzzleSprite->setPosition(Director::getInstance()->getVisibleOrigin());
+	//this->addChild(puzzleSprite, 0);
+
+	// get the height and width of a single tile
+	int spriteWidth = puzzleSprite->getBoundingBox().size.width;
+	int spriteHeight = puzzleSprite->getBoundingBox().size.height;
+
+	// SCALE
+	float scaleWidth = 500.0f / spriteWidth;
+	float scaleHeight = 500.0f / spriteHeight;
+
+	float scale2W = scaleWidth * 98 / 100;
+	float scale2H = scaleHeight * 98 / 100;
+
+	puzzleSprite->setAnchorPoint(Vec2(0, 0));
+	puzzleSprite->setPosition(Vec2(0, 0));
+	puzzleSprite->setScaleX(scale2W);
+	puzzleSprite->setScaleY(scale2H);
+
+	cocos2d::Vec2 tileSize = Vec2(spriteWidth / 4, spriteHeight / 4);
+	//cocos2d::Vec2 anchorPoint = Vec2(Vec2::ANCHOR_TOP_LEFT);
+
+	
+
+
+	// Run through each position in the sprite
+	for (unsigned int i = 0; i < 4; i++)
 	{
-		/*CREATE AN ARRAY OF IMAGES THAT THE PLAYER CAN PICK AND REPLACE p_hamsterRunning WITH AN IMAGE CODE*/
+		for (int j = 0; j < 4; j++)
+		{
+			float widthPosition = (spriteWidth / 4) * j;
+			float heightPosition = (spriteHeight / 4) * i;
+
+			auto image = Sprite::create("p_hamsterRunning.jpg", Rect(widthPosition, (spriteHeight - heightPosition) - tileSize.y, tileSize.x, tileSize.y));
+			image->setAnchorPoint(Vec2(0, 0));
+			image->setPosition(Vec2((500 / 4) * j, (500 / 4) * i));
+			image->setScaleX(scale2W);
+			image->setScaleY(scale2H);
+			this->addChild(image);
+
+			//segmentList.pushBack(image);
+		}
+	}
+
+
+
+
+
+
+
+	/*
+	// display each segment from the list
+	for (unsigned int i = 0 ; i <= 15; i++)
+	{
+		float widthPosition = (spriteWidth / 4) * i;
+		float heightPosition = (spriteHeight / 4) * i;
+
+		segmentList.at(i)->setPosition((i % 4) * tileSize.x,
+			(((unsigned int)i / 4) * tileSize.y));						///	WORK OUT WTF THIS IS DOING (other than setting the position)
+
+
+			// Se the anchore point for each sprite
+		segmentList.at(i)->setAnchorPoint(Vec2::ANCHOR_TOP_LEFT);
+
+		// add the segment to the scene
+		this->addChild(segmentList.at(i), 0);
+	}
+	*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	/*
+	for (unsigned int index = 0; index <= 15 /*total number of segments - 1/; index++)
+	{
+		/*CREATE AN ARRAY OF IMAGES THAT THE PLAYER CAN PICK AND REPLACE p_hamsterRunning WITH AN IMAGE CODE/
 		// Create a sprite
-		Sprite* puzzleSprite = Sprite::create("p_hamsterRunning.jpg");
+		auto puzzleSprite = Sprite::create("p_hamsterRunning.jpg");
+		//auto puzzleSprite = Sprite::createWithSpriteFrameName("p_hamsterRunning.jpg");
 
-		/*REPLACE THE 4 WITH THE NUMBER OF SEGMENTS*/
+
+		// set scale of image
+		float spriteWidth = puzzleSprite->getBoundingBox().size.width;
+		float spriteHeight = puzzleSprite->getBoundingBox().size.height;
+
+		float scaleWidth = 500 / spriteWidth ;
+		float scaleHeight = 500 / spriteHeight;
+
+		puzzleSprite->setScaleX(scaleWidth);
+		puzzleSprite->setScaleY(scaleHeight);
+
+
+
+
+		/*REPLACE THE 4 WITH THE NUMBER OF SEGMENTS/
 		// Get the height and width of a segment
-		float segmentWidth = puzzleSprite->getBoundingBox().size.width / 4;
-		float segmentHeight = puzzleSprite->getBoundingBox().size.height / 4;
+		segmentWidth = puzzleSprite->getBoundingBox().size.width / 4;
+		segmentHeight = puzzleSprite->getBoundingBox().size.height / 4;
 
-		float xOrigin = (i % 4) * segmentWidth;
-		float yOrigin = ((int)i / 4) * segmentHeight;
+		float xOrigin = (index % 4) * segmentWidth;			// return either 1 or 0
+		float yOrigin = ((unsigned int)index / 4) * segmentHeight;
 
 		puzzleSprite->setTextureRect(Rect(xOrigin, yOrigin, segmentWidth, segmentHeight));
 		segmentList.pushBack(puzzleSprite);
 	}
 
-	displayPuzzle(segmentList);
-}
+	// display each segment from the list
+	for (unsigned int i = 0 /*total number of segments - 1/; i <= 15; i++)
+	{
+		segmentList.at(i)->setPosition((i % 4) * segmentWidth, 
+			(((unsigned int)i / 4) * visibleSize.height / 4));						///	WORK OUT WTF THIS IS DOING (other than setting the position)
 
 
+		// Se the anchore point for each sprite
+		segmentList.at(i)->setAnchorPoint(Vec2::ANCHOR_TOP_LEFT);
 
-// Create function to add and cut segment puzzle
-void GameScene::displayPuzzle(Vector<Sprite*> *segmentList)
-{
-	/*
-	auto puzzleImage = Sprite::create("HamsterRunning.jpg");
-	puzzleImage->setScale(1);
-	puzzleImage->setAnchorPoint(Vec2(0,0));
-	puzzleImage->setPosition(Vec2(0, 0));
-	this->addChild(puzzleImage, -5);
+		// add the segment to the scene
+		this->addChild(segmentList.at(i), 0);
+	}
+	
+	// displayPuzzle(segmentList);
+
+
 	*/
 }
+
+
+/*
+// Create function to add and cut segment puzzle
+void GameScene::displayPuzzle(Vector<Sprite*>& segmentList)
+{
+	// display each segment from the list
+	for (unsigned int i = 0; i <= 15 /*total number of segments - 1/; i++)
+	{
+		segmentList[i]->setPosition((i%4) * visibleSize
+	}
+
+
+	
+	//auto puzzleImage = Sprite::create("HamsterRunning.jpg");
+	//puzzleImage->setScale(1);
+	//puzzleImage->setAnchorPoint(Vec2(0,0));
+	//puzzleImage->setPosition(Vec2(0, 0));
+	//this->addChild(puzzleImage, -5);
+	
+}
+*/
 
 
 

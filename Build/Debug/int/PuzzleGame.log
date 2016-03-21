@@ -1,4 +1,4 @@
-﻿Build started 21/03/2016 10:53:44.
+﻿Build started 21/03/2016 16:55:30.
      1>Project "C:\Users\d2-dawes\OneDrive\C++\Assignment 3\Project\PuzzleGame.vcxproj" on node 2 (Build target(s)).
      1>ClCompile:
          C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\bin\CL.exe /c /I"C:\Users\d2-dawes\OneDrive\C++\Assignment 3\cocos2d\cocos\2d\..\..\cocos\audio\include" /I"C:\Users\d2-dawes\OneDrive\C++\Assignment 3\cocos2d\cocos\2d\..\..\external" /I"C:\Users\d2-dawes\OneDrive\C++\Assignment 3\cocos2d\cocos\2d\..\..\external\chipmunk\include\chipmunk" /I"C:\Users\d2-dawes\OneDrive\C++\Assignment 3\cocos2d\cocos\2d\..\..\extensions" /I..\Classes /I.. /I"C:\Users\d2-dawes\OneDrive\C++\Assignment 3\cocos2d\cocos\2d\..\..\cocos\editor-support" /I"C:\Users\d2-dawes\OneDrive\C++\Assignment 3\cocos2d\cocos\2d\..\..\cocos" /I"C:\Users\d2-dawes\OneDrive\C++\Assignment 3\cocos2d\cocos\2d\..\..\cocos\platform" /I"C:\Users\d2-dawes\OneDrive\C++\Assignment 3\cocos2d\cocos\2d\..\..\cocos\platform\desktop" /I"C:\Users\d2-dawes\OneDrive\C++\Assignment 3\cocos2d\cocos\2d\..\..\external\glfw3\include\win32" /I"C:\Users\d2-dawes\OneDrive\C++\Assignment 3\cocos2d\cocos\2d\..\..\external\win32-specific\gles\include\OGLES" /I"C:\Users\d2-dawes\OneDrive\C++\Assignment 3\cocos2d\cocos\2d\..\..\external\freetype2\include\win32\freetype2" /I"C:\Users\d2-dawes\OneDrive\C++\Assignment 3\cocos2d\cocos\2d\..\..\external\freetype2\include\win32\\" /I"C:\Users\d2-dawes\OneDrive\C++\Assignment 3\cocos2d\cocos\2d\..\..\external" /ZI /nologo /W3 /WX- /MP /Od /Oy- /D WIN32 /D _DEBUG /D _WINDOWS /D _USE_MATH_DEFINES /D GL_GLEXT_PROTOTYPES /D CC_ENABLE_CHIPMUNK_INTEGRATION=1 /D COCOS2D_DEBUG=1 /D _CRT_SECURE_NO_WARNINGS /D _SCL_SECURE_NO_WARNINGS /D _VARIADIC_MAX=10 /D _USING_V110_SDK71_ /D _UNICODE /D UNICODE /Gm- /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"C:\Users\d2-dawes\OneDrive\C++\Assignment 3\\Build\Debug\int\\" /Fd"C:\Users\d2-dawes\OneDrive\C++\Assignment 3\\Build\Debug\int\vc140.pdb" /Gd /TP /wd4267 /wd4251 /wd4244 /analyze- /errorReport:prompt ..\Classes\GameScene.cpp
@@ -22,4 +22,4 @@
 
 Build succeeded.
 
-Time Elapsed 00:00:03.83
+Time Elapsed 00:00:03.91

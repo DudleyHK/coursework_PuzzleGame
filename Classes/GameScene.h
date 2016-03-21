@@ -19,7 +19,11 @@ public:
 	float getWindowHeight();
 
 	void initBackground();
-	void displayPuzzle(Vector<Sprite*> *segList);
+
+	// @param pass via reference as vectors take up huge amaount of memory.
+	// @param if you don't want to modify the Vector add the "const" modifier
+	//void displayPuzzle(Vector<Sprite*>&);
+
 
 	void sliceImage();
 
@@ -27,7 +31,7 @@ public:
 	CREATE_FUNC(GameScene);
 
 private:
-	float windowWidth = 0, windowHeight = 0;
+//	float widthPosition = 0, heightPosition = 0;
 	
 
 };
