@@ -1,5 +1,5 @@
 #include "AppDelegate.h"
-USING_NS_CC;
+
 
 bool AppDelegate::applicationDidFinishLaunching() 
 {
@@ -14,7 +14,7 @@ bool AppDelegate::applicationDidFinishLaunching()
 	{
 		// Create the application window
 		glView = GLViewImpl::create("Puzzle Game");
-		glView->setFrameSize(640, 480);
+		glView->setFrameSize(1280, 720);
 
 		// Set this up via the game Director
 		director->setOpenGLView(glView);

@@ -6,7 +6,6 @@ http://www.cocos2d-x.org/wiki/Coordinate_System
 https://blackboard.uwe.ac.uk/bbcswebdav/pid-4625508-dt-content-rid-8627132_2/courses/UFCFWA-30-1_15sep_1/Worksheet%2012.pdf // Work sheet 12
 */
 #include "PuzzleGame.h"
-USING_NS_CC;
 
 
 /*Simply create a new scene and adds our newly created layer to it.
@@ -23,6 +22,16 @@ cocos2d::Scene * PuzzleGame::createScene()
 
 	// return the scene
 	return menuScene;
+}
+
+PuzzleGame::PuzzleGame()
+{
+	; // EMpty
+}
+
+PuzzleGame::~PuzzleGame()
+{
+	; // Empty
 }
 
 

@@ -5,7 +5,8 @@
 */
 #pragma once
 #include "cocos2d.h"
-#include <vector>
+#include "CreatePuzzle.h"
+USING_NS_CC;
 
 
 class GameScene : public cocos2d::Layer
@@ -14,24 +15,21 @@ public:
 
 	static cocos2d::Scene * createScene();
 	
+	GameScene();
+	~GameScene();
+
 	virtual bool initLayer();
-	float getWindowWidth();
-	float getWindowHeight();
+	void addImageToScene();
 
-	void initBackground();
-
-	// @param pass via reference as vectors take up huge amaount of memory.
-	// @param if you don't want to modify the Vector add the "const" modifier
-	//void displayPuzzle(Vector<Sprite*>&);
-
-
-	void sliceImage();
+	//void initBackground();
+	//void sliceImage();
 
 	// implement the "static create()" method manually
 	CREATE_FUNC(GameScene);
 
 private:
 //	float widthPosition = 0, heightPosition = 0;
-	
+	cocos2d::Vector<Sprite*> puzzleTiles;
 
+	CreatePuzzle* createPuzzle = new CreatePuzzle;								////// NEW KEYWORD
 };

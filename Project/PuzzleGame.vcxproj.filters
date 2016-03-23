@@ -13,6 +13,12 @@
     <ClCompile Include="..\Classes\PuzzleGame.cpp">
       <Filter>src</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\ImageLibrary.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\CreatePuzzle.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -25,6 +31,12 @@
       <Filter>hdr</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\PuzzleGame.h">
+      <Filter>hdr</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\CreatePuzzle.h">
+      <Filter>hdr</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\ImageLibrary.h">
       <Filter>hdr</Filter>
     </ClInclude>
   </ItemGroup>

@@ -3,11 +3,12 @@
 
 
 https://blackboard.uwe.ac.uk/bbcswebdav/pid-4634231-dt-content-rid-8695402_2/courses/UFCFWA-30-1_15sep_1/Worksheet%2013%283%29.pdf
+
+Sprite Guide
+http://cocos2d-x.org/documentation/programmers-guide/3/index.html
 */
 
 #include "GameScene.h"
-USING_NS_CC;
-
 
 
 cocos2d::Scene * GameScene::createScene()
@@ -21,7 +22,20 @@ cocos2d::Scene * GameScene::createScene()
 	playLayer->initLayer();
 
 	// return the scene
-	return playScene;}
+	return playScene;
+}
+
+
+GameScene::GameScene()
+{
+	; // Empty
+}
+
+
+GameScene::~GameScene()
+{
+	; // Empty
+}
 
 
 bool GameScene::initLayer()
@@ -35,31 +49,32 @@ bool GameScene::initLayer()
 	//getWindowHeight();
 
 	//initBackground();
-	sliceImage();
+	//sliceImage();
+
+	addImageToScene();
 
 	return true;
 }
 
-/*
-float GameScene::getWindowWidth()
+
+
+void GameScene::addImageToScene()
 {
-	Size visibleSize = Director::getInstance()->getVisibleSize();
-	this->windowWidth = visibleSize.width;
+	createPuzzle->init();
+	createPuzzle->getImage(puzzleTiles);
 
-	return this->windowWidth; //windowWidth = visibleSize.width;
+	 
+
+	// Display
+	for (unsigned int index = GameScene::puzzleTiles.size(); index >= 0; index--)
+	{
+		this->addChild(puzzleTiles.at(index), -10);
+	}
 }
-*/
 
-/*
-float GameScene::getWindowHeight()
-{
-	Size visibleSize = Director::getInstance()->getVisibleSize();
-	this->windowHeight = visibleSize.height;
 
-	return this->windowHeight; //windowHeight = visibleSize.height;
-}
-*/
 
+// INIT BACKGROUND FUNCTION
 /*
 void GameScene::initBackground()
 {
@@ -72,177 +87,51 @@ void GameScene::initBackground()
 	addPuzzleImage();
 }
 */
-
+// SLICE IMAGE FUNCTION
+/*
 void GameScene::sliceImage()
 {
-	//cocos2d::Size visibleSize = Director::getInstance()->getVisibleSize();
-	//cocos2d::Vector<Sprite*> segmentList;
+	/ create a sprite, set its anchor point and set its position to a position
+	 on the screen relative to the size resolution of the window/
+	auto puzzleImage = Sprite::create("p_hamsterRunning.jpg");
+	puzzleImage->setAnchorPoint(Vec2(0, 0));
+	puzzleImage->setPosition(Director::getInstance()->getVisibleOrigin());
 
+	// set the height and width of the image
+	int imageWidth = puzzleImage->getBoundingBox().size.width;
+	int imageHeight = puzzleImage->getBoundingBox().size.height;
 
-	
-	auto puzzleSprite = Sprite::create("p_hamsterRunning.jpg");
-	puzzleSprite->setAnchorPoint(Vec2(0, 0));
-	puzzleSprite->setPosition(Director::getInstance()->getVisibleOrigin());
-	//this->addChild(puzzleSprite, 0);
+	// Scale width and height, and reduce its size by 2%
+	float scaleWidth = (500.0f / imageWidth) * 0.98;
+	float scaleHeight = (500.0f / imageHeight) * 0.98;
 
-	// get the height and width of a single tile
-	int spriteWidth = puzzleSprite->getBoundingBox().size.width;
-	int spriteHeight = puzzleSprite->getBoundingBox().size.height;
-
-	// SCALE
-	float scaleWidth = 500.0f / spriteWidth;
-	float scaleHeight = 500.0f / spriteHeight;
-
-	float scale2W = scaleWidth * 98 / 100;
-	float scale2H = scaleHeight * 98 / 100;
-
-	puzzleSprite->setAnchorPoint(Vec2(0, 0));
-	puzzleSprite->setPosition(Vec2(0, 0));
-	puzzleSprite->setScaleX(scale2W);
-	puzzleSprite->setScaleY(scale2H);
-
-	cocos2d::Vec2 tileSize = Vec2(spriteWidth / 4, spriteHeight / 4);
-	//cocos2d::Vec2 anchorPoint = Vec2(Vec2::ANCHOR_TOP_LEFT);
-
-	
+	// Get the size of a single tile 
+	cocos2d::Vec2 imageTile = Vec2(imageWidth / 4, imageHeight / 4);
 
 
 	// Run through each position in the sprite
-	for (unsigned int i = 0; i < 4; i++)
+	for (unsigned int heightIndex = 0; heightIndex < 4; heightIndex++)
 	{
-		for (int j = 0; j < 4; j++)
+		for (unsigned int widthIndex = 0; widthIndex < 4; widthIndex++)
 		{
-			float widthPosition = (spriteWidth / 4) * j;
-			float heightPosition = (spriteHeight / 4) * i;
+			float widthPosition = imageTile.x * widthIndex;
+			float heightPosition = imageTile.y * heightIndex;
 
-			auto image = Sprite::create("p_hamsterRunning.jpg", Rect(widthPosition, (spriteHeight - heightPosition) - tileSize.y, tileSize.x, tileSize.y));
-			image->setAnchorPoint(Vec2(0, 0));
-			image->setPosition(Vec2((500 / 4) * j, (500 / 4) * i));
-			image->setScaleX(scale2W);
-			image->setScaleY(scale2H);
-			this->addChild(image);
+			/* Create a tile, set anchor point and position, scale the tile and finally add
+			it to the scene as a chile object/
+			auto tile = Sprite::create("p_hamsterRunning.jpg", Rect(widthPosition,
+				(imageHeight - heightPosition) - imageTile.y, imageTile.x, imageTile.y));
 
-			//segmentList.pushBack(image);
+			tile->setAnchorPoint(Vec2(0, 0));
+			tile->setPosition(Vec2((500 / 4) * widthIndex, (500 / 4) * heightIndex));
+			tile->setScaleX(scaleWidth);
+			tile->setScaleY(scaleHeight);
+			this->addChild(tile);
 		}
 	}
-
-
-
-
-
-
-
-	/*
-	// display each segment from the list
-	for (unsigned int i = 0 ; i <= 15; i++)
-	{
-		float widthPosition = (spriteWidth / 4) * i;
-		float heightPosition = (spriteHeight / 4) * i;
-
-		segmentList.at(i)->setPosition((i % 4) * tileSize.x,
-			(((unsigned int)i / 4) * tileSize.y));						///	WORK OUT WTF THIS IS DOING (other than setting the position)
-
-
-			// Se the anchore point for each sprite
-		segmentList.at(i)->setAnchorPoint(Vec2::ANCHOR_TOP_LEFT);
-
-		// add the segment to the scene
-		this->addChild(segmentList.at(i), 0);
-	}
-	*/
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-	/*
-	for (unsigned int index = 0; index <= 15 /*total number of segments - 1/; index++)
-	{
-		/*CREATE AN ARRAY OF IMAGES THAT THE PLAYER CAN PICK AND REPLACE p_hamsterRunning WITH AN IMAGE CODE/
-		// Create a sprite
-		auto puzzleSprite = Sprite::create("p_hamsterRunning.jpg");
-		//auto puzzleSprite = Sprite::createWithSpriteFrameName("p_hamsterRunning.jpg");
-
-
-		// set scale of image
-		float spriteWidth = puzzleSprite->getBoundingBox().size.width;
-		float spriteHeight = puzzleSprite->getBoundingBox().size.height;
-
-		float scaleWidth = 500 / spriteWidth ;
-		float scaleHeight = 500 / spriteHeight;
-
-		puzzleSprite->setScaleX(scaleWidth);
-		puzzleSprite->setScaleY(scaleHeight);
-
-
-
-
-		/*REPLACE THE 4 WITH THE NUMBER OF SEGMENTS/
-		// Get the height and width of a segment
-		segmentWidth = puzzleSprite->getBoundingBox().size.width / 4;
-		segmentHeight = puzzleSprite->getBoundingBox().size.height / 4;
-
-		float xOrigin = (index % 4) * segmentWidth;			// return either 1 or 0
-		float yOrigin = ((unsigned int)index / 4) * segmentHeight;
-
-		puzzleSprite->setTextureRect(Rect(xOrigin, yOrigin, segmentWidth, segmentHeight));
-		segmentList.pushBack(puzzleSprite);
-	}
-
-	// display each segment from the list
-	for (unsigned int i = 0 /*total number of segments - 1/; i <= 15; i++)
-	{
-		segmentList.at(i)->setPosition((i % 4) * segmentWidth, 
-			(((unsigned int)i / 4) * visibleSize.height / 4));						///	WORK OUT WTF THIS IS DOING (other than setting the position)
-
-
-		// Se the anchore point for each sprite
-		segmentList.at(i)->setAnchorPoint(Vec2::ANCHOR_TOP_LEFT);
-
-		// add the segment to the scene
-		this->addChild(segmentList.at(i), 0);
-	}
-	
-	// displayPuzzle(segmentList);
-
-
-	*/
-}
-
-
-/*
-// Create function to add and cut segment puzzle
-void GameScene::displayPuzzle(Vector<Sprite*>& segmentList)
-{
-	// display each segment from the list
-	for (unsigned int i = 0; i <= 15 /*total number of segments - 1/; i++)
-	{
-		segmentList[i]->setPosition((i%4) * visibleSize
-	}
-
-
-	
-	//auto puzzleImage = Sprite::create("HamsterRunning.jpg");
-	//puzzleImage->setScale(1);
-	//puzzleImage->setAnchorPoint(Vec2(0,0));
-	//puzzleImage->setPosition(Vec2(0, 0));
-	//this->addChild(puzzleImage, -5);
-	
 }
 */
-
-
-
+// WORKSHEET CODE
 /*
 cocos2d::Scene* MyGameScene::createScene()
 {
