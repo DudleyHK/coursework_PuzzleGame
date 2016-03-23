@@ -7,7 +7,7 @@
 */
 #pragma once
 #include "cocos2d.h"
-//#include "ImageLibrary.h"
+#include "SingleTile.h"
 #include <vector>
 
 USING_NS_CC;
@@ -20,9 +20,9 @@ public:
 	~PuzzleBoard();
 
 	void init(/*Sprite* img*/);
-	void getImage(cocos2d::Vector<Sprite*> *tileList);
+	//void getImage(cocos2d::Vector<Sprite*> *tileList);
 
-	void createImage();													///// PuzzleBoard function
+	void createImage();///// PuzzleBoard function
 	void sliceImage();													/////
 	void makeTileTransparent();
 
@@ -30,7 +30,7 @@ public:
 
 
 private:
-	cocos2d::Vector<Sprite*> puzzleTiles;
+	cocos2d::Vector<PuzzleBoard> tileList;
 	// cocos2d::Sprite* puzzleImage;
 
 

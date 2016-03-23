@@ -10,19 +10,13 @@
     <ClCompile Include="..\Classes\GameScene.cpp">
       <Filter>src</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\ImageLibrary.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\GameEventListener.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
     <ClCompile Include="..\Classes\PuzzleBoard.cpp">
       <Filter>src</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\PlayEnvironment.cpp">
+    <ClCompile Include="..\Classes\SingleTile.cpp">
       <Filter>src</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\SingleTile.cpp">
+    <ClCompile Include="..\Classes\MainMenu.cpp">
       <Filter>src</Filter>
     </ClCompile>
   </ItemGroup>
@@ -36,19 +30,13 @@
     <ClInclude Include="..\Classes\GameScene.h">
       <Filter>hdr</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\ImageLibrary.h">
-      <Filter>hdr</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\GameEventListener.h">
-      <Filter>hdr</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\PlayEnvironment.h">
-      <Filter>hdr</Filter>
-    </ClInclude>
     <ClInclude Include="..\Classes\SingleTile.h">
       <Filter>hdr</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\PuzzleBoard.h">
+      <Filter>hdr</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\MainMenu.h">
       <Filter>hdr</Filter>
     </ClInclude>
   </ItemGroup>

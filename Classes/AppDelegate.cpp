@@ -21,7 +21,7 @@ bool AppDelegate::applicationDidFinishLaunching()
 	}
 
 	// Create a scenee and run it
-	auto mainMenu = PuzzleGame::createScene();
+	auto mainMenu = MainMenu::createScene();
 	director->runWithScene(mainMenu);
 
 

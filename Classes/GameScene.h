@@ -31,4 +31,6 @@ public:
 private:
 	cocos2d::Vector<Sprite*> puzzleTiles;
 
+	PuzzleBoard* puzzleBoard = new PuzzleBoard;									///////////////NEW KEYWORD
+
 };

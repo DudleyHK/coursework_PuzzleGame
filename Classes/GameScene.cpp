@@ -63,17 +63,18 @@ void GameScene::getTileInfo(cocos2d::Vector<cocos2d::Sprite*> *list)
 
 void GameScene::addImageToScene()
 {
-	createPuzzle->init();
-	createPuzzle->getImage(&puzzleTiles);
-
+	puzzleBoard->init();
+	//puzzleBoard->getImage(&puzzleTiles);
+/*
 	// Display puzzle.
 	for (int index = 0; index < GameScene::puzzleTiles.size(); index++)
 	{
 		this->addChild(puzzleTiles.at(index), -10);
 	}
+	*/
 }
 
-
+/*
 void GameScene::addEvent()
 {
 	// create a mouse listener and hook into our event callback function
@@ -81,7 +82,7 @@ void GameScene::addEvent()
 	listener->onMouseDown = CC_CALLBACK_1(mouseEvent.onMouseDown, this);
 	cocos2d::Director::getInstance()->getEventDispatcher()->addEventListenerWithFixedPriority(listener, -1);
 }
-
+*/
 
 
 

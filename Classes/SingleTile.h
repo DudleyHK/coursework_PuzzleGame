@@ -15,13 +15,22 @@ public:
 	SingleTile();
 	~SingleTile();
 
+	void setNewPosition(float xPos, float yPos);
+	void setImageInfomation(float xScale, float yScale, int ySize);
+
+	void createTile(cocos2d::Vec2 tile, unsigned int widthIndex, unsigned int heightIndex);
+
+
 private:
 	float xPosition = 0.0f, yPosition = 0.0f;			//NEW WIDTHPOS AND HIEGHTPOS
+	float scaleWidth = 0.0f, scaleHeight = 0.0f;
+	int imageHeight = 0; //, imageWidth = 0;
+
 
 
 };
 
-
+/*
 // Run through each position in the sprite
 for (unsigned int heightIndex = 0; heightIndex < 4; heightIndex++)
 {
@@ -34,7 +43,7 @@ for (unsigned int heightIndex = 0; heightIndex < 4; heightIndex++)
 		float heightPosition = imageTile.y * heightIndex;
 
 		/* Create a tile, set anchor point and position, scale the tile and finally add
-		it to the scene as a chile object */
+		it to the scene as a chile object /
 		auto tile = Sprite::create("p_hamsterRunning.jpg", Rect(widthPosition,
 			(imageHeight - heightPosition) - imageTile.y, imageTile.x, imageTile.y));
 
@@ -46,3 +55,4 @@ for (unsigned int heightIndex = 0; heightIndex < 4; heightIndex++)
 		puzzleTiles.pushBack(tile);
 	}
 }
+*/

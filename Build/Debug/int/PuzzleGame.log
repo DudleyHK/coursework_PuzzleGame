@@ -1,15 +1,18 @@
-﻿Build started 23/03/2016 17:11:15.
-     1>Project "C:\Users\d2-dawes\OneDrive\C++\Assignment 3\Project\PuzzleGame.vcxproj" on node 2 (Build target(s)).
-     1>ClCompile:
-         C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\bin\CL.exe /c /I"C:\Users\d2-dawes\OneDrive\C++\Assignment 3\cocos2d\cocos\2d\..\..\cocos\audio\include" /I"C:\Users\d2-dawes\OneDrive\C++\Assignment 3\cocos2d\cocos\2d\..\..\external" /I"C:\Users\d2-dawes\OneDrive\C++\Assignment 3\cocos2d\cocos\2d\..\..\external\chipmunk\include\chipmunk" /I"C:\Users\d2-dawes\OneDrive\C++\Assignment 3\cocos2d\cocos\2d\..\..\extensions" /I..\Classes /I.. /I"C:\Users\d2-dawes\OneDrive\C++\Assignment 3\cocos2d\cocos\2d\..\..\cocos\editor-support" /I"C:\Users\d2-dawes\OneDrive\C++\Assignment 3\cocos2d\cocos\2d\..\..\cocos" /I"C:\Users\d2-dawes\OneDrive\C++\Assignment 3\cocos2d\cocos\2d\..\..\cocos\platform" /I"C:\Users\d2-dawes\OneDrive\C++\Assignment 3\cocos2d\cocos\2d\..\..\cocos\platform\desktop" /I"C:\Users\d2-dawes\OneDrive\C++\Assignment 3\cocos2d\cocos\2d\..\..\external\glfw3\include\win32" /I"C:\Users\d2-dawes\OneDrive\C++\Assignment 3\cocos2d\cocos\2d\..\..\external\win32-specific\gles\include\OGLES" /I"C:\Users\d2-dawes\OneDrive\C++\Assignment 3\cocos2d\cocos\2d\..\..\external\freetype2\include\win32\freetype2" /I"C:\Users\d2-dawes\OneDrive\C++\Assignment 3\cocos2d\cocos\2d\..\..\external\freetype2\include\win32\\" /I"C:\Users\d2-dawes\OneDrive\C++\Assignment 3\cocos2d\cocos\2d\..\..\external" /ZI /nologo /W3 /WX- /MP /Od /Oy- /D WIN32 /D _DEBUG /D _WINDOWS /D _USE_MATH_DEFINES /D GL_GLEXT_PROTOTYPES /D CC_ENABLE_CHIPMUNK_INTEGRATION=1 /D COCOS2D_DEBUG=1 /D _CRT_SECURE_NO_WARNINGS /D _SCL_SECURE_NO_WARNINGS /D _VARIADIC_MAX=10 /D _USING_V110_SDK71_ /D _UNICODE /D UNICODE /Gm- /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"C:\Users\d2-dawes\OneDrive\C++\Assignment 3\\Build\Debug\int\\" /Fd"C:\Users\d2-dawes\OneDrive\C++\Assignment 3\\Build\Debug\int\vc140.pdb" /Gd /TP /wd4267 /wd4251 /wd4244 /analyze- /errorReport:prompt ..\Classes\AppDelegate.cpp ..\Classes\GameEventListener.cpp ..\Classes\GameScene.cpp ..\Classes\PuzzleGame.cpp main.cpp
-         AppDelegate.cpp
-         GameEventListener.cpp
-         GameScene.cpp
-         PuzzleGame.cpp
-         main.cpp
-     1>c:\users\d2-dawes\onedrive\c++\assignment 3\classes\gamescene.cpp(81): error C2276: '&': illegal operation on bound member function expression
-     1>Done Building Project "C:\Users\d2-dawes\OneDrive\C++\Assignment 3\Project\PuzzleGame.vcxproj" (Build target(s)) -- FAILED.
-
-Build FAILED.
-
-Time Elapsed 00:00:07.18
+﻿  AppDelegate.cpp
+  GameScene.cpp
+  PuzzleBoard.cpp
+  MainMenu.cpp
+  SingleTile.cpp
+  main.cpp
+c:\users\dudley\onedrive\c++\assignment 3\classes\singletile.h(13): error C2504: 'PuzzleBoard': base class undefined (compiling source file main.cpp)
+c:\users\dudley\onedrive\c++\assignment 3\classes\gameeventlistener.h(14): error C2504: 'GameScene': base class undefined (compiling source file main.cpp)
+c:\users\dudley\onedrive\c++\assignment 3\classes\singletile.h(13): error C2504: 'PuzzleBoard': base class undefined (compiling source file ..\Classes\PuzzleBoard.cpp)
+c:\users\dudley\onedrive\c++\assignment 3\classes\puzzleboard.cpp(92): error C2664: 'void cocos2d::Vector<PuzzleBoard>::pushBack(const cocos2d::Vector<PuzzleBoard> &)': cannot convert argument 1 from 'SingleTile *' to 'PuzzleBoard'
+  c:\users\dudley\onedrive\c++\assignment 3\classes\puzzleboard.cpp(92): note: No constructor could take the source type, or constructor overload resolution was ambiguous
+c:\users\dudley\onedrive\c++\assignment 3\classes\singletile.h(13): error C2504: 'PuzzleBoard': base class undefined (compiling source file ..\Classes\GameScene.cpp)
+c:\users\dudley\onedrive\c++\assignment 3\classes\gameeventlistener.h(14): error C2504: 'GameScene': base class undefined (compiling source file ..\Classes\GameScene.cpp)
+c:\users\dudley\onedrive\c++\assignment 3\classes\gamescene.cpp(32): error C2614: 'GameScene': illegal member initialization: 'mouseEvent' is not a base or member
+c:\users\dudley\onedrive\c++\assignment 3\classes\singletile.h(13): error C2504: 'PuzzleBoard': base class undefined (compiling source file ..\Classes\MainMenu.cpp)
+c:\users\dudley\onedrive\c++\assignment 3\classes\singletile.h(13): error C2504: 'PuzzleBoard': base class undefined (compiling source file ..\Classes\AppDelegate.cpp)
+c:\users\dudley\onedrive\c++\assignment 3\classes\gameeventlistener.h(14): error C2504: 'GameScene': base class undefined (compiling source file ..\Classes\MainMenu.cpp)
+c:\users\dudley\onedrive\c++\assignment 3\classes\gameeventlistener.h(14): error C2504: 'GameScene': base class undefined (compiling source file ..\Classes\AppDelegate.cpp)

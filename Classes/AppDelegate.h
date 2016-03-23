@@ -1,7 +1,7 @@
 #pragma once
 
 #include "cocos2d.h"
-#include "PuzzleGame.h"
+#include "MainMenu.h"
 USING_NS_CC;
 
 class  AppDelegate : private cocos2d::Application
