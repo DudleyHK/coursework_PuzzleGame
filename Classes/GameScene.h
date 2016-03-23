@@ -5,7 +5,8 @@
 */
 #pragma once
 #include "cocos2d.h"
-#include "CreatePuzzle.h"
+#include "PuzzleBoard.h"
+#include "GameEventListener.h"
 USING_NS_CC;
 
 
@@ -19,17 +20,15 @@ public:
 	~GameScene();
 
 	virtual bool initLayer();
+	void getTileInfo(cocos2d::Vector<cocos2d::Sprite*> *list);
 	void addImageToScene();
-
+	void addEvent();
 	//void initBackground();
-	//void sliceImage();
 
 	// implement the "static create()" method manually
 	CREATE_FUNC(GameScene);
 
 private:
-//	float widthPosition = 0, heightPosition = 0;
 	cocos2d::Vector<Sprite*> puzzleTiles;
 
-	CreatePuzzle* createPuzzle = new CreatePuzzle;								////// NEW KEYWORD
 };

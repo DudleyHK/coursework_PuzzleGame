@@ -27,10 +27,11 @@ cocos2d::Scene * GameScene::createScene()
 
 
 GameScene::GameScene()
+	: mouseEvent() /* this area between the parameters
+				   and the body is called a member initialiser list*/
 {
 	; // Empty
 }
-
 
 GameScene::~GameScene()
 {
@@ -45,32 +46,43 @@ bool GameScene::initLayer()
 		return false;
 	}
 
-	//getWindowWidth();
-	//getWindowHeight();
-
 	//initBackground();
-	//sliceImage();
 
 	addImageToScene();
+	addEvent();
 
 	return true;
 }
 
 
+void GameScene::getTileInfo(cocos2d::Vector<cocos2d::Sprite*> *list)
+{
+	*list = this->puzzleTiles;
+}
+
 
 void GameScene::addImageToScene()
 {
 	createPuzzle->init();
-	createPuzzle->getImage(puzzleTiles);
+	createPuzzle->getImage(&puzzleTiles);
 
-	 
-
-	// Display
-	for (unsigned int index = GameScene::puzzleTiles.size(); index >= 0; index--)
+	// Display puzzle.
+	for (int index = 0; index < GameScene::puzzleTiles.size(); index++)
 	{
 		this->addChild(puzzleTiles.at(index), -10);
 	}
 }
+
+
+void GameScene::addEvent()
+{
+	// create a mouse listener and hook into our event callback function
+	auto listener = cocos2d::EventListenerMouse::create();
+	listener->onMouseDown = CC_CALLBACK_1(mouseEvent.onMouseDown, this);
+	cocos2d::Director::getInstance()->getEventDispatcher()->addEventListenerWithFixedPriority(listener, -1);
+}
+
+
 
 
 
