@@ -6,10 +6,10 @@
 
 */
 #pragma once
-#include "PuzzleBoard.h"
+#include "cocos2d.h"
 
 
-class SingleTile : public PuzzleBoard
+class SingleTile
 {
 public:
 	SingleTile();
@@ -19,12 +19,14 @@ public:
 	void setImageInfomation(float xScale, float yScale, int ySize);
 
 	void createTile(cocos2d::Vec2 tile, unsigned int widthIndex, unsigned int heightIndex);
-
+	cocos2d::Sprite* returnSprite();
 
 private:
-	float xPosition = 0.0f, yPosition = 0.0f;			//NEW WIDTHPOS AND HIEGHTPOS
+	float xPosition = 0.0f, yPosition = 0.0f;	
 	float scaleWidth = 0.0f, scaleHeight = 0.0f;
-	int imageHeight = 0; //, imageWidth = 0;
+	int imageHeight = 0;
+
+	cocos2d::Sprite* sprite;
 
 
 

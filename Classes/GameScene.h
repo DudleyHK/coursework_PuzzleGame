@@ -5,9 +5,8 @@
 */
 #pragma once
 #include "cocos2d.h"
+#include <vector>
 #include "PuzzleBoard.h"
-#include "GameEventListener.h"
-USING_NS_CC;
 
 
 class GameScene : public cocos2d::Layer
@@ -20,17 +19,16 @@ public:
 	~GameScene();
 
 	virtual bool initLayer();
-	void getTileInfo(cocos2d::Vector<cocos2d::Sprite*> *list);
+
 	void addImageToScene();
-	void addEvent();
+	//void addEvent();
 	//void initBackground();
 
 	// implement the "static create()" method manually
 	CREATE_FUNC(GameScene);
 
 private:
-	cocos2d::Vector<Sprite*> puzzleTiles;
-
+	std::vector<SingleTile*> tileList;
 	PuzzleBoard* puzzleBoard = new PuzzleBoard;									///////////////NEW KEYWORD
 
 };

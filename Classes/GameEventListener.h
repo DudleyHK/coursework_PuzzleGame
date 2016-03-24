@@ -7,10 +7,8 @@
 */
 #pragma once
 #include "cocos2d.h"
-#include "GameScene.h"
 
-
-class GameEventListener : public GameScene
+/*class GameEventListener : public GameScene
 {
 public:
 	GameEventListener() = default;
@@ -25,3 +23,4 @@ public:
 private:
 	cocos2d::Sprite* tile;
 };
+*/

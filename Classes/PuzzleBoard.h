@@ -10,8 +10,6 @@
 #include "SingleTile.h"
 #include <vector>
 
-USING_NS_CC;
-//using namespace ImageLib;
 
 class PuzzleBoard
 {
@@ -20,19 +18,15 @@ public:
 	~PuzzleBoard();
 
 	void init(/*Sprite* img*/);
-	//void getImage(cocos2d::Vector<Sprite*> *tileList);
+	void getSpriteList(std::vector<SingleTile*> *list);
 
-	void createImage();///// PuzzleBoard function
-	void sliceImage();													/////
-	void makeTileTransparent();
-
-	
+	void createImage();
+	void sliceImage();
+	//void makeTileTransparent();
 
 
 private:
-	cocos2d::Vector<PuzzleBoard> tileList;
-	// cocos2d::Sprite* puzzleImage;
-
+	std::vector<SingleTile*> tileList;
 
 	int imageWidth = 0, imageHeight = 0;
 	float scaleWidth = 0.0f, scaleHeight = 0.0f;

@@ -155,6 +155,7 @@ ClientBin/
 ~$*
 *~
 *.dbmdl
+*.opensdf          			####this was added by me
 *.opendb
 *.dbproj.schemaview
 *.pfx

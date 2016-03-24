@@ -14,7 +14,7 @@ http://cocos2d-x.org/documentation/programmers-guide/3/index.html
 cocos2d::Scene * GameScene::createScene()
 {
 	// 'scene' & 'layer' are autoreleased objects
-	cocos2d::Scene* playScene = Scene::create();
+	cocos2d::Scene* playScene = cocos2d::Scene::create();
 	auto playLayer = GameScene::create();
 
 	// add layer as a child to a scene
@@ -27,8 +27,6 @@ cocos2d::Scene * GameScene::createScene()
 
 
 GameScene::GameScene()
-	: mouseEvent() /* this area between the parameters
-				   and the body is called a member initialiser list*/
 {
 	; // Empty
 }
@@ -49,30 +47,26 @@ bool GameScene::initLayer()
 	//initBackground();
 
 	addImageToScene();
-	addEvent();
+	//addEvent();
 
 	return true;
-}
-
-
-void GameScene::getTileInfo(cocos2d::Vector<cocos2d::Sprite*> *list)
-{
-	*list = this->puzzleTiles;
 }
 
 
 void GameScene::addImageToScene()
 {
 	puzzleBoard->init();
-	//puzzleBoard->getImage(&puzzleTiles);
-/*
-	// Display puzzle.
-	for (int index = 0; index < GameScene::puzzleTiles.size(); index++)
+	puzzleBoard->getSpriteList(&tileList);
+
+	//// Display puzzle.
+	for (int index = 0; index < GameScene::tileList.size(); index++)
 	{
-		this->addChild(puzzleTiles.at(index), -10);
+		auto obj = tileList.at(index);
+		this->addChild(obj->returnSprite());
 	}
-	*/
 }
+
+
 
 /*
 void GameScene::addEvent()
@@ -83,10 +77,6 @@ void GameScene::addEvent()
 	cocos2d::Director::getInstance()->getEventDispatcher()->addEventListenerWithFixedPriority(listener, -1);
 }
 */
-
-
-
-
 // INIT BACKGROUND FUNCTION
 /*
 void GameScene::initBackground()
