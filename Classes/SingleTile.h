@@ -17,9 +17,13 @@ public:
 
 	void setNewPosition(float xPos, float yPos);
 	void setImageInfomation(float xScale, float yScale, int ySize);
+	int getTileID();
+	int getPositionID();
+	cocos2d::Sprite* getSprite();
 
 	void createTile(cocos2d::Vec2 tile, unsigned int widthIndex, unsigned int heightIndex);
-	cocos2d::Sprite* returnSprite();
+	
+
 
 private:
 	float xPosition = 0.0f, yPosition = 0.0f;	
@@ -28,7 +32,8 @@ private:
 
 	cocos2d::Sprite* sprite;
 
-
+	int positionID;
+	int tileID;
 
 };
 

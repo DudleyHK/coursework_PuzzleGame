@@ -10,6 +10,7 @@ http://cocos2d-x.org/documentation/programmers-guide/3/index.html
 
 #include "GameScene.h"
 
+#define TILE_AT_INDEX tileList.at(index)
 
 cocos2d::Scene * GameScene::createScene()
 {
@@ -18,13 +19,31 @@ cocos2d::Scene * GameScene::createScene()
 	auto playLayer = GameScene::create();
 
 	// add layer as a child to a scene
-	playScene->addChild(playLayer);
-	playLayer->initLayer();
+playScene->addChild(playLayer);
+playLayer->initLayer();
 
-	// return the scene
-	return playScene;
+// return the scene
+return playScene;
 }
 
+
+/* CREATE_FUNC(GameScene) --- create scene with parameters
+GameScene* GameScene::create(int hi)
+{
+	GameScene *pRet = new(std::nothrow) GameScene();
+	if (pRet && pRet->init())
+	{
+		pRet->autorelease();
+		return pRet;
+	}
+	else
+	{
+		delete pRet;
+		pRet = NULL;
+		return NULL;
+	}
+}
+*/
 
 GameScene::GameScene()
 {
@@ -46,36 +65,311 @@ bool GameScene::initLayer()
 
 	//initBackground();
 
-	addImageToScene();
-	//addEvent();
+	addPuzzleBoard();
+	addEvent();
 
 	return true;
 }
 
 
-void GameScene::addImageToScene()
+void GameScene::addPuzzleBoard()
 {
 	puzzleBoard->init();
 	puzzleBoard->getSpriteList(&tileList);
 
-	//// Display puzzle.
-	for (int index = 0; index < GameScene::tileList.size(); index++)
+	// Display puzzle.
+	for (unsigned int index = 0; index < tileList.size(); index++)
 	{
-		auto obj = tileList.at(index);
-		this->addChild(obj->returnSprite());
+		if (index == 3)
+		{
+			TILE_AT_INDEX->getSprite()->setTag(Tags::SpriteTags::SPRITE_EMPTY);
+		}
+		else
+		{
+			//auto obj = tileList.at(index);
+			TILE_AT_INDEX->getSprite()->setTag(Tags::SpriteTags::SPRITE_TILE);
+		}
+
+		// display
+		this->addChild(TILE_AT_INDEX->getSprite());
 	}
 }
 
 
+bool GameScene::getEmptyTilePos(int newPos)
+{
+	if (tileList.at(3)->getPositionID() == newPos)
+	{
+		return true;
+	}
 
-/*
+	//}
+	//// look for the sprite with the EMPTY tag.
+	//if (tileList.at(pos)->getSprite()->getTag() == Tags::SpriteTags::SPRITE_EMPTY)
+	//{
+	//	return true;
+	//}
+
+	return false;
+}
+
+
+void GameScene::checkForEmpty(int tileID) // this is currently the same as posID
+{
+	int newPos = -1;
+
+	int positionID = tileList.at(tileID)->getPositionID();
+
+
+	// call functions to check the surrounding positoins return the newPosition to move to
+	// in each function have a check to see if the positoin is in bounds
+	newPos = checkLeft(positionID);
+	if (newPos == -1)
+	{
+		newPos = checkRight(positionID);
+		if (newPos == -1)
+		{
+			newPos = checkUp(positionID);
+			if (newPos == -1)
+			{
+				newPos = checkDown(positionID);
+				if (newPos == -1)
+				{
+					//do fyck all
+				}
+			}
+		}
+	}
+	if (newPos != -1)
+	{
+		//call function to move the tiles take two arg take new pos and pos id
+	}
+}
+
+
+// 2d array algorthim ((heightIndex * 4) + (widthIndex - 1)
+int GameScene::checkLeft(unsigned int posID)
+{
+	int newPos = /* 4 is the number of height tiles*/ posID - 1;
+
+	// if this function returns true
+	if (!getEmptyTilePos(newPos))
+	{
+		// set newPos to an unused value
+		newPos = -1;
+	}
+
+	return newPos;
+}
+
+// 2d array algorthim (heightIndex * 4) + (widthIndex + 1)
+int GameScene::checkRight(unsigned int posID)
+{
+	int newPos = /* 4 is the number of height tiles*/ posID + 1;
+
+	// if this function returns true
+	if (!getEmptyTilePos(newPos))
+	{
+		// set newPos to an unused value
+		newPos = -1;
+	}
+
+	return newPos;
+}
+
+// 2d array algorthim ((heightIndex + 1) * 4) + widthIndex
+int GameScene::checkUp(unsigned int posID)
+{
+	int newPos = /* 4 is the number of height tiles*/ (4 + 1) + posID;
+
+	// if this function returns true
+	if (!getEmptyTilePos(newPos))
+	{
+		// set newPos to an unused value
+		newPos = -1;
+	}
+
+	return newPos;
+}
+
+// 2d array algorthim ((heightIndex - 1) * 4) + widthIndex
+int GameScene::checkDown(unsigned int posID)
+{
+	int newPos = /* 4 is the number of height tiles*/ (4 - 1) + posID;
+
+	// if this function returns true
+	if (!getEmptyTilePos(newPos))
+	{
+		// set newPos to an unused value
+		newPos = -1;
+	}
+
+	return newPos;	
+}
+
+
+
 void GameScene::addEvent()
 {
 	// create a mouse listener and hook into our event callback function
-	auto listener = cocos2d::EventListenerMouse::create();
-	listener->onMouseDown = CC_CALLBACK_1(mouseEvent.onMouseDown, this);
-	cocos2d::Director::getInstance()->getEventDispatcher()->addEventListenerWithFixedPriority(listener, -1);
+	auto clickListener = cocos2d::EventListenerTouchOneByOne::create();
+
+	clickListener->onTouchBegan = CC_CALLBACK_2(GameScene::onTouchBegan, this);
+//	clickListener->onTouchMoved = CC_CALLBACK_2(GameScene::onTouchMove, this);
+
+	// register event listener to receive events. addEventListener... basically means we want this event to be updated as much as possible
+	_eventDispatcher->addEventListenerWithSceneGraphPriority(clickListener, this);
+
+
+
+	//cocos2d::Director::getInstance()->getEventDispatcher()->addEventListenerWithFixedPriority(clickListener, -1);
 }
+
+
+bool GameScene::onTouchBegan(cocos2d::Touch* click, cocos2d::Event* event)
+{
+	// Get info on where the screen has been clicked
+	cocos2d::Point point = click->getLocationInView();
+
+	// convert these coordinates into world coordinates
+	point = cocos2d::Director::getInstance()->convertToGL(point);
+
+	// run through the tile list
+	for (unsigned int index = 0; index < tileList.size(); index++)
+	{
+		//if any sprite contains the point coordinates.
+		if (TILE_AT_INDEX->getSprite()->getBoundingBox().containsPoint(point))
+		{
+			// do nothing for now
+			cocos2d::log("Mouse Click detected");
+			checkForEmpty(TILE_AT_INDEX->getTileID());
+			return true;
+		}
+	}
+
+	return false;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+// ONLY MOVE TILE IF MOUSE MOVES
+/*
+//bool GameScene::onTouchMove(cocos2d::Touch* click, cocos2d::Event* event)
+//{
+//	// Get info on where the screen has been clicked
+//	cocos2d::Point point = click->getLocationInView();
+//
+//	// convert these coordinates into world coordinates
+//	point = cocos2d::Director::getInstance()->convertToGL(point);
+//
+//
+//	// run through the tile list
+//	for (int index = 0; index < tileList.size(); index++)
+//	{
+//		//if any sprite contains the point coordinates.
+//		if (TILE_LIST_SPRITE->getBoundingBox().containsPoint(point))
+//		{
+//			TILE_LIST_SPRITE->setPosition(cocos2d::ccpAdd(TILE_LIST_SPRITE->getPosition(), cocos2d::Vec2(0, 1)));
+//			return true;
+//		}
+//	}
+//
+//	return false;
+//}
+//bool GameScene::onTouchBegan(cocos2d::Touch* click, cocos2d::Event* event)
+//{
+//	// return listener sceneGraphPriority node
+//	auto bounds = event->getCurrentTarget()->getBoundingBox();
+//
+//	//// get the tag of the sprite that has been clicked. 
+//	//for (int index = 0; index < GameScene::tileList.size(); index++)
+//	//{
+//	//	auto obj = tileList.at(index);
+//	//	int tag = obj->returnSprite()->getTag();
+//	//}
+//
+//	// get coordinates at point of click
+//	cocos2d::Point touch = click->getLocationInView();
+//	touch = cocos2d::Director::getInstance()->convertToGL(touch);
+//
+//	// go through tileList
+//	for (unsigned int i = 0; i < tileList.size(); i++)
+//	{
+//		// if any of the sprites in the list contain the click point (touch)
+//		if (tileList.at(i)->returnSprite()->getBoundingBox().containsPoint(touch))
+//		{
+//			// move the sprite
+//			cocos2d::MoveBy* move = cocos2d::MoveBy::create(0.1f, cocos2d::Vec2(5, 0));
+//			tileList.at(i)->returnSprite()->runAction(move);
+//			return true;
+//		}
+//	}
+//
+//	return false;
+//}
+*/
+
+
+
+
+
+
+
+//// ONE WAY TO DO EVENT LISTENER
+/*  
+// return listener sceneGraphPriority node
+auto target = static_cast <cocos2d::Sprite*>(event->getCurrentTarget());
+
+// get the position of the current point relative to the button
+cocos2d::Point locationInNode = target->convertToNodeSpace(touch->getLocation());
+cocos2d::Size s = target->getContentSize();
+cocos2d::Rect r = cocos2d::Rect(0, 0, s.width, s.height);
+
+// Check the click area
+if (r.containsPoint(locationInNode))
+{
+target->setOpacity(0);
+return true;
+}
+*/
+///// EVENTLISTENER
+/*
+
+void GameEventListener::onMouseDown(cocos2d::EventMouse * mouse)
+{
+
+// we need the mouses location and the sprites bounding box
+cocos2d::Vec2 p = mouse->getLocation();
+cocos2d::Rect t = tile->getBoundingBox();
+
+//check if the mouse is within the imageTile
+if (t.containsPoint(p))
+{
+cocos2d::MoveBy* move = cocos2d::MoveBy::create(0.1f, cocos2d::Vec2(5, 0));
+}
+}
+
+
+void GameEventListener::onMouseRelease(cocos2d::EventMouse * mouse)
+{
+// If the mouse is being pressed
+
+// if the sprite is over the empty position
+
+// place the sprite at that position
+
+
+}
+
 */
 // INIT BACKGROUND FUNCTION
 /*

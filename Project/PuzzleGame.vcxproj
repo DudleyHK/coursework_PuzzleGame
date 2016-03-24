@@ -159,6 +159,7 @@ xcopy "$(SolutionDir)\cocos2d\bin\$(PlatformToolset)\$(Configuration)\*.dll" "$(
     <ClInclude Include="..\Classes\PuzzleBoard.h" />
     <ClInclude Include="..\Classes\MainMenu.h" />
     <ClInclude Include="..\Classes\SingleTile.h" />
+    <ClInclude Include="..\Classes\Tags.h" />
     <ClInclude Include="main.h" />
   </ItemGroup>
   <ItemGroup>

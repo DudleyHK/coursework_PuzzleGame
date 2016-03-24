@@ -39,6 +39,9 @@
     <ClInclude Include="..\Classes\MainMenu.h">
       <Filter>hdr</Filter>
     </ClInclude>
+    <ClInclude Include="..\Classes\Tags.h">
+      <Filter>hdr</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="resource">

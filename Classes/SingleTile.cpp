@@ -32,6 +32,25 @@ void SingleTile::setNewPosition(float xPos, float yPos)
 	this->yPosition = yPos;
 }
 
+int SingleTile::getTileID()
+{
+	return tileID;
+}
+
+
+int SingleTile::getPositionID()
+{
+	return positionID;
+}
+
+
+
+cocos2d::Sprite * SingleTile::getSprite()
+{
+	return sprite;
+}
+
+
 
 void SingleTile::createTile(cocos2d::Vec2 tile, unsigned int widthIndex, unsigned int heightIndex)
 {
@@ -44,10 +63,13 @@ void SingleTile::createTile(cocos2d::Vec2 tile, unsigned int widthIndex, unsigne
 	newTile->setScaleX(scaleWidth);
 	newTile->setScaleY(scaleHeight);
 
-	sprite = newTile;
-}
+	// set position
+	positionID = (heightIndex * 4) + widthIndex;
+	tileID = (heightIndex * 4) + widthIndex;
 
-cocos2d::Sprite * SingleTile::returnSprite()
-{
-	return sprite;
+	// save the sprite 
+	sprite = newTile;
+
+
+	
 }

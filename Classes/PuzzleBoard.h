@@ -22,7 +22,7 @@ public:
 
 	void createImage();
 	void sliceImage();
-	//void makeTileTransparent();
+	void setTransparentTile();
 
 
 private:

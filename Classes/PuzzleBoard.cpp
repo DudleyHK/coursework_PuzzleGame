@@ -90,6 +90,8 @@ void PuzzleBoard::sliceImage()
 			tileList.push_back(singleTile);
 		}
 	}
+
+	setTransparentTile();
 }
 
 
@@ -133,17 +135,16 @@ makeTileTransparent();
 
 */
 
-/*
-/*Run through each element of the vector list and remove the last tile
-void PuzzleBoard::makeTileTransparent()
+
+/*Run through each element of the vector list and remove the last tile*/
+void PuzzleBoard::setTransparentTile()
 {
-	for (int index = 0; index <= puzzleTiles.size(); index++)
+	for (unsigned int index = 0; index <= tileList.size(); index++)
 	{
-		/*The number of width segmenets - 1/
+		/*The number of width segmenets - 1*/			//////CHECK
 		if (index == 3)
 		{
-			puzzleTiles.at(index)->setOpacity(0);					//////////////CHECK THIS
+			tileList.at(index)->getSprite()->setOpacity(0);
 		}
 	}
 }
-*/
