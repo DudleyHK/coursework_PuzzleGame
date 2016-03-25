@@ -117,13 +117,11 @@ bool GameScene::getEmptyTilePos(int n_posID)
 void GameScene::checkForEmpty(int tileID) // this is currently the same as posID
 {
 	int n_posID = -1;
-
 	int posID = tileList.at(tileID)->getPositionID();
 
 	/*4 = num of width segs*/
 	hIndex = posID / 4;
 	wIndex = posID - (hIndex * 4);
-
 
 	// call functions to check the surrounding positoins return the newPosition to move to
 	// in each function have a check to see if the positoin is in bounds
@@ -162,7 +160,7 @@ bool GameScene::checkInBounds(int _hIndex, int _wIndex)
 	{
 		return true;
 	}
-	
+
 	return false;
 }
 
@@ -218,13 +216,25 @@ void GameScene::checkDown(unsigned int _posID, int* n_posID)
 }
 
 
-
 void GameScene::swapTiles(unsigned int posID, int n_posID)
 {
-	// add move by function to swap the position of both tiles
+	// get the Vec2 position on the empty tile and sprite
+	auto empTile = tileList.at(n_posID)->getSprite();
+	auto empTilePos = tileList.at(n_posID)->getSprite()->getPosition();
 
+	// get the sprite tile at posID and Vec2 pos
+	auto sprTile = tileList.at(posID)->getSprite();
+	auto sprTilePos = tileList.at(posID)->getSprite()->getPosition();
+
+	
+	// create a move funcition
+	auto moveSpr = cocos2d::MoveTo::create(2, cocos2d::Vec2(empTilePos.x, empTilePos.y));
+	auto moveEmp = cocos2d::MoveTo::create(2, cocos2d::Vec2(sprTilePos.x, sprTilePos.y));
+
+	// move the sprTile to teh empty positoin and vis versa
+	sprTile->runAction(moveSpr);
+	empTile->runAction(moveEmp);
 }
-
 
 
 void GameScene::addEvent()
@@ -233,7 +243,7 @@ void GameScene::addEvent()
 	auto clickListener = cocos2d::EventListenerTouchOneByOne::create();
 
 	clickListener->onTouchBegan = CC_CALLBACK_2(GameScene::onTouchBegan, this);
-//	clickListener->onTouchMoved = CC_CALLBACK_2(GameScene::onTouchMove, this);
+	//	clickListener->onTouchMoved = CC_CALLBACK_2(GameScene::onTouchMove, this);
 
 	// register event listener to receive events. addEventListener... basically means we want this event to be updated as much as possible
 	_eventDispatcher->addEventListenerWithSceneGraphPriority(clickListener, this);
