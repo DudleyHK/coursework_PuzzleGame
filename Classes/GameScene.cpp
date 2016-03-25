@@ -96,9 +96,9 @@ void GameScene::addPuzzleBoard()
 }
 
 
-bool GameScene::getEmptyTilePos(int newPos)
+bool GameScene::getEmptyTilePos(int n_posID)
 {
-	if (tileList.at(3)->getPositionID() == newPos)
+	if (tileList.at(3)->getPositionID() == n_posID)
 	{
 		return true;
 	}
@@ -116,95 +116,113 @@ bool GameScene::getEmptyTilePos(int newPos)
 
 void GameScene::checkForEmpty(int tileID) // this is currently the same as posID
 {
-	int newPos = -1;
+	int n_posID = -1;
 
-	int positionID = tileList.at(tileID)->getPositionID();
+	int posID = tileList.at(tileID)->getPositionID();
+
+	/*4 = num of width segs*/
+	hIndex = posID / 4;
+	wIndex = posID - (hIndex * 4);
 
 
 	// call functions to check the surrounding positoins return the newPosition to move to
 	// in each function have a check to see if the positoin is in bounds
-	newPos = checkLeft(positionID);
-	if (newPos == -1)
+	checkLeft(posID - 1, &n_posID);
+	if (n_posID == -1)
 	{
-		newPos = checkRight(positionID);
-		if (newPos == -1)
+		checkRight(posID + 1, &n_posID);
+		if (n_posID == -1)
 		{
-			newPos = checkUp(positionID);
-			if (newPos == -1)
+			checkUp(posID + 4 /* 4 = number of seg width*/, &n_posID);
+			if (n_posID == -1)
 			{
-				newPos = checkDown(positionID);
-				if (newPos == -1)
+				checkDown(posID - 4 /* 4 = number of seg width*/, &n_posID);
+				if (n_posID == -1)
 				{
-					//do fyck all
+					; // empty tile not found, player cannot move this tile
 				}
 			}
 		}
 	}
-	if (newPos != -1)
+	if (n_posID != -1)
 	{
+		cocos2d::log("Empty space found");
+		
 		//call function to move the tiles take two arg take new pos and pos id
+		swapTiles(posID, n_posID);
 	}
 }
 
 
-// 2d array algorthim ((heightIndex * 4) + (widthIndex - 1)
-int GameScene::checkLeft(unsigned int posID)
+bool GameScene::checkInBounds(int _hIndex, int _wIndex)
 {
-	int newPos = /* 4 is the number of height tiles*/ posID - 1;
-
-	// if this function returns true
-	if (!getEmptyTilePos(newPos))
+	// return true if the variables are within the board
+	if ((_hIndex < 4 && _hIndex >= 0) &&
+		(_wIndex < 4 && _wIndex >= 0))
 	{
-		// set newPos to an unused value
-		newPos = -1;
+		return true;
 	}
-
-	return newPos;
+	
+	return false;
 }
 
-// 2d array algorthim (heightIndex * 4) + (widthIndex + 1)
-int GameScene::checkRight(unsigned int posID)
-{
-	int newPos = /* 4 is the number of height tiles*/ posID + 1;
 
-	// if this function returns true
-	if (!getEmptyTilePos(newPos))
+void GameScene::checkLeft(unsigned int _posID, int* n_posID)
+{
+	*n_posID = _posID;
+
+	// if either of these functions return false
+	if (!(checkInBounds(hIndex, (wIndex - 1)) && getEmptyTilePos(*n_posID)))
 	{
 		// set newPos to an unused value
-		newPos = -1;
+		*n_posID = -1;
 	}
-
-	return newPos;
 }
 
-// 2d array algorthim ((heightIndex + 1) * 4) + widthIndex
-int GameScene::checkUp(unsigned int posID)
+void GameScene::checkRight(unsigned int _posID, int* n_posID)
 {
-	int newPos = /* 4 is the number of height tiles*/ (4 + 1) + posID;
+	*n_posID = _posID;
 
-	// if this function returns true
-	if (!getEmptyTilePos(newPos))
+	// if either of these functions return false
+	if (!(checkInBounds(hIndex, (wIndex + 1)) && getEmptyTilePos(*n_posID)))
 	{
 		// set newPos to an unused value
-		newPos = -1;
+		*n_posID = -1;
 	}
-
-	return newPos;
 }
 
-// 2d array algorthim ((heightIndex - 1) * 4) + widthIndex
-int GameScene::checkDown(unsigned int posID)
-{
-	int newPos = /* 4 is the number of height tiles*/ (4 - 1) + posID;
 
-	// if this function returns true
-	if (!getEmptyTilePos(newPos))
+void GameScene::checkUp(unsigned int _posID, int* n_posID)
+{
+	*n_posID = _posID;
+
+	// if either of these functions return false
+	if (!(checkInBounds((hIndex + 1), wIndex) && getEmptyTilePos(*n_posID)))
 	{
 		// set newPos to an unused value
-		newPos = -1;
+		*n_posID = -1;
 	}
+}
 
-	return newPos;	
+
+void GameScene::checkDown(unsigned int _posID, int* n_posID)
+{
+	*n_posID = _posID;
+
+	// if either of these functions return false
+	if (!(checkInBounds((hIndex - 1), wIndex) && getEmptyTilePos(*n_posID)))
+	{
+		// set newPos to an unused value
+		*n_posID = -1;
+	}
+}
+
+
+
+void GameScene::swapTiles(unsigned int posID, int n_posID)
+{
+	// add move by function to swap the position of both tiles
+
 }
 
 
@@ -235,17 +253,25 @@ bool GameScene::onTouchBegan(cocos2d::Touch* click, cocos2d::Event* event)
 	point = cocos2d::Director::getInstance()->convertToGL(point);
 
 	// run through the tile list
-	for (unsigned int index = 0; index < tileList.size(); index++)
+	for (unsigned int heightIndex = 0; heightIndex < 4; heightIndex++)
 	{
-		//if any sprite contains the point coordinates.
-		if (TILE_AT_INDEX->getSprite()->getBoundingBox().containsPoint(point))
+		for (unsigned int widthIndex = 0; widthIndex < 4; widthIndex++)
 		{
-			// do nothing for now
-			cocos2d::log("Mouse Click detected");
-			checkForEmpty(TILE_AT_INDEX->getTileID());
-			return true;
+			//save for variable as global varibale
+			hIndex = heightIndex;
+			wIndex = widthIndex;
+
+			//if any sprite contains the point coordinates.
+			if (tileList.at((4 * heightIndex) + widthIndex)->getSprite()->
+				getBoundingBox().containsPoint(point))
+			{
+				checkForEmpty(tileList.at((4 * heightIndex) + widthIndex)->getTileID());
+				return true;
+			}
 		}
 	}
+
+	//use height/ width index (global) to decode the positionID allowing me to find out if what i am about to check is bounds.
 
 	return false;
 }
