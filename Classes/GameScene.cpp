@@ -226,16 +226,21 @@ void GameScene::swapTiles(unsigned int posID, int n_posID)
 	auto sprTile = tileList.at(posID)->getSprite();
 	auto sprTilePos = tileList.at(posID)->getSprite()->getPosition();
 
-	
 	// create a move funcition
 	auto moveSpr = cocos2d::MoveTo::create(2, cocos2d::Vec2(empTilePos.x, empTilePos.y));
 	auto moveEmp = cocos2d::MoveTo::create(2, cocos2d::Vec2(sprTilePos.x, sprTilePos.y));
 
-	// move the sprTile to teh empty positoin and vis versa
-	sprTile->runAction(moveSpr);
-	empTile->runAction(moveEmp);
-}
+	int numberOfSprActions = sprTile->getNumberOfRunningActions();
+	int numberOfEmpActions = empTile->getNumberOfRunningActions();
 
+	// check if any actions are running
+	if (numberOfEmpActions == 0 && numberOfSprActions == 0)
+	{
+		// move the sprTile to teh empty positoin and vis versa
+		sprTile->runAction(moveSpr);
+		empTile->runAction(moveEmp);
+	}
+}
 
 void GameScene::addEvent()
 {
@@ -243,7 +248,7 @@ void GameScene::addEvent()
 	auto clickListener = cocos2d::EventListenerTouchOneByOne::create();
 
 	clickListener->onTouchBegan = CC_CALLBACK_2(GameScene::onTouchBegan, this);
-	//	clickListener->onTouchMoved = CC_CALLBACK_2(GameScene::onTouchMove, this);
+	//clickListener->onTouchMoved = CC_CALLBACK_2(GameScene::onTouchMove, this);
 
 	// register event listener to receive events. addEventListener... basically means we want this event to be updated as much as possible
 	_eventDispatcher->addEventListenerWithSceneGraphPriority(clickListener, this);
@@ -280,12 +285,44 @@ bool GameScene::onTouchBegan(cocos2d::Touch* click, cocos2d::Event* event)
 			}
 		}
 	}
-
-	//use height/ width index (global) to decode the positionID allowing me to find out if what i am about to check is bounds.
-
-	return false;
 }
 
+//	//use height/ width index (global) to decode the positionID allowing me to find out if what i am about to check is bounds.
+//
+//	return false;
+//}
+
+//bool GameScene::onTouchMove(cocos2d::Touch* click, cocos2d::Event* event)
+//{
+//	// Get info on where the screen has been clicked
+//	cocos2d::Point point = click->getLocationInView();
+//
+//	//convert these coordinates into world coordinates
+//		point = cocos2d::Director::getInstance()->convertToGL(point);
+//
+//	//run through the tile list
+//		for (unsigned int heightIndex = 0; heightIndex < 4; heightIndex++)
+//		{
+//			for (unsigned int widthIndex = 0; widthIndex < 4; widthIndex++)
+//			{
+//				//save for variable as global varibale
+//					hIndex = heightIndex;
+//				wIndex = widthIndex;
+//
+//				//if any sprite contains the point coordinates.
+//					if (tileList.at((4 * heightIndex) + widthIndex)->getSprite()->
+//						getBoundingBox().containsPoint(point))
+//					{
+//						checkForEmpty(tileList.at((4 * heightIndex) + widthIndex)->getTileID());
+//						return true;
+//					}
+//			}
+//		}
+//
+//	//use height / width index(global) to decode the positionID allowing me to find out if what i am about to check is bounds.
+//
+//		return false;
+//}
 
 
 
@@ -299,28 +336,37 @@ bool GameScene::onTouchBegan(cocos2d::Touch* click, cocos2d::Event* event)
 
 // ONLY MOVE TILE IF MOUSE MOVES
 /*
-//bool GameScene::onTouchMove(cocos2d::Touch* click, cocos2d::Event* event)
-//{
-//	// Get info on where the screen has been clicked
-//	cocos2d::Point point = click->getLocationInView();
-//
-//	// convert these coordinates into world coordinates
-//	point = cocos2d::Director::getInstance()->convertToGL(point);
-//
-//
-//	// run through the tile list
-//	for (int index = 0; index < tileList.size(); index++)
-//	{
-//		//if any sprite contains the point coordinates.
-//		if (TILE_LIST_SPRITE->getBoundingBox().containsPoint(point))
-//		{
-//			TILE_LIST_SPRITE->setPosition(cocos2d::ccpAdd(TILE_LIST_SPRITE->getPosition(), cocos2d::Vec2(0, 1)));
-//			return true;
-//		}
-//	}
-//
-//	return false;
-//}
+bool GameScene::onTouchMove(cocos2d::Touch* click, cocos2d::Event* event)
+{
+	// Get info on where the screen has been clicked
+	cocos2d::Point point = click->getLocationInView();
+
+	 convert these coordinates into world coordinates
+	point = cocos2d::Director::getInstance()->convertToGL(point);
+
+	 run through the tile list
+	for (unsigned int heightIndex = 0; heightIndex < 4; heightIndex++)
+	{
+		for (unsigned int widthIndex = 0; widthIndex < 4; widthIndex++)
+		{
+			save for variable as global varibale
+			hIndex = heightIndex;
+			wIndex = widthIndex;
+
+			if any sprite contains the point coordinates.
+			if (tileList.at((4 * heightIndex) + widthIndex)->getSprite()->
+				getBoundingBox().containsPoint(point))
+			{
+				checkForEmpty(tileList.at((4 * heightIndex) + widthIndex)->getTileID());
+				return true;
+			}
+		}
+	}
+
+	use height/ width index (global) to decode the positionID allowing me to find out if what i am about to check is bounds.
+
+	return false;
+}
 //bool GameScene::onTouchBegan(cocos2d::Touch* click, cocos2d::Event* event)
 //{
 //	// return listener sceneGraphPriority node

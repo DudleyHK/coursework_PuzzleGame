@@ -35,7 +35,7 @@ public:
 	void swapTiles(unsigned int posID, int n_posID);
 	void addEvent();
 	bool onTouchBegan(cocos2d::Touch* click, cocos2d::Event* event);
-	bool onTouchMove(cocos2d::Touch* click, cocos2d::Event* event);
+	//bool onTouchMove(cocos2d::Touch* click, cocos2d::Event* event);
 
 	//void initBackground();
 
