@@ -17,6 +17,7 @@ public:
 
 	void setNewPosition(float xPos, float yPos);
 	void setImageInfomation(float xScale, float yScale, int ySize);
+	void setPositionID(int posID);
 	int getTileID();
 	int getPositionID();
 	cocos2d::Sprite* getSprite();

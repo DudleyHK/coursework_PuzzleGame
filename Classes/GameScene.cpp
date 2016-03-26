@@ -98,21 +98,14 @@ void GameScene::addPuzzleBoard()
 
 bool GameScene::getEmptyTilePos(int n_posID)
 {
-	if (tileList.at(3)->getPositionID() == n_posID)
+	// when found check if its position is equal to n_posID
+	if (Tags::SpriteTags::SPRITE_EMPTY == tileList.at(n_posID)->getSprite()->getTag())
 	{
 		return true;
 	}
 
-	//}
-	//// look for the sprite with the EMPTY tag.
-	//if (tileList.at(pos)->getSprite()->getTag() == Tags::SpriteTags::SPRITE_EMPTY)
-	//{
-	//	return true;
-	//}
-
 	return false;
 }
-
 
 void GameScene::checkForEmpty(int tileID) // this is currently the same as posID
 {
@@ -146,6 +139,15 @@ void GameScene::checkForEmpty(int tileID) // this is currently the same as posID
 	{
 		cocos2d::log("Empty space found");
 		
+		// set the tiles positionID as the current posID 
+		tileList.at(tileID)->setPositionID(n_posID);							///////NNNNEWWW
+		tileList.at(n_posID)->setPositionID(tileID);
+
+		// set new tag
+		tileList.at(n_posID)->getSprite()->setTag(Tags::SpriteTags::SPRITE_EMPTY);		
+		tileList.at(tileID)->getSprite()->setTag(Tags::SpriteTags::SPRITE_TILE);
+
+
 		//call function to move the tiles take two arg take new pos and pos id
 		swapTiles(posID, n_posID);
 	}
@@ -170,7 +172,7 @@ void GameScene::checkLeft(unsigned int _posID, int* n_posID)
 	*n_posID = _posID;
 
 	// if either of these functions return false
-	if (!(checkInBounds(hIndex, (wIndex - 1)) && getEmptyTilePos(*n_posID)))
+	if (!(checkInBounds(hIndex, (wIndex - 1)) && getEmptyTilePos(_posID)))
 	{
 		// set newPos to an unused value
 		*n_posID = -1;
@@ -182,7 +184,7 @@ void GameScene::checkRight(unsigned int _posID, int* n_posID)
 	*n_posID = _posID;
 
 	// if either of these functions return false
-	if (!(checkInBounds(hIndex, (wIndex + 1)) && getEmptyTilePos(*n_posID)))
+	if (!(checkInBounds(hIndex, (wIndex + 1)) && getEmptyTilePos(_posID)))
 	{
 		// set newPos to an unused value
 		*n_posID = -1;
@@ -195,7 +197,7 @@ void GameScene::checkUp(unsigned int _posID, int* n_posID)
 	*n_posID = _posID;
 
 	// if either of these functions return false
-	if (!(checkInBounds((hIndex + 1), wIndex) && getEmptyTilePos(*n_posID)))
+	if (!(checkInBounds((hIndex + 1), wIndex) && getEmptyTilePos(_posID)))
 	{
 		// set newPos to an unused value
 		*n_posID = -1;
@@ -208,7 +210,7 @@ void GameScene::checkDown(unsigned int _posID, int* n_posID)
 	*n_posID = _posID;
 
 	// if either of these functions return false
-	if (!(checkInBounds((hIndex - 1), wIndex) && getEmptyTilePos(*n_posID)))
+	if (!(checkInBounds((hIndex - 1), wIndex) && getEmptyTilePos(_posID)))
 	{
 		// set newPos to an unused value
 		*n_posID = -1;
@@ -230,11 +232,11 @@ void GameScene::swapTiles(unsigned int posID, int n_posID)
 	auto moveSpr = cocos2d::MoveTo::create(2, cocos2d::Vec2(empTilePos.x, empTilePos.y));
 	auto moveEmp = cocos2d::MoveTo::create(2, cocos2d::Vec2(sprTilePos.x, sprTilePos.y));
 
-	int numberOfSprActions = sprTile->getNumberOfRunningActions();
-	int numberOfEmpActions = empTile->getNumberOfRunningActions();
+	int sprActionsRunning = sprTile->getNumberOfRunningActions();
+	int empActionsRunning = empTile->getNumberOfRunningActions();
 
 	// check if any actions are running
-	if (numberOfEmpActions == 0 && numberOfSprActions == 0)
+	if (sprActionsRunning == 0 && empActionsRunning == 0)
 	{
 		// move the sprTile to teh empty positoin and vis versa
 		sprTile->runAction(moveSpr);

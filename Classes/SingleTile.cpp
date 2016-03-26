@@ -32,6 +32,11 @@ void SingleTile::setNewPosition(float xPos, float yPos)
 	this->yPosition = yPos;
 }
 
+void SingleTile::setPositionID(int posID)
+{
+	positionID = posID;
+}
+
 int SingleTile::getTileID()
 {
 	return tileID;
