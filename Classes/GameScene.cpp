@@ -99,11 +99,11 @@ void GameScene::addPuzzleBoard()
 bool GameScene::getEmptyTilePos(int n_posID)
 {
 	// get the tile ID at n-posID
-	int n_tileID = tileList.at(n_posID)->getTileID();
+	real_posID = tileList.at(n_posID)->getPositionID();
 
 	// chck if the tile id is 3
 	// when found check if its position is equal to n_posID
-	if (n_tileID == 3)
+	if (Tags::SpriteTags::SPRITE_EMPTY == tileList.at(real_posID)->getSprite()->getTag())
 	{
 		return true;
 	}
@@ -111,19 +111,21 @@ bool GameScene::getEmptyTilePos(int n_posID)
 	return false;
 }
 
-void GameScene::checkForEmpty(int posID/*int tileID*/) // this is currently the same as posID
+void GameScene::checkForEmpty(int posID) // this is currently the same as posID
 {
-	int n_posID = -1;
-	int tileID = tileList.at(posID)->getTileID(); // int posID = tileList.at(tileID)->getPositionID();   /// now return the tileID at posID (passed via parameter)
+
+	int tileID = -1;
 
 	/*4 = num of width segs*/
+
+	// these are only needed if the position ID is NOT passed in. 
 	hIndex = posID / 4;						// use th posID to check if in bounds
 	wIndex = posID - (hIndex * 4);
 
 
 	 //call functions to check the surrounding positoins return the newPosition to move to
 	 //in  each function have a check to see if the positoin is in bounds
-	checkLeft(posID - 1, &n_posID);
+	checkLeft(posID - 1, &tileID);
 	if (n_posID == -1)
 	{
 		checkRight(posID + 1, &n_posID);
@@ -144,17 +146,12 @@ void GameScene::checkForEmpty(int posID/*int tileID*/) // this is currently the 
 	{
 		cocos2d::log("Empty space found");
 		
-	/*	 set the tiles positionID as the current posID */
-		tileList.at(tileID)->setPositionID(n_posID);							///////NNNNEWWW
-		tileList.at(n_posID)->setPositionID(tileID);
-
-	/*	 set new tag*/
-		tileList.at(n_posID)->getSprite()->setTag(Tags::SpriteTags::SPRITE_EMPTY);		
-		tileList.at(tileID)->getSprite()->setTag(Tags::SpriteTags::SPRITE_TILE);
-
+		//int n_tileID = tileList.at(n_posID)->getTileID();
+		
+	
 
 	/*	call function to move the tiles take two arg take new pos and pos id*/
-		swapTiles(posID, n_posID);
+		swapTiles(/*posID*/tileID, n_tileID, posID, n_posID);
 	}
 }
 
@@ -172,7 +169,7 @@ bool GameScene::checkInBounds(int _hIndex, int _wIndex)
 }
 
 
-void GameScene::checkLeft(unsigned int _posID, int* n_posID)
+void GameScene::checkLeft(int _posID, int* n_posID)
 {
 	*n_posID = _posID;
 
@@ -185,7 +182,7 @@ void GameScene::checkLeft(unsigned int _posID, int* n_posID)
 	}
 }
 
-void GameScene::checkRight(unsigned int _posID, int* n_posID)
+void GameScene::checkRight(int _posID, int* n_posID)
 {
 	*n_posID = _posID;
 
@@ -198,7 +195,7 @@ void GameScene::checkRight(unsigned int _posID, int* n_posID)
 }
 
 
-void GameScene::checkUp(unsigned int _posID, int* n_posID)
+void GameScene::checkUp(int _posID, int* n_posID)
 {
 	*n_posID = _posID;
 
@@ -211,7 +208,7 @@ void GameScene::checkUp(unsigned int _posID, int* n_posID)
 }
 
 
-void GameScene::checkDown(unsigned int _posID, int* n_posID)
+void GameScene::checkDown(int _posID, int* n_posID)
 {
 	*n_posID = _posID;
 
@@ -224,30 +221,121 @@ void GameScene::checkDown(unsigned int _posID, int* n_posID)
 }
 
 
-void GameScene::swapTiles(unsigned int posID, int n_posID)
+void GameScene::swapTiles(int /*posID*/tileID, int n_tileID, int posID, int _posID)
 {
-	// get the Vec2 position on the empty tile and sprite
-	auto empTile = tileList.at(n_posID)->getSprite();
-	auto empTilePos = tileList.at(n_posID)->getSprite()->getPosition();
+	// place the current tileID into the position of the empty tile. 
+	auto currentTile = tileList.at(tileID);
+	auto currentSprite = currentTile->getSprite();
+	auto currentTileVec = currentSprite->getPosition();	/// create a vector of the current tile so the empty tile can move to it
 
-	// get the sprite tile at posID and Vec2 pos
-	auto sprTile = tileList.at(posID)->getSprite();
-	auto sprTilePos = tileList.at(posID)->getSprite()->getPosition();
 
-	// create a move funcition
-	auto moveSpr = cocos2d::MoveTo::create(2, cocos2d::Vec2(empTilePos.x, empTilePos.y));
-	auto moveEmp = cocos2d::MoveTo::create(2, cocos2d::Vec2(sprTilePos.x, sprTilePos.y));
+	auto emptyTileVec = tileList.at(real_posID)->getSprite()->getPosition();
+	auto moveToPosition = cocos2d::MoveTo::create(1, cocos2d::Vec2(emptyTileVec.x, emptyTileVec.y));
 
-	int sprActionsRunning = sprTile->getNumberOfRunningActions();
-	int empActionsRunning = empTile->getNumberOfRunningActions();
+	// set the currentSprite posID to n_posId
+	currentTile->setPositionID(real_posID);
+	currentTile->setTileID(_posID);
 
-	// check if any actions are running
-	if (sprActionsRunning == 0 && empActionsRunning == 0)
-	{
-		// move the sprTile to teh empty positoin and vis versa
-		sprTile->runAction(moveSpr);
-		empTile->runAction(moveEmp);
-	}
+
+	// move the sprTile to teh empty positoin and vis versa
+	currentSprite->runAction(moveToPosition);
+
+
+	/// move the empty tile to the old position of the current tile. 
+	/// create empty tile sprite
+	auto emptyTile = tileList.at(real_posID);
+	auto emptySprite = emptyTile->getSprite();
+
+
+	auto moveEmptySprite = cocos2d::MoveTo::create(1, cocos2d::Vec2(currentTileVec.x, currentTileVec.y));
+
+	/// set the empty tiles positionID
+	emptyTile->setPositionID(posID);
+	emptyTile->setTileID(posID);
+
+	emptySprite->runAction(moveEmptySprite);
+	 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//	// passing in tileIDs now.
+//	// get the Vec2 position on the empty tile and sprite
+//	auto empTile = tileList.at(n_tileID)->getSprite();
+//	auto empTilePos = tileList.at(n_tileID)->getSprite()->getPosition();
+////	auto empTilePos = n_posID;
+//	// get the sprite tile at posID and Vec2 pos
+//	auto sprTile = tileList.at(tileID)->getSprite();
+//	auto sprTilePos = tileList.at(tileID)->getSprite()->getPosition();
+//	//auto sprTilePos = posID;
+//
+//	// create a move funcition
+//	auto moveSpr = cocos2d::MoveTo::create(2, cocos2d::Vec2(empTilePos.x, empTilePos.y));
+//	auto moveEmp = cocos2d::MoveTo::create(2, cocos2d::Vec2(sprTilePos.x, sprTilePos.y));
+//
+//		// move the sprTile to teh empty positoin and vis versa
+//		sprTile->runAction(moveSpr);
+//		empTile->runAction(moveEmp);
+//
+//
+//
+//		///////NNNNEWWW
+//		///////NNNNEWWW
+//		///////NNNNEWWW
+//		//	 set the tiles positionID as the current posID 
+//		tileList.at(posID)->setPositionID(n_posID);							
+//		tileList.at(n_posID)->setPositionID(posID);
+//
+//		//set new tag
+//		tileList.at(n_posID)->getSprite()->setTag(Tags::SpriteTags::SPRITE_EMPTY);
+//		tileList.at(posID)->getSprite()->setTag(Tags::SpriteTags::SPRITE_TILE);
+
+
+	//// get the Vec2 position on the empty tile and sprite
+	//auto empTile = tileList.at(n_posID)->getSprite();
+	//auto empTilePos = tileList.at(n_posID)->getSprite()->getPosition();
+
+	//// get the sprite tile at posID and Vec2 pos
+	//auto sprTile = tileList.at(posID)->getSprite();
+	//auto sprTilePos = tileList.at(posID)->getSprite()->getPosition();
+
+	//// create a move funcition
+	//auto moveSpr = cocos2d::MoveTo::create(2, cocos2d::Vec2(empTilePos.x, empTilePos.y));
+	//auto moveEmp = cocos2d::MoveTo::create(2, cocos2d::Vec2(sprTilePos.x, sprTilePos.y));
+
+	//int sprActionsRunning = sprTile->getNumberOfRunningActions();
+	//int empActionsRunning = empTile->getNumberOfRunningActions();
+
+	//// check if any actions are running
+	//if (sprActionsRunning == 0 && empActionsRunning == 0)
+	//{
+	//	// move the sprTile to teh empty positoin and vis versa
+	//	sprTile->runAction(moveSpr);
+	//	empTile->runAction(moveEmp);
+	//}
 }
 
 void GameScene::addEvent()

@@ -27,12 +27,12 @@ public:
 	void checkForEmpty(int tileID);
 
 	bool checkInBounds(int _hIndex, int _wIndex);
-	void checkLeft(unsigned int _posID, int* n_posID);
-	void checkRight(unsigned int _posID, int* n_posID);
-	void checkUp(unsigned int _posID, int* n_posID);
-	void checkDown(unsigned int _posID, int* n_posID);
+	void checkLeft(int _posID, int* n_posID);
+	void checkRight(int _posID, int* n_posID);
+	void checkUp(int _posID, int* n_posID);
+	void checkDown(int _posID, int* n_posID);
 
-	void swapTiles(unsigned int posID, int n_posID);
+	void swapTiles(int tileID, int n_tileID, int posID, int n_posID);
 	void addEvent();
 	bool onTouchBegan(cocos2d::Touch* click, cocos2d::Event* event);
 	//bool onTouchMove(cocos2d::Touch* click, cocos2d::Event* event);
@@ -48,5 +48,7 @@ private:
 
 	int hIndex;
 	int wIndex;
+
+	int real_posID;										////////////////// CHECK IT OUT / CLEAN UP
 
 };

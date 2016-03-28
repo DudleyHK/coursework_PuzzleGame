@@ -144,7 +144,7 @@ void PuzzleBoard::setTransparentTile()
 		/*The number of width segmenets - 1*/			//////CHECK
 		if (index == 3)
 		{
-			tileList.at(index)->getSprite()->setOpacity(0);
+			tileList.at(index)->getSprite()->setOpacity(150);
 		}
 	}
 }
