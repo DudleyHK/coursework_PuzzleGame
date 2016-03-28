@@ -98,8 +98,12 @@ void GameScene::addPuzzleBoard()
 
 bool GameScene::getEmptyTilePos(int n_posID)
 {
+	// get the tile ID at n-posID
+	int n_tileID = tileList.at(n_posID)->getTileID();
+
+	// chck if the tile id is 3
 	// when found check if its position is equal to n_posID
-	if (Tags::SpriteTags::SPRITE_EMPTY == tileList.at(n_posID)->getSprite()->getTag())
+	if (n_tileID == 3)
 	{
 		return true;
 	}
@@ -107,17 +111,18 @@ bool GameScene::getEmptyTilePos(int n_posID)
 	return false;
 }
 
-void GameScene::checkForEmpty(int tileID) // this is currently the same as posID
+void GameScene::checkForEmpty(int posID/*int tileID*/) // this is currently the same as posID
 {
 	int n_posID = -1;
-	int posID = tileList.at(tileID)->getPositionID();
+	int tileID = tileList.at(posID)->getTileID(); // int posID = tileList.at(tileID)->getPositionID();   /// now return the tileID at posID (passed via parameter)
 
 	/*4 = num of width segs*/
-	hIndex = posID / 4;
+	hIndex = posID / 4;						// use th posID to check if in bounds
 	wIndex = posID - (hIndex * 4);
 
-	// call functions to check the surrounding positoins return the newPosition to move to
-	// in each function have a check to see if the positoin is in bounds
+
+	 //call functions to check the surrounding positoins return the newPosition to move to
+	 //in  each function have a check to see if the positoin is in bounds
 	checkLeft(posID - 1, &n_posID);
 	if (n_posID == -1)
 	{
@@ -139,16 +144,16 @@ void GameScene::checkForEmpty(int tileID) // this is currently the same as posID
 	{
 		cocos2d::log("Empty space found");
 		
-		// set the tiles positionID as the current posID 
+	/*	 set the tiles positionID as the current posID */
 		tileList.at(tileID)->setPositionID(n_posID);							///////NNNNEWWW
 		tileList.at(n_posID)->setPositionID(tileID);
 
-		// set new tag
+	/*	 set new tag*/
 		tileList.at(n_posID)->getSprite()->setTag(Tags::SpriteTags::SPRITE_EMPTY);		
 		tileList.at(tileID)->getSprite()->setTag(Tags::SpriteTags::SPRITE_TILE);
 
 
-		//call function to move the tiles take two arg take new pos and pos id
+	/*	call function to move the tiles take two arg take new pos and pos id*/
 		swapTiles(posID, n_posID);
 	}
 }
@@ -171,6 +176,7 @@ void GameScene::checkLeft(unsigned int _posID, int* n_posID)
 {
 	*n_posID = _posID;
 
+	// check 
 	// if either of these functions return false
 	if (!(checkInBounds(hIndex, (wIndex - 1)) && getEmptyTilePos(_posID)))
 	{
@@ -274,7 +280,7 @@ bool GameScene::onTouchBegan(cocos2d::Touch* click, cocos2d::Event* event)
 	{
 		for (unsigned int widthIndex = 0; widthIndex < 4; widthIndex++)
 		{
-			//save for variable as global varibale
+			//save for variable as global varibale   //this may not ned to be done /////////////////////CHHHECK
 			hIndex = heightIndex;
 			wIndex = widthIndex;
 
@@ -282,7 +288,7 @@ bool GameScene::onTouchBegan(cocos2d::Touch* click, cocos2d::Event* event)
 			if (tileList.at((4 * heightIndex) + widthIndex)->getSprite()->
 				getBoundingBox().containsPoint(point))
 			{
-				checkForEmpty(tileList.at((4 * heightIndex) + widthIndex)->getTileID());
+				checkForEmpty(tileList.at((4 * heightIndex) + widthIndex)->getPositionID()); //checkForEmpty(tileList.at((4 * heightIndex) + widthIndex)->getTileID());  /// get the positionID
 				return true;
 			}
 		}
