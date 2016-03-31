@@ -95,47 +95,6 @@ void PuzzleBoard::sliceImage()
 }
 
 
-
-
-/*
-// Get the size of a single tile
-cocos2d::Vec2 imageTile = Vec2(imageWidth / 4, imageHeight / 4);
-
-// pass in imageTile via paramater
-
-// Run through each position in the sprite
-for (unsigned int heightIndex = 0; heightIndex < 4; heightIndex++)
-{
-for (unsigned int widthIndex = 0; widthIndex < 4; widthIndex++)
-{
-/// create new instances of tiles
-/// add them to the list.
-
-float widthPosition = imageTile.x * widthIndex;
-float heightPosition = imageTile.y * heightIndex;
-
-
-
-
-// Create a tile, set anchor point and position, scale the tile
-
-auto tile = Sprite::create("p_hamsterRunning.jpg", Rect(widthPosition,
-(imageHeight - heightPosition) - imageTile.y, imageTile.x, imageTile.y));
-
-tile->setAnchorPoint(Vec2(0, 0));
-tile->setPosition(Vec2((500 / 4) * widthIndex, (500 / 4) * heightIndex));
-tile->setScaleX(scaleWidth);
-tile->setScaleY(scaleHeight);
-
-puzzleTiles.pushBack(tile);
-}
-}
-
-makeTileTransparent();
-
-*/
-
-
 /*Run through each element of the vector list and remove the last tile*/
 void PuzzleBoard::setTransparentTile()
 {
@@ -144,7 +103,7 @@ void PuzzleBoard::setTransparentTile()
 		/*The number of width segmenets - 1*/			//////CHECK
 		if (index == 3)
 		{
-			tileList.at(index)->getSprite()->setOpacity(150);
+			tileList.at(index)->getSprite()->setOpacity(0);
 		}
 	}
 }

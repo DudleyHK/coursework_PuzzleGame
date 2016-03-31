@@ -79,7 +79,4 @@ void SingleTile::createTile(cocos2d::Vec2 tile, unsigned int widthIndex, unsigne
 
 	// save the sprite 
 	sprite = newTile;
-
-
-	
 }

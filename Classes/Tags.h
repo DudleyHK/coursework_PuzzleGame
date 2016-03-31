@@ -6,13 +6,12 @@
 #pragma once
 #include "cocos2d.h"
 
-
-
-namespace Tags
+class Tags
 {
-	enum SpriteTags
+public:
+	enum SpriteTags : int
 	{
-		SPRITE_TILE = 100, 
+		SPRITE_TILE = 100,
 		SPRITE_EMPTY = 101
 	};
 };

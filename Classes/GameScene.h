@@ -23,20 +23,21 @@ public:
 	virtual bool initLayer();
 
 	void addPuzzleBoard();
-	bool getEmptyTilePos(int _posID);		// function which return the Vec2 of the empty tile
-	void checkForEmpty(int posID);
-
-	bool checkInBounds(int _hIndex, int _wIndex);
+	void addEvent();
+	bool onTouchBegan(cocos2d::Touch* click, cocos2d::Event* event);
+	//bool onTouchMove(cocos2d::Touch* click, cocos2d::Event* event);
+	void checkForEmpty(int tileID);
 	void checkLeft(int _posID, int* tileID);
 	void checkRight(int _posID, int* tileID);
 	void checkUp(int _posID, int* tileID);
 	void checkDown(int _posID, int* tileID);
+	bool getEmptyTilePos(int n_posID);
 
+	// @ -- param:	take height and width of the position being checked.
+	// @ -- return: depends on if coordinates are in bounds. 
+	bool checkInBounds(int _hIndex, int _wIndex);
 	void swapTiles(int posID, int tileID);
-	void swapVectorElements(std::vector<SingleTile>, std::vector<SingleTile>);
-	void addEvent();
-	bool onTouchBegan(cocos2d::Touch* click, cocos2d::Event* event);
-	//bool onTouchMove(cocos2d::Touch* click, cocos2d::Event* event);
+
 
 	//void initBackground();
 
@@ -45,14 +46,10 @@ public:
 
 private:
 	std::vector<SingleTile*> tileList;
+
+	Tags* tags = new Tags;
 	PuzzleBoard* puzzleBoard = new PuzzleBoard;									///////////////NEW KEYWORD
 
-	int hIndex;
-	int wIndex;
-
-	int elementInListWhereEmptyPosIDIs;
-	int tileID;									////////////////// CHECK IT OUT / CLEAN UP
-	int n_tileID;
-	int testID;					// posID
+	int hIndex = 0, wIndex = 0;
 
 };
