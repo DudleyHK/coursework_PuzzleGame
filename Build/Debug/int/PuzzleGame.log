@@ -1,10 +1,17 @@
-﻿  AppDelegate.cpp
-  GameScene.cpp
-  MainMenu.cpp
-  main.cpp
-c:\users\dudley\onedrive\c++\assignment 3\classes\gamescene.cpp(107): warning C4018: '<': signed/unsigned mismatch
-c:\users\dudley\onedrive\c++\assignment 3\classes\gamescene.cpp(304): warning C4018: '<': signed/unsigned mismatch
-c:\users\dudley\onedrive\c++\assignment 3\classes\gamescene.cpp(319): warning C4715: 'GameScene::onTouchBegan': not all control paths return a value
-  PuzzleGame.vcxproj -> C:\Users\Dudley\OneDrive\C++\Assignment 3\\Build\Debug\PuzzleGame.exe
-  0 File(s) copied
-  0 File(s) copied
+﻿Build started 31/03/2016 13:08:37.
+     1>Project "C:\Users\d2-dawes\OneDrive\C++\Assignment 3\Project\PuzzleGame.vcxproj" on node 2 (Build target(s)).
+     1>Link:
+         PuzzleGame.vcxproj -> C:\Users\d2-dawes\OneDrive\C++\Assignment 3\\Build\Debug\PuzzleGame.exe
+       CustomBuildStep:
+         if not exist "C:\Users\d2-dawes\OneDrive\C++\Assignment 3\\Build\Debug\" mkdir "C:\Users\d2-dawes\OneDrive\C++\Assignment 3\\Build\Debug\"
+         xcopy "C:\Users\d2-dawes\OneDrive\C++\Assignment 3\Project\..\Resources" "C:\Users\d2-dawes\OneDrive\C++\Assignment 3\\Build\Debug\" /D /E /I /F /Y
+               
+         xcopy "C:\Users\d2-dawes\OneDrive\C++\Assignment 3\\cocos2d\bin\v140_xp\Debug\*.dll" "C:\Users\d2-dawes\OneDrive\C++\Assignment 3\\Build\Debug\" /D /E /I /F /Y
+         :VCEnd
+         0 File(s) copied
+         0 File(s) copied
+     1>Done Building Project "C:\Users\d2-dawes\OneDrive\C++\Assignment 3\Project\PuzzleGame.vcxproj" (Build target(s)).
+
+Build succeeded.
+
+Time Elapsed 00:00:00.09

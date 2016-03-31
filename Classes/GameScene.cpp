@@ -104,17 +104,17 @@ bool GameScene::getEmptyTilePos(int _posID)
 
 //	// chck if the tile id is 3
 //	// when found check if its 
-	for (int index = 0; index < tileList.size(); index++)
-	{
-		if (_posID == tileList.at(index)->getPositionID())
+	//for (int index = 0; index < tileList.size(); index++)
+	//{
+		if (_posID == tileList.at(3)->getPositionID())
 		{
-			if (Tags::SpriteTags::SPRITE_EMPTY == tileList.at(index)->getSprite()->getTag())
-			{
-				elementInListWhereEmptyPosIDIs = index;
+			//if (Tags::SpriteTags::SPRITE_EMPTY == tileList.at(index)->getSprite()->getTag())
+			//{
+			//	elementInListWhereEmptyPosIDIs = index;
 				return true;
-			}
+			//}
 		}
-	}
+	//}
 	return false;
 }
 
@@ -184,12 +184,12 @@ void GameScene::checkDown(int _posID, int* n_posID)
 }
 
 // this is passing in the position in the list that has the information
-void GameScene::checkForEmpty(int posID) // this is currently the same as posID
+void GameScene::checkForEmpty(int tileID) // this is currently the same as posID
 {
 	// the posID is the tileID and the testID is the posID.
 	int n_posID = -1;
 
- 	testID = tileList.at(posID)->getPositionID();
+ 	testID = tileList.at(tileID)->getPositionID();
 	
 	
 
@@ -223,41 +223,49 @@ void GameScene::checkForEmpty(int posID) // this is currently the same as posID
 	{
 		cocos2d::log("Empty space found");
 		
-	n_tileID = tileList.at(n_posID)->getTileID();
+	//n_tileID = tileList.at(n_posID)->getTileID();
 		
 	
 
 	/*	call function to move the tiles take two arg take new pos and pos id*/
-		swapTiles(posID, elementInListWhereEmptyPosIDIs);
+		swapTiles(tileID, 3);
 	}
 }
 
 
-void GameScene::swapTiles(int listPos, int n_listPos)
+void GameScene::swapTiles(int tileID, int emptyID)
 {
 	//selected sprite
-	auto selectedSprite = tileList.at(listPos)->getSprite();
-	auto selectedSpritePosition = tileList.at(listPos)->getSprite()->getPosition();
-
+	auto selectedSprite = tileList.at(tileID)->getSprite();
+	auto selectedSpritePosition = tileList.at(tileID)->getSprite()->getPosition();
 
 	// empty sprite
-	auto emptySprite = tileList.at(n_listPos)->getSprite();
-	auto emptySpritePosition = tileList.at(n_listPos)->getSprite()->getPosition();
+	auto emptySprite = tileList.at(emptyID)->getSprite();
+	auto emptySpritePosition = tileList.at(emptyID)->getSprite()->getPosition();
 
 
 	auto moveEmptySprite = cocos2d::MoveTo::create(2, cocos2d::Vec2(selectedSpritePosition.x, selectedSpritePosition.y));
 	auto moveSelectedSprite = cocos2d::MoveTo::create(2, cocos2d::Vec2(emptySpritePosition.x, emptySpritePosition.y));
 
-	selectedSprite->runAction(moveSelectedSprite);
-	emptySprite->runAction(moveEmptySprite);
+
+	// are any actions running?
+	int spriteActionsRunning = selectedSprite->getNumberOfRunningActions();
+	int emptyActionsRunning = emptySprite->getNumberOfRunningActions();
 
 
+	if (spriteActionsRunning == 0 && emptyActionsRunning == 0)
+	{
+		int temp = tileList.at(tileID)->getPositionID();
 
-	// set the position value as new positions
-	tileList.at(listPos)->setPositionID(n_tileID);
+		selectedSprite->runAction(moveSelectedSprite);
+		emptySprite->runAction(moveEmptySprite);
 
-	// set the tile positions as new positions
-	tileList.at(n_listPos)->setPositionID(testID);
+		// set the position value as new positions
+		tileList.at(tileID)->setPositionID(tileList.at(emptyID)->getPositionID());
+
+		// set the tile positions as new positions
+		tileList.at(emptyID)->setPositionID(temp);
+	}
 }
 
 
@@ -300,15 +308,17 @@ bool GameScene::onTouchBegan(cocos2d::Touch* click, cocos2d::Event* event)
 			if (tileList.at((4 * heightIndex) + widthIndex)->getSprite()->
 				getBoundingBox().containsPoint(point))
 			{
+				tileList.at((4 * heightIndex) + widthIndex)->getPositionID();
+
 				// run another loop to check which position in the list has a posID of coordinates.
-				for (int index = 0; index < tileList.size(); index++)
-				{
-					if ((4 * heightIndex) + widthIndex == tileList.at(index)->getPositionID())
-					{
+			//	for (int index = 0; index < tileList.size(); index++)
+				//{
+				//	if ((4 * heightIndex) + widthIndex == tileList.at(index)->getPositionID())
+					//{
 						// pass in the position in the list which we are looking at.
-						checkForEmpty(index);
-					}
-				}
+						checkForEmpty((4 * heightIndex) + widthIndex); // pass thr9ugh pos in list 
+					//}
+			//	}
 
 
 			//	checkForEmpty(tileList.at((4 * heightIndex) + widthIndex)->getTileID());
