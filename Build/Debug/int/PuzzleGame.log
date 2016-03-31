@@ -1,2 +1,10 @@
-﻿  GameScene.cpp
-c:\users\dudley\onedrive\c++\assignment 3\classes\gamescene.cpp(154): error C2065: 'n_tileID': undeclared identifier
+﻿  AppDelegate.cpp
+  GameScene.cpp
+  MainMenu.cpp
+  main.cpp
+c:\users\dudley\onedrive\c++\assignment 3\classes\gamescene.cpp(107): warning C4018: '<': signed/unsigned mismatch
+c:\users\dudley\onedrive\c++\assignment 3\classes\gamescene.cpp(304): warning C4018: '<': signed/unsigned mismatch
+c:\users\dudley\onedrive\c++\assignment 3\classes\gamescene.cpp(319): warning C4715: 'GameScene::onTouchBegan': not all control paths return a value
+  PuzzleGame.vcxproj -> C:\Users\Dudley\OneDrive\C++\Assignment 3\\Build\Debug\PuzzleGame.exe
+  0 File(s) copied
+  0 File(s) copied

@@ -23,7 +23,7 @@ public:
 	virtual bool initLayer();
 
 	void addPuzzleBoard();
-	bool getEmptyTilePos(int tileID);		// function which return the Vec2 of the empty tile
+	bool getEmptyTilePos(int _posID);		// function which return the Vec2 of the empty tile
 	void checkForEmpty(int posID);
 
 	bool checkInBounds(int _hIndex, int _wIndex);
@@ -33,6 +33,7 @@ public:
 	void checkDown(int _posID, int* tileID);
 
 	void swapTiles(int posID, int tileID);
+	void swapVectorElements(std::vector<SingleTile>, std::vector<SingleTile>);
 	void addEvent();
 	bool onTouchBegan(cocos2d::Touch* click, cocos2d::Event* event);
 	//bool onTouchMove(cocos2d::Touch* click, cocos2d::Event* event);
@@ -49,6 +50,9 @@ private:
 	int hIndex;
 	int wIndex;
 
-	int real_posID;										////////////////// CHECK IT OUT / CLEAN UP
+	int elementInListWhereEmptyPosIDIs;
+	int tileID;									////////////////// CHECK IT OUT / CLEAN UP
+	int n_tileID;
+	int testID;					// posID
 
 };
