@@ -24,6 +24,7 @@ public:
 
 	void addPuzzleBoard();
 	void addEvent();
+	void shuffleTiles();
 	bool onTouchBegan(cocos2d::Touch* click, cocos2d::Event* event);
 	//bool onTouchMove(cocos2d::Touch* click, cocos2d::Event* event);
 	void checkForEmpty(int tileID);
@@ -34,8 +35,8 @@ public:
 	bool getEmptyTilePos(int n_posID);
 
 	// @ -- param:	take height and width of the position being checked.
-	// @ -- return: depends on if coordinates are in bounds. 
 	bool checkInBounds(int _hIndex, int _wIndex);
+
 	void swapTiles(int posID, int tileID);
 
 

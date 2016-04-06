@@ -24,7 +24,6 @@ bool AppDelegate::applicationDidFinishLaunching()
 	auto mainMenu = MainMenu::createScene();
 	director->runWithScene(mainMenu);
 
-
 	return true;
 }
 
