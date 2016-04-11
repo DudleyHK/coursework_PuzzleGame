@@ -14,6 +14,7 @@ public:
 	~Settings();
 
 	static cocos2d::Scene * createScene();
+	virtual bool initLayer();
 
 	
 

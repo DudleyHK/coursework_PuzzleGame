@@ -62,7 +62,7 @@ void PuzzleBoard::sliceImage(cocos2d::Sprite* puzzleImage)
 		{
 			SingleTile* singleTile = SingleTile::create();
 				
-				//cocos2d::Sprite::create(puzzleImage/*pass in the relevant settings information*/);//////////// NEW KEYWPORD	//////////// NEW KEYWPORD	//////////// NEW KEYWPORD
+			//cocos2d::Sprite::create(puzzleImage/*pass in the relevant settings information*/);//////////// NEW KEYWPORD	//////////// NEW KEYWPORD	//////////// NEW KEYWPORD
 			singleTile->setImageData(imageHeight, imageWidth);
 			singleTile->initTile(heightIndex, widthIndex);
 

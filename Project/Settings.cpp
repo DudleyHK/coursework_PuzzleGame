@@ -28,3 +28,15 @@ cocos2d::Scene * Settings::createScene()
 	// return the scene
 	return settingsScene;
 }
+
+bool Settings::initLayer()
+{
+	if (!Layer::init())
+	{
+		return false;
+	}
+
+
+
+	return true;
+}

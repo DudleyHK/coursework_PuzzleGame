@@ -136,25 +136,49 @@ bool GameScene::onTouchBegan(cocos2d::Touch* click, cocos2d::Event* event)
 	return false;
 }
 
-void GameScene::checkForEmpty(int tileID) // this is currently the same as posID
+
+void GameScene::checkForEmpty(int tileID)
 {
 	int n_posID = -1;
-	int posID = tileList.at(tileID)->getPositionID();
+	posID = tileList.at(tileID)->getPositionID();// Get the positionID of the tile clicked
+	emptyPosID = tileList.at(3)->getPositionID();// Get the positionID of the empty Tile
 
-	//save for variable as global varibale   //this may not ned to be done /////////////////////CHHHECK
+	// Get the coordinates of the position clicked.
 	hIndex = posID / 4;
 	wIndex = posID - (4 * hIndex);
 
+	// coordinates of the empty tile position
+	int emptyHIndex = emptyPosID / 4;
+	int emptyWIndex = emptyPosID - (4 * emptyHIndex);
+
+	// X AXIS	
+	if (hIndex == emptyHIndex)
+	{
+		checkTilesBetweenY(hIndex);
+		n_posID = emptyPosID; // FOR DEBUG
+	}
+
+	// Y AXIS
+	if (wIndex == emptyWIndex)
+	{
+		//checkTilesBetweenX(wIndex);
+		n_posID = emptyPosID; // FOR DEBUG
+	}
+
+
+
+	/*
 	checkLeft(posID - 1, &n_posID);
 	if (n_posID == -1)
 	{
 		checkRight(posID + 1, &n_posID);
 		if (n_posID == -1)
 		{
-			checkUp(posID + 4 /* 4 = number of seg width*/, &n_posID);
+			
+			checkUp(posID + 4 /* 4 = number of seg width/, &n_posID);
 			if (n_posID == -1)
 			{
-				checkDown(posID - 4 /* 4 = number of seg width*/, &n_posID);
+				checkDown(posID - 4 /* 4 = number of seg width &n_posID);
 				if (n_posID == -1)
 				{
 					; // empty tile not found, player cannot move this tile
@@ -162,9 +186,50 @@ void GameScene::checkForEmpty(int tileID) // this is currently the same as posID
 			}
 		}
 	}
+	*/
 	if (n_posID != -1)
 	{
 		swapTiles(tileID, 3);
+	}
+}
+
+// At this point I know that the empty tile is not next to the click tile. 
+void GameScene::checkTilesBetweenY(int hIndex) // param doesnt need
+{
+	char operatorChar = '0';
+	int currentTileID = 0;
+	int n_posID = posID;
+	bool emptyFound = false;
+
+	
+	// While not at the end.
+	while(!emptyFound)
+	{
+		if (emptyPosID > posID)
+		{
+			n_posID++;
+		}
+		else
+		{
+			n_posID = posID - 1; 
+		}
+
+		// decode to retrieve coordinates
+		int _hIndex = n_posID / 4;
+		int _wIndex = n_posID - (4 * _hIndex);
+
+		// get the tileID of the current positionID being assest.
+		currentTileID = (4 * _hIndex) + _wIndex;
+
+		if (currentTileID != 3)
+		{
+			// add this value to a list.
+			posIDList.push_back(n_posID);
+		}
+		else
+		{
+			emptyFound = true;
+		}
 	}
 }
 
@@ -239,6 +304,53 @@ bool GameScene::checkInBounds(int _hIndex, int _wIndex)
 
 void GameScene::swapTiles(int tileID, int emptyID)
 {
+	int listSize = posIDList.size();
+
+	// for each pos in list
+	for (unsigned int index = 0; index < listSize; index++)
+	{
+		// save current value as last value in list
+		int currentValue = posIDList.back();
+
+		// decode to get coordinates.
+		int _hIndex = currentValue / 4;
+		int _wIndex = currentValue - (4 * _hIndex);
+
+		// save the new tileID
+		int currentTileID = (4 * _hIndex) + _wIndex;
+
+
+		//selected sprite 
+		auto selectedSprite = tileList.at(currentTileID);
+		auto selectedSpritePosition = tileList.at(currentTileID)->getPosition();
+
+		// empty sprite
+		auto emptySprite = tileList.at(emptyID);
+		auto emptySpritePosition = tileList.at(emptyID)->getPosition();
+
+		// create move function
+		auto moveEmptySprite = cocos2d::MoveBy::create(0.1, cocos2d::Vec2(selectedSpritePosition.x, selectedSpritePosition.y));
+		auto moveSelectedSprite = cocos2d::MoveBy::create(0.1, cocos2d::Vec2(emptySpritePosition.x, emptySpritePosition.y));
+
+		
+		int temp = tileList.at(tileID)->getPositionID();
+
+		// action
+		selectedSprite->runAction(moveSelectedSprite);
+		emptySprite->runAction(moveEmptySprite);
+
+		// set the position value as new positions
+		tileList.at(tileID)->setPositionID(tileList.at(emptyID)->getPositionID());
+
+		// set the tile positions as new positions
+		tileList.at(emptyID)->setPositionID(temp);
+
+
+		// delete last element of list
+		posIDList.pop_back();
+	}
+}
+/*
 	//selected sprite
 	auto selectedSprite = tileList.at(tileID);
 	auto selectedSpritePosition = tileList.at(tileID)->getPosition();
@@ -267,7 +379,7 @@ void GameScene::swapTiles(int tileID, int emptyID)
 		// set the tile positions as new positions
 		tileList.at(emptyID)->setPositionID(temp);
 	}
-}
+	*/
 
 
 // WORKSHEET CODE
