@@ -10,8 +10,6 @@ http://cocos2d-x.org/documentation/programmers-guide/3/index.html
 
 #include "GameScene.h"
 
-#define TILE_AT_INDEX tileList.at(index)
-
 cocos2d::Scene * GameScene::createScene()
 {
 	// 'scene' & 'layer' are autoreleased objects
@@ -19,11 +17,11 @@ cocos2d::Scene * GameScene::createScene()
 	auto playLayer = GameScene::create();
 
 	// add layer as a child to a scene
-playScene->addChild(playLayer);
-playLayer->initLayer();
+	playScene->addChild(playLayer);
+	playLayer->initLayer();
 
-// return the scene
-return playScene;
+	// return the scene
+	return playScene;
 }
 
 
@@ -47,7 +45,8 @@ GameScene* GameScene::create(int hi)
 
 GameScene::GameScene()
 {
-	; // Empty
+	addPuzzleBoard();
+	//puzzleBoard->shuffleBoard();           ///////////////////// <<<<<<<<<< ========== CONCENTRATE ON SETTINGS MENU BEFORE SHUFFLE!!!
 }
 
 GameScene::~GameScene()
@@ -64,8 +63,8 @@ bool GameScene::initLayer()
 
 	//initBackground();
 
-	addPuzzleBoard();
-	//shuffleTiles();
+	
+	//puzzleBoard->shuffleBoard();
 	addEvent();
 
 	return true;
@@ -81,16 +80,16 @@ void GameScene::addPuzzleBoard()
 	{
 		if (index == 3)
 		{
-			TILE_AT_INDEX->getSprite()->setTag(tags->SPRITE_EMPTY);
+			//tileList.at(index)->getSprite()->setTag(tags->SPRITE_EMPTY);
 		}
 		else
 		{
 			//auto obj = tileList.at(index);
-			TILE_AT_INDEX->getSprite()->setTag(tags->SPRITE_TILE);
+			//tileList.at(index)->getSprite()->setTag(tags->SPRITE_TILE);
 		}
 
 		// display
-		this->addChild(TILE_AT_INDEX->getSprite());
+		this->addChild(tileList.at(index));
 	}
 }
 
@@ -124,7 +123,7 @@ bool GameScene::onTouchBegan(cocos2d::Touch* click, cocos2d::Event* event)
 		for (unsigned int widthIndex = 0; widthIndex < 4; widthIndex++)
 		{
 			//if any sprite contains the point coordinates.
-			if (tileList.at((4 * heightIndex) + widthIndex)->getSprite()->
+			if (tileList.at((4 * heightIndex) + widthIndex)->
 				getBoundingBox().containsPoint(point))
 			{
 				checkForEmpty((4 * heightIndex) + widthIndex); 
@@ -133,6 +132,8 @@ bool GameScene::onTouchBegan(cocos2d::Touch* click, cocos2d::Event* event)
 			}
 		}
 	}
+
+	return false;
 }
 
 void GameScene::checkForEmpty(int tileID) // this is currently the same as posID
@@ -239,12 +240,12 @@ bool GameScene::checkInBounds(int _hIndex, int _wIndex)
 void GameScene::swapTiles(int tileID, int emptyID)
 {
 	//selected sprite
-	auto selectedSprite = tileList.at(tileID)->getSprite();
-	auto selectedSpritePosition = tileList.at(tileID)->getSprite()->getPosition();
+	auto selectedSprite = tileList.at(tileID);
+	auto selectedSpritePosition = tileList.at(tileID)->getPosition();
 
 	// empty sprite
-	auto emptySprite = tileList.at(emptyID)->getSprite();
-	auto emptySpritePosition = tileList.at(emptyID)->getSprite()->getPosition();
+	auto emptySprite = tileList.at(emptyID);
+	auto emptySpritePosition = tileList.at(emptyID)->getPosition();
 
 	auto moveEmptySprite = cocos2d::MoveTo::create(0.1, cocos2d::Vec2(selectedSpritePosition.x, selectedSpritePosition.y));
 	auto moveSelectedSprite = cocos2d::MoveTo::create(0.1, cocos2d::Vec2(emptySpritePosition.x, emptySpritePosition.y));
@@ -268,13 +269,6 @@ void GameScene::swapTiles(int tileID, int emptyID)
 	}
 }
 
-/*
-void GameScene::shuffleTiles()
-{
-	puzzleBoard->shuffleTiles();
-	puzzleBoard->moveTiles();
-}
-*/
 
 // WORKSHEET CODE
 /*

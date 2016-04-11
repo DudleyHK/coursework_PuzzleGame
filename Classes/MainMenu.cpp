@@ -1,121 +1,104 @@
 /*
-
-
-http://www.cocos2d-x.org/wiki/Coordinate_System
-
-https://blackboard.uwe.ac.uk/bbcswebdav/pid-4625508-dt-content-rid-8627132_2/courses/UFCFWA-30-1_15sep_1/Worksheet%2012.pdf // Work sheet 12
+	Solution: Main Menu Class
+	Author: Dudley Dawes
 */
 #include "MainMenu.h"
 
-
-/*Simply create a new scene and adds our newly created layer to it.
-Cocos manages the allocated memory here*/
 cocos2d::Scene * MainMenu::createScene()
 {
-	// 'scene' & 'layer' are autoreleased objects
-	cocos2d::Scene* menuScene = Scene::create();
+	cocos2d::Scene* menuScene = cocos2d::Scene::create();
 	auto menuLayer = MainMenu::create();
 
-	// add layer as a child to a scene
 	menuScene->addChild(menuLayer);
 	menuLayer->initLayer();
 
-	// return the scene
 	return menuScene;
 }
 
-
 MainMenu::MainMenu()
 {
-	; // EMpty
+	; // Empty
 }
-
 
 MainMenu::~MainMenu()
 {
 	; // Empty
 }
 
-
-
 bool MainMenu::initLayer()
 {
-	// if the layer has not been initialised 
 	if (!Layer::init())
 	{
 		return false;
 	}
 
-	initMenu();
-
-	return true;
-}
-
-
-
-void MainMenu::initMenu()
-{
 	backgroundAndTitle();
 	menuButtons();
+	return true;
 }
-
 
 void MainMenu::backgroundAndTitle()
 {
 	// Print out the title
-	cocos2d::Label* title = Label::createWithTTF("Puzzle Game", "fonts/FunSized.ttf", 40);
-	title->setPosition(Vec2(320, 400));
+	cocos2d::Label* title = cocos2d::Label::createWithTTF("Puzzle Game", "fonts/FunSized.ttf", 40);
+	title->setPosition(cocos2d::Vec2(320, 400));
 	this->addChild(title, 1);
 
-
 	// Add in a menu splash screen
-	auto menuBackground = Sprite::create("WoodFence.png");
+	auto menuBackground = cocos2d::Sprite::create("WoodFence.png");
 	menuBackground->setScale(1.5);
-	menuBackground->setAnchorPoint(Vec2(0, 0));
-	menuBackground->setPosition(Vec2(0, 0));
+	menuBackground->setAnchorPoint(cocos2d::Vec2(0, 0));
+	menuBackground->setPosition(cocos2d::Vec2(0, 0));
 	this->addChild(menuBackground, -50);
 }
 
-
-
 void MainMenu::menuButtons()
 {
-	// Create the play game menu item
-	MenuItemSprite* runGameScene = new MenuItemSprite();
-	runGameScene->initWithNormalSprite(
-		Sprite::create("PlayUnselected.png"),
-		Sprite::create("PlaySelected.png"),
+	// Play Button
+	cocos2d::MenuItemSprite* playButton = new cocos2d::MenuItemSprite();
+	playButton->initWithNormalSprite(
+		cocos2d::Sprite::create("PlayNormal.png"),
+		cocos2d::Sprite::create("PlaySelected.png"),
 		nullptr,
-		CC_CALLBACK_1(MainMenu::menuStartGame, this));
+		CC_CALLBACK_1(MainMenu::menuPlayGame, this));
 
-
-	// Create the exit game menu item, this will exit the app
-	MenuItemSprite* mainMenuExit = new MenuItemSprite();
-	mainMenuExit->initWithNormalSprite(
-		Sprite::create("ExitNormal.png"),
-		Sprite::create("ExitSelected.png"),
+	// Settings Button
+	cocos2d::MenuItemSprite* settingsButton = new cocos2d::MenuItemSprite();
+	settingsButton->initWithNormalSprite(
+		cocos2d::Sprite::create("SettingsNormal.png"),
+		cocos2d::Sprite::create("SettingsSelected.png"),
 		nullptr,
-		CC_CALLBACK_1(MainMenu::menuCloseCallback, this));
+		CC_CALLBACK_1(MainMenu::menuSettingMenu, this));
 
+	// Exit Button
+	cocos2d::MenuItemSprite* exitButton = new cocos2d::MenuItemSprite();
+	exitButton->initWithNormalSprite(
+		cocos2d::Sprite::create("ExitNormal.png"),
+		cocos2d::Sprite::create("ExitSelected.png"),
+		nullptr,
+		CC_CALLBACK_1(MainMenu::menuEndGame, this));
 
-	// Create the actual menu and assign the menu to the Puzzle game scene
-	cocos2d::Menu* menu = Menu::create(runGameScene, mainMenuExit, nullptr);
+	// Initialise the layer.
+	cocos2d::Menu* menu = cocos2d::Menu::create(playButton, exitButton,
+		settingsButton, nullptr);
 	menu->alignItemsVertically();
 	this->addChild(menu, -10);
 }
 
-
-void MainMenu::menuStartGame(cocos2d::Ref* sender)
+void MainMenu::menuPlayGame(cocos2d::Ref* sender)
 {
 	// change the type of transition between the scenes
 	cocos2d::Director::getInstance()->replaceScene(
-		TransitionSlideInR::create(2, GameScene::createScene()));
+		cocos2d::TransitionSlideInR::create(2, GameScene::createScene()));
 }
 
+void MainMenu::menuSettingMenu(cocos2d::Ref* sender)
+{
+	cocos2d::Director::getInstance()->replaceScene(
+		cocos2d::TransitionSlideInR::create(2, Settings::createScene()));
+}
 
-/*This function will ask the director to correctly end the application 
-if the window is closed*/
-void MainMenu::menuCloseCallback(cocos2d::Ref* pSender)
+void MainMenu::menuEndGame(cocos2d::Ref* pSender)
 {
 	cocos2d::Director::getInstance()->end();
 }
