@@ -152,7 +152,7 @@ void GameScene::checkForEmpty(int tileID)
 	// coordinates of the empty tile position
 	int emptyHIndex = emptyPosID / 4;
 	int emptyWIndex = emptyPosID - (4 * emptyHIndex);
-
+	
 
 
 	bool isNegitive = false;
