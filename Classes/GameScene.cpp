@@ -28,18 +28,18 @@ cocos2d::Scene * GameScene::createScene()
 /* CREATE_FUNC(GameScene) --- create scene with parameters
 GameScene* GameScene::create(int hi)
 {
-GameScene *pRet = new(std::nothrow) GameScene();
-if (pRet && pRet->init())
-{
-pRet->autorelease();
-return pRet;
-}
-else
-{
-delete pRet;
-pRet = NULL;
-return NULL;
-}
+	GameScene *pRet = new(std::nothrow) GameScene();
+	if (pRet && pRet->init())
+	{
+		pRet->autorelease();
+		return pRet;
+	}
+	else
+	{
+		delete pRet;
+		pRet = NULL;
+		return NULL;
+	}
 }
 */
 
@@ -63,7 +63,7 @@ bool GameScene::initLayer()
 
 	//initBackground();
 
-
+	
 	//puzzleBoard->shuffleBoard();
 	addEvent();
 
@@ -126,7 +126,7 @@ bool GameScene::onTouchBegan(cocos2d::Touch* click, cocos2d::Event* event)
 			if (tileList.at((4 * heightIndex) + widthIndex)->
 				getBoundingBox().containsPoint(point))
 			{
-				checkForEmpty((4 * heightIndex) + widthIndex);
+				checkForEmpty((4 * heightIndex) + widthIndex); 
 
 				return true;
 			}
@@ -228,7 +228,7 @@ bool GameScene::getEmptyTilePos(int n_posID)
 
 bool GameScene::checkInBounds(int _hIndex, int _wIndex)
 {
-
+	
 	if ((_hIndex < 4 && _hIndex >= 0) &&
 		(_wIndex < 4 && _wIndex >= 0))
 	{
