@@ -1,35 +1,38 @@
 /*
 
-
-
-
 */
 #include "SingleTile.h"
 
 
 SingleTile::SingleTile()
 {
-	; // empty
+	 // do the relevant calculation to get the number of tiles 
 }
 
 SingleTile::~SingleTile()
 {
-	; // empty
+	; // Empty
 }
 
-
-void SingleTile::setImageInfomation(float xScale, float yScale, int ySize)
+SingleTile * SingleTile::create()
 {
-	this->scaleWidth = xScale;
-	this->scaleHeight = yScale;
-	this->imageHeight = ySize;
+	SingleTile* singleTile = new SingleTile(/*pass in the relevant settings information*/);
+
+	if (!singleTile->initWithFile("p_hamsterRunning.jpg"))
+	{
+		CC_SAFE_DELETE(singleTile);
+		return nullptr;
+	}
+
+	singleTile->autorelease();
+
+	return singleTile;
 }
 
-
-void SingleTile::setNewPosition(float xPos, float yPos)
+void SingleTile::setImageData(int imgHeight, int imgWidth)
 {
-	this->xPosition = xPos;
-	this->yPosition = yPos;
+	this->imageHeight = imgHeight;
+	this->imageWidth = imgWidth;
 }
 
 void SingleTile::setTileID(int _tileID)
@@ -42,41 +45,53 @@ void SingleTile::setPositionID(int _posID)
 	positionID = _posID;
 }
 
+
+void SingleTile::setTileSize()
+{
+	tileHeight = imageHeight / 4;
+	tileWidth = imageWidth / 4;
+}
+
+int SingleTile::getTileHeight()
+{
+	return tileHeight;
+}
+
+int SingleTile::getTileWidth()
+{
+	return tileWidth;
+}
+
 int SingleTile::getTileID()
 {
 	return tileID;
 }
-
 
 int SingleTile::getPositionID()
 {
 	return positionID;
 }
 
-
-
-cocos2d::Sprite * SingleTile::getSprite()
+void SingleTile::initTile(unsigned int hIndex, unsigned int wIndex)
 {
-	return sprite;
-}
+	setTileSize();
+
+	// set the size for a single tile (Tell the tile object how big it will need to be)
+	//cocos2d::Vec2 tile = cocos2d::Vec2(imageWidth / 4, imageHeight / 4);
+	cocos2d::Vec2 tile = cocos2d::Vec2(tileWidth, tileHeight);
+
+	xPosition = tile.x * wIndex;
+	yPosition = tile.y * hIndex;
+	setScaleX((500.0f / imageWidth) * 0.98);
+	setScaleY((500.0f / imageHeight) * 0.98); 
 
 
+	setTextureRect(cocos2d::Rect(xPosition, (imageHeight - yPosition) - tile.y,
+		tile.x, tile.y));
 
-void SingleTile::createTile(cocos2d::Vec2 tile, unsigned int widthIndex, unsigned int heightIndex)
-{
-	// create a tile from the image
-	auto newTile = cocos2d::Sprite::create("p_hamsterRunning.jpg",
-	cocos2d::Rect(xPosition, (imageHeight - yPosition) - tile.y, tile.x, tile.y));
+	setAnchorPoint(cocos2d::Vec2::ANCHOR_BOTTOM_LEFT);
+	setPosition(cocos2d::Vec2((500 / 4) * wIndex, (500 / 4) * hIndex));
 
-	newTile->setAnchorPoint(cocos2d::Vec2::ANCHOR_BOTTOM_LEFT);
-	newTile->setPosition(cocos2d::Vec2((500 / 4) * widthIndex, (500 / 4) * heightIndex));
-	newTile->setScaleX(scaleWidth);
-	newTile->setScaleY(scaleHeight);
-
-	// set position
-	positionID = (heightIndex * 4) + widthIndex;
-	tileID = (heightIndex * 4) + widthIndex;
-
-	// save the sprite 
-	sprite = newTile;
+	positionID = (hIndex * 4) + wIndex;
+	tileID = (hIndex * 4) + wIndex;
 }
