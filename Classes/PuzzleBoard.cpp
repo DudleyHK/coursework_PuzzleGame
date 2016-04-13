@@ -11,7 +11,7 @@
 
 PuzzleBoard::PuzzleBoard()
 {
-	srand((unsigned int)(time(0)));
+	;
 }
 
 PuzzleBoard::~PuzzleBoard()
@@ -84,22 +84,4 @@ void PuzzleBoard::setTransparentTile()
 		}
 	}
 }
-
-/*void PuzzleBoard::getIndexValues(int posID, int* hIndex, int* wIndex)
-{
-	*hIndex = posID / 4;
-	*wIndex = posID - (*hIndex * 4);
-}*/
-
-/*bool PuzzleBoard::checkBounds()
-{
-	if ((_hIndex < 4 && _hIndex >= 0) &&
-		(_wIndex < 4 && _wIndex >= 0))
-	{
-		return true;
-	}
-	return false;
-}
-*/
-
 

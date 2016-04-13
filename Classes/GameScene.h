@@ -24,7 +24,6 @@ public:
 
 	void addPuzzleBoard();
 	void addEvent();
-	void shuffleTiles();
 	bool onTouchBegan(cocos2d::Touch* click, cocos2d::Event* event);
 	//bool onTouchMove(cocos2d::Touch* click, cocos2d::Event* event);
 	void checkForEmpty(int tileID);
@@ -48,7 +47,6 @@ public:
 private:
 	std::vector<SingleTile*> tileList;
 
-	Tags* tags = new Tags;
 	PuzzleBoard* puzzleBoard = new PuzzleBoard;									///////////////NEW KEYWORD
 
 	int hIndex = 0, wIndex = 0;

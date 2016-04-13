@@ -10,11 +10,12 @@ https://blackboard.uwe.ac.uk/bbcswebdav/pid-4625508-dt-content-rid-8627132_2/cou
 
 /*Simply create a new scene and adds our newly created layer to it.
 Cocos manages the allocated memory here*/
-cocos2d::Scene * MainMenu::createScene()
+cocos2d::Scene* MainMenu::createScene()
 {
 	// 'scene' & 'layer' are autoreleased objects
-	cocos2d::Scene* menuScene = Scene::create();
+	cocos2d::Scene* menuScene = cocos2d::Scene::create();
 	auto menuLayer = MainMenu::create();
+
 
 	// add layer as a child to a scene
 	menuScene->addChild(menuLayer);
@@ -46,33 +47,26 @@ bool MainMenu::initLayer()
 		return false;
 	}
 
-	initMenu();
-
-	return true;
-}
-
-
-
-void MainMenu::initMenu()
-{
 	backgroundAndTitle();
 	menuButtons();
+
+	return true;
 }
 
 
 void MainMenu::backgroundAndTitle()
 {
 	// Print out the title
-	cocos2d::Label* title = Label::createWithTTF("Puzzle Game", "fonts/FunSized.ttf", 40);
-	title->setPosition(Vec2(320, 400));
+	cocos2d::Label* title = cocos2d::Label::createWithTTF("Puzzle Game", "fonts/FunSized.ttf", 40);
+	title->setPosition(cocos2d::Vec2(320, 400));
 	this->addChild(title, 1);
 
 
 	// Add in a menu splash screen
-	auto menuBackground = Sprite::create("WoodFence.png");
+	auto menuBackground = cocos2d::Sprite::create("WoodFence.png");
 	menuBackground->setScale(1.5);
-	menuBackground->setAnchorPoint(Vec2(0, 0));
-	menuBackground->setPosition(Vec2(0, 0));
+	menuBackground->setAnchorPoint(cocos2d::Vec2(0, 0));
+	menuBackground->setPosition(cocos2d::Vec2(0, 0));
 	this->addChild(menuBackground, -50);
 }
 
@@ -81,25 +75,25 @@ void MainMenu::backgroundAndTitle()
 void MainMenu::menuButtons()
 {
 	// Create the play game menu item
-	MenuItemSprite* runGameScene = new MenuItemSprite();
+	cocos2d::MenuItemSprite* runGameScene = new cocos2d::MenuItemSprite();
 	runGameScene->initWithNormalSprite(
-		Sprite::create("PlayUnselected.png"),
-		Sprite::create("PlaySelected.png"),
+		cocos2d::Sprite::create("PlayUnselected.png"),
+		cocos2d::Sprite::create("PlaySelected.png"),
 		nullptr,
 		CC_CALLBACK_1(MainMenu::menuStartGame, this));
 
 
 	// Create the exit game menu item, this will exit the app
-	MenuItemSprite* mainMenuExit = new MenuItemSprite();
+	cocos2d::MenuItemSprite* mainMenuExit = new cocos2d::MenuItemSprite();
 	mainMenuExit->initWithNormalSprite(
-		Sprite::create("ExitNormal.png"),
-		Sprite::create("ExitSelected.png"),
+		cocos2d::Sprite::create("ExitNormal.png"),
+		cocos2d::Sprite::create("ExitSelected.png"),
 		nullptr,
 		CC_CALLBACK_1(MainMenu::menuCloseCallback, this));
 
 
 	// Create the actual menu and assign the menu to the Puzzle game scene
-	cocos2d::Menu* menu = Menu::create(runGameScene, mainMenuExit, nullptr);
+	cocos2d::Menu* menu = cocos2d::Menu::create(runGameScene, mainMenuExit, nullptr);
 	menu->alignItemsVertically();
 	this->addChild(menu, -10);
 }
@@ -109,7 +103,7 @@ void MainMenu::menuStartGame(cocos2d::Ref* sender)
 {
 	// change the type of transition between the scenes
 	cocos2d::Director::getInstance()->replaceScene(
-		TransitionSlideInR::create(2, GameScene::createScene()));
+		cocos2d::TransitionSlideInR::create(2, GameScene::createScene()));
 }
 
 

@@ -4,7 +4,7 @@
 bool AppDelegate::applicationDidFinishLaunching() 
 {
 	// Obtain access to the game Director
-	cocos2d::Director* director = Director::getInstance();
+	cocos2d::Director* director = cocos2d::Director::getInstance();
 
 	// Set windows size and resoultion
 	cocos2d::GLView* glView = director->getOpenGLView();
@@ -13,7 +13,7 @@ bool AppDelegate::applicationDidFinishLaunching()
 	if (!glView)
 	{
 		// Create the application window
-		glView = GLViewImpl::create("Puzzle Game");
+		glView = cocos2d::GLViewImpl::create("Puzzle Game");
 		glView->setFrameSize(1280, 720);
 
 		// Set this up via the game Director
@@ -21,8 +21,8 @@ bool AppDelegate::applicationDidFinishLaunching()
 	}
 
 	// Create a scenee and run it
-	auto mainMenu = MainMenu::createScene();
-	director->runWithScene(mainMenu);
+	auto menuScene = MainMenu::createScene();
+	director->runWithScene(menuScene);
 
 	return true;
 }

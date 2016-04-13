@@ -121,6 +121,7 @@ bool GameScene::onTouchBegan(cocos2d::Touch* click, cocos2d::Event* event)
 			}
 		}
 	}
+	return false;
 }
 
 void GameScene::checkForEmpty(int tileID) // this is currently the same as posID
@@ -234,14 +235,17 @@ void GameScene::swapTiles(int tileID, int emptyID)
 	auto emptySprite = tileList.at(emptyID);
 	cocos2d::Vec2 emptySpritePosition = tileList.at(emptyID)->getPosition();
 
-	auto moveEmptySprite = cocos2d::MoveTo::create(0.1, cocos2d::Vec2(selectedSpritePosition.x, selectedSpritePosition.y));
-	auto moveSelectedSprite = cocos2d::MoveTo::create(0.1, cocos2d::Vec2(emptySpritePosition.x, emptySpritePosition.y));
 
-	// are any actions running?
-	int spriteActionsRunning = selectedSprite->getNumberOfRunningActions();
-	int emptyActionsRunning = emptySprite->getNumberOfRunningActions();
+	auto moveEmptySprite = cocos2d::MoveTo::create(0.1f, cocos2d::Vec2(
+		selectedSpritePosition.x, 
+		selectedSpritePosition.y));
+	auto moveSelectedSprite = cocos2d::MoveTo::create(0.1f, cocos2d::Vec2(
+		emptySpritePosition.x,
+		emptySpritePosition.y));
 
-	if (spriteActionsRunning == 0 && emptyActionsRunning == 0)
+
+	if (selectedSprite->getNumberOfRunningActions() == 0 && 
+		emptySprite->getNumberOfRunningActions() == 0)
 	{
 		int temp = tileList.at(tileID)->getPositionID();
 
