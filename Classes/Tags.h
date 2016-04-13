@@ -1,7 +1,7 @@
 /*
 
 
-THIS COULD BE DELTEDE
+
 */
 #pragma once
 #include "cocos2d.h"

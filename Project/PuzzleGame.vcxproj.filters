@@ -19,9 +19,6 @@
     <ClCompile Include="..\Classes\MainMenu.cpp">
       <Filter>src</Filter>
     </ClCompile>
-    <ClCompile Include="Settings.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -43,9 +40,6 @@
       <Filter>hdr</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\Tags.h">
-      <Filter>hdr</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\Settings.h">
       <Filter>hdr</Filter>
     </ClInclude>
   </ItemGroup>
@@ -75,6 +69,9 @@
     <Image Include="..\Resources\PlaySelected.png">
       <Filter>resource</Filter>
     </Image>
+    <Image Include="..\Resources\PlayUnselected.png">
+      <Filter>resource</Filter>
+    </Image>
     <Image Include="..\Resources\ExitNormal.png">
       <Filter>resource</Filter>
     </Image>
@@ -82,15 +79,6 @@
       <Filter>resource</Filter>
     </Image>
     <Image Include="..\Resources\p_hamsterRunning.jpg">
-      <Filter>resource</Filter>
-    </Image>
-    <Image Include="..\Resources\SettingsSelected.png">
-      <Filter>resource</Filter>
-    </Image>
-    <Image Include="..\Resources\PlayNormal.png">
-      <Filter>resource</Filter>
-    </Image>
-    <Image Include="..\Resources\SettingsNormal.png">
       <Filter>resource</Filter>
     </Image>
   </ItemGroup>
