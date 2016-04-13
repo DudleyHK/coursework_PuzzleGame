@@ -39,6 +39,10 @@ public:
 	void checkDown(int _posID, int* tileID);
 	bool getEmptyTilePos(int n_posID);
 
+
+	int getTileID(int hIndex, int wIndex);
+
+
 	// @ -- param:	take height and width of the position being checked.
 	bool checkInBounds(int _hIndex, int _wIndex);
 

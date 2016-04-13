@@ -34,6 +34,9 @@ public:
 	//void setImageInfomation(float xScale, float yScale, int ySize);
 	void setPositionID(int posID);
 	void setTileID(int tileID);
+	void setTileSize();
+	int getTileHeight();
+	int getTileWidth();
 	int getTileID();
 	int getPositionID();
 
@@ -42,6 +45,8 @@ private:
 	float yPosition = 0.0f;
 	float scaleWidth = 0.0f;
 	float scaleHeight = 0.0f;
+	float tileHeight = 0.0f;
+	float tileWidth = 0.0f;
 	int imageWidth = 0;
 	int imageHeight = 0;
 	int positionID = 0;
