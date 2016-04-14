@@ -1,9 +1,5 @@
 /*
 
-// @ -- Detail:
-// @ -- Param:
-// @ -- Return:
-
 */
 
 #pragma once
@@ -16,21 +12,8 @@ public:
 	SingleTile();
 	~SingleTile();
 
-	// @ -- Detail: Create an instance of the class. Notify the object of the image which 
-	//					will be used to construct the tile sprite. 
-	// @ -- Param: Puzzle image sprite.
-	static SingleTile* create();
-
-	// @ -- Detail: Give the object information about the puzzle image being used.
-	// @ -- Param: The height and width along the x and y axis of the whole image.
+	/* =====GETTERS AND SETTERS===== */
 	void setImageData(int imgHeight, int imgWidth);
-
-	// @ -- Detail: 
-	// @ -- Param: The coordinates of the tile being created. 
-	void initTile(unsigned int hIndex, unsigned int wIndex);
-
-	//void setNewPosition(float xPos, float yPos);
-	//void setImageInfomation(float xScale, float yScale, int ySize);
 	void setPositionID(int posID);
 	void setTileID(int tileID);
 	void setTileSize();
@@ -38,6 +21,16 @@ public:
 	int getTileWidth();
 	int getTileID();
 	int getPositionID();
+	/* ============================== */
+
+	// @ -- Detail: Create an instance of the class. Notify the object of the image which 
+	//			will be used to construct the tile sprite. 
+	// @ -- Param: Puzzle image sprite.
+	static SingleTile* create();
+
+	// @ -- Detail: Set the size ratios for a single tile.
+	// @ -- Param: The coordinates of the tile being created. 
+	void initTile(unsigned int hIndex, unsigned int wIndex);
 
 private:
 	float xPosition = 0.0f;

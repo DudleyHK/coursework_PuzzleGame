@@ -101,14 +101,11 @@ void MainMenu::menuButtons()
 
 void MainMenu::menuStartGame(cocos2d::Ref* sender)
 {
-	// change the type of transition between the scenes
 	cocos2d::Director::getInstance()->replaceScene(
-		cocos2d::TransitionSlideInR::create(2, GameScene::createScene()));
+		cocos2d::TransitionSlideInR::create(1, GameScene::createScene()));
 }
 
 
-/*This function will ask the director to correctly end the application 
-if the window is closed*/
 void MainMenu::menuCloseCallback(cocos2d::Ref* pSender)
 {
 	cocos2d::Director::getInstance()->end();

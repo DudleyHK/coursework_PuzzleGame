@@ -29,15 +29,10 @@ SingleTile * SingleTile::create()
 	return singleTile;
 }
 
-void SingleTile::setImageData(int imgHeight, int imgWidth) 
+void SingleTile::setImageData(int imgHeight, int imgWidth)
 {
 	this->imageHeight = imgHeight;
 	this->imageWidth = imgWidth;
-}
-
-void SingleTile::setTileID(int _tileID)
-{
-	tileID = _tileID;
 }
 
 void SingleTile::setPositionID(int _posID)
@@ -45,6 +40,10 @@ void SingleTile::setPositionID(int _posID)
 	positionID = _posID;
 }
 
+void SingleTile::setTileID(int _tileID)
+{
+	tileID = _tileID;
+}
 
 void SingleTile::setTileSize()
 {
@@ -76,8 +75,6 @@ void SingleTile::initTile(unsigned int hIndex, unsigned int wIndex)
 {
 	setTileSize();
 
-	// set the size for a single tile (Tell the tile object how big it will need to be)
-	//cocos2d::Vec2 tile = cocos2d::Vec2(imageWidth / 4, imageHeight / 4);
 	cocos2d::Vec2 tile = cocos2d::Vec2(tileWidth, tileHeight);
 
 	xPosition = tile.x * wIndex;

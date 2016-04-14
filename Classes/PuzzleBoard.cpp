@@ -30,22 +30,8 @@ void PuzzleBoard::getCoordinates(int posID, int* w, int* h)
 	*w = posID - (4 * *h);
 }
 
-// @ param - image file and the number of height/ width segments to be sliced
-void PuzzleBoard::init(/*Sprite* img // This may only have to be a code now*/)
-{
-	// Vector List
-	//if (!puzzleTiles.empty())
-	//{
-	//	puzzleTiles.clear();
-	//}
-
-	createImage();
-}
-
 void PuzzleBoard::createImage()
 {
-	/* Create a sprite, set its anchor point and set its position to a position
-	on the screen relative to the size resolution of the window*/
 	auto puzzleImage = cocos2d::Sprite::create("p_hamsterRunning.jpg");
 	puzzleImage->setAnchorPoint(cocos2d::Vec2(0, 0));
 	puzzleImage->setPosition(cocos2d::Director::getInstance()->getVisibleOrigin());
@@ -117,7 +103,6 @@ void PuzzleBoard::getDirection()
 	int empIndexH = 0;
 	bool isValid = false;
 	
-	
 
 	for (int i = 0; i < 100; i++)
 	{
@@ -156,15 +141,12 @@ void PuzzleBoard::getDirection()
 		} // END WHILE
 
 		adjacentPosID = tileList.at((newIndexH * 4) + newIndexW)->getPositionID();
-		swapTiles(adjacentPosID);
+		swap(adjacentPosID);
 	} // END FOR
 }
 
-// create a function that takes the adjacentPosID and the emptyPosID with these values I can swap the posIDs of both tiles.
-// and change their posX, posY before the game begins.
-void PuzzleBoard::swapTiles(int adjacentPosID)
-{
-	
+void PuzzleBoard::swap(int adjacentPosID)
+{	
 	/* =========================SWAP POSITIONS==================================== */
 	// save the values into temp variables
 	float tempEmpPosX = tileList.at(empTileID)->getPositionX();

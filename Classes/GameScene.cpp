@@ -61,9 +61,7 @@ bool GameScene::initLayer()
 	}
 
 	//initBackground();
-
 	addPuzzleBoard();
-	//shuffleTiles();
 	addEvent();
 
 	return true;
@@ -71,7 +69,7 @@ bool GameScene::initLayer()
 
 void GameScene::addPuzzleBoard()
 {
-	puzzleBoard->init();
+	puzzleBoard->createImage();
 	puzzleBoard->getSpriteList(&tileList);
 	puzzleBoard->getDirection();
 
@@ -89,14 +87,9 @@ void GameScene::addEvent()
 	auto clickListener = cocos2d::EventListenerTouchOneByOne::create();
 
 	clickListener->onTouchBegan = CC_CALLBACK_2(GameScene::onTouchBegan, this);
-	//clickListener->onTouchMoved = CC_CALLBACK_2(GameScene::onTouchMove, this);
 
-	// register event listener to receive events. addEventListener... basically means we want this event to be updated as much as possible
+	// register event listener to receive events. 
 	_eventDispatcher->addEventListenerWithSceneGraphPriority(clickListener, this);
-
-
-
-	//cocos2d::Director::getInstance()->getEventDispatcher()->addEventListenerWithFixedPriority(clickListener, -1);
 }
 
 bool GameScene::onTouchBegan(cocos2d::Touch* click, cocos2d::Event* event)
@@ -153,7 +146,7 @@ void GameScene::checkForEmpty(int tileID) // this is currently the same as posID
 	}
 	if (n_posID != -1)
 	{
-		swapTiles(tileID, 3);
+		swapTiles(tileID);
 	}
 }
 
@@ -206,9 +199,9 @@ void GameScene::checkDown(int _posID, int* n_posID)
 	}
 }
 
-bool GameScene::getEmptyTilePos(int n_posID)
+bool GameScene::getEmptyTilePos(int _posID)
 {
-	if (n_posID == tileList.at(3)->getPositionID())
+	if (_posID == tileList.at(empTileID)->getPositionID())
 	{
 		return true;
 	}
@@ -217,15 +210,15 @@ bool GameScene::getEmptyTilePos(int n_posID)
 
 
 
-void GameScene::swapTiles(int tileID, int emptyID)
+void GameScene::swapTiles(int tileID)
 {
 	//selected sprite
 	auto selectedSprite = tileList.at(tileID);
 	cocos2d::Vec2 selectedSpritePosition = tileList.at(tileID)->getPosition();
 
 	// empty sprite
-	auto emptySprite = tileList.at(emptyID);
-	cocos2d::Vec2 emptySpritePosition = tileList.at(emptyID)->getPosition();
+	auto emptySprite = tileList.at(empTileID);
+	cocos2d::Vec2 emptySpritePosition = tileList.at(empTileID)->getPosition();
 
 
 	auto moveEmptySprite = cocos2d::MoveTo::create(0.1f, cocos2d::Vec2(
@@ -245,9 +238,9 @@ void GameScene::swapTiles(int tileID, int emptyID)
 		emptySprite->runAction(moveEmptySprite);
 
 		// set the position value as new positions
-		tileList.at(tileID)->setPositionID(tileList.at(emptyID)->getPositionID());
+		tileList.at(tileID)->setPositionID(tileList.at(empTileID)->getPositionID());
 
 		// set the tile positions as new positions
-		tileList.at(emptyID)->setPositionID(temp);
+		tileList.at(empTileID)->setPositionID(temp);
 	}
 }
