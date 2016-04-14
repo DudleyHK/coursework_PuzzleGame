@@ -19,6 +19,9 @@
     <ClCompile Include="..\Classes\MainMenu.cpp">
       <Filter>src</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\Settings.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -37,6 +40,9 @@
       <Filter>hdr</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\MainMenu.h">
+      <Filter>hdr</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Settings.h">
       <Filter>hdr</Filter>
     </ClInclude>
   </ItemGroup>

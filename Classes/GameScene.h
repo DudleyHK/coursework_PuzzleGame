@@ -8,10 +8,8 @@
 
 */
 #pragma once
-#include "cocos2d.h"
 #include "PuzzleBoard.h"
 #include "MainMenu.h"
-#include "Tags.h"
 #include <vector>
 
 
@@ -23,7 +21,6 @@ public:
 	// @ -- Return: Created scene
 	static cocos2d::Scene* createScene();
 
-	
 	CREATE_FUNC(GameScene);
 	
 	GameScene();
@@ -69,8 +66,8 @@ public:
 	// @ -- Return: If it is the empty tile return TRUE.
 	bool getEmptyTilePos(int _posID);
 
-	// @ -- Detail: Create animation of the selected tile moving. Swap selected posID and 
-	//			empty posID.
+	// @ -- Detail: Create animation of the selected tile moving if the game is not worn. 
+	//			Swap selected posID and empty posID.
 	// @ -- Param: Pass in the tileID of the selected tile.
 	void swapTiles(int tileID);
 
@@ -83,14 +80,18 @@ public:
 	// @ -- Detail:
 	// @ -- Param:
 	// @ -- Return:
-	bool endGameMenu();
+	bool gameOverPopup();
 
 	// @ -- Detail:
 	// @ -- Param:
 	// @ -- Return:
 	void resetCallback(cocos2d::Ref* sender);
 
-
+	
+	// @ -- Detail:
+	// @ -- Param:
+	// @ -- Return:
+	void returnCallback(cocos2d::Ref* sender);
 
 private:
 	std::vector<SingleTile*> tileList;

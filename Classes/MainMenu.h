@@ -7,6 +7,8 @@
 */
 #pragma once
 #include "GameScene.h"
+#include "Settings.h"
+
 
 class MainMenu : public cocos2d::Layer
 {
@@ -15,6 +17,8 @@ public:
 	// @ -- Detail: Create a new scene.
 	// @ -- Return: Created scene
 	static cocos2d::Scene* createScene();
+
+	CREATE_FUNC(MainMenu);
 
 	MainMenu();
 	~MainMenu();
@@ -36,9 +40,10 @@ public:
 	//			the scene. The menuStartGame() function calls call the Game Scene 
 	//			create() function. The menuCloseCallback() function tells the Director
 	//			to end the game safely.
-	void menuStartGame(cocos2d::Ref* sender);
+	void menuPlayCallback(cocos2d::Ref* sender);
 	void menuCloseCallback(cocos2d::Ref* pSender);
+	void menuSettingsCallback(cocos2d::Ref* sender);
 
-
-	CREATE_FUNC(MainMenu);
+private:
+	Settings* settings = new Settings();
 };

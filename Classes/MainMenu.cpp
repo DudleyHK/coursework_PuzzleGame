@@ -15,7 +15,7 @@ cocos2d::Scene* MainMenu::createScene()
 
 
 	// add layer as a child to a scene
-	menuScene->addChild(menuLayer);
+	menuScene->addChild(menuLayer, -50);
 	menuLayer->initLayer();
 
 	// return the scene
@@ -77,7 +77,7 @@ void MainMenu::menuButtons()
 		cocos2d::Sprite::create("PlayUnselected.png"),
 		cocos2d::Sprite::create("PlaySelected.png"),
 		nullptr,
-		CC_CALLBACK_1(MainMenu::menuStartGame, this));
+		CC_CALLBACK_1(MainMenu::menuPlayCallback, this));
 
 
 	// Create the exit game menu item, this will exit the app
@@ -96,7 +96,7 @@ void MainMenu::menuButtons()
 }
 
 
-void MainMenu::menuStartGame(cocos2d::Ref* sender)
+void MainMenu::menuPlayCallback(cocos2d::Ref* sender)
 {
 	cocos2d::Director::getInstance()->replaceScene(
 		cocos2d::TransitionSlideInR::create(1, GameScene::createScene()));
@@ -106,6 +106,12 @@ void MainMenu::menuStartGame(cocos2d::Ref* sender)
 void MainMenu::menuCloseCallback(cocos2d::Ref* pSender)
 {
 	cocos2d::Director::getInstance()->end();
+}
+
+void MainMenu::menuSettingsCallback(cocos2d::Ref* sender)
+{
+	cocos2d::Director::getInstance()->replaceScene(
+		cocos2d::TransitionSlideInR::create(1, Settings::createScene()));
 }
 
 

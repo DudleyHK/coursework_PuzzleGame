@@ -17,11 +17,11 @@ cocos2d::Scene * GameScene::createScene()
 	auto playLayer = GameScene::create();
 
 	// add layer as a child to a scene
-playScene->addChild(playLayer);
-playLayer->initLayer();
+	playScene->addChild(playLayer, -50);
+	playLayer->initLayer();
 
-// return the scene
-return playScene;
+	// return the scene
+	return playScene;
 }
 
 
@@ -55,6 +55,8 @@ GameScene::~GameScene()
 
 bool GameScene::initLayer()
 {
+	gameWon = false;
+
 	if (!Layer::init())
 	{
 		return false;
@@ -76,7 +78,7 @@ void GameScene::addPuzzleBoard()
 	for (unsigned int index = 0; index < tileList.size(); index++)
 	{
 		// display
-		this->addChild(tileList.at(index));
+		this->addChild(tileList.at(index), -5);
 	}
 }
 
@@ -209,36 +211,40 @@ bool GameScene::getEmptyTilePos(int _posID)
 
 void GameScene::swapTiles(int tileID)
 {
-	//selected sprite
-	auto selectedSprite = tileList.at(tileID);
-	cocos2d::Vec2 selectedSpritePosition = tileList.at(tileID)->getPosition();
-
-	// empty sprite
-	auto emptySprite = tileList.at(empTileID);
-	cocos2d::Vec2 emptySpritePosition = tileList.at(empTileID)->getPosition();
-
-
-	auto moveEmptySprite = cocos2d::MoveTo::create(0.1f, cocos2d::Vec2(
-		selectedSpritePosition.x, 
-		selectedSpritePosition.y));
-	auto moveSelectedSprite = cocos2d::MoveTo::create(0.1f, cocos2d::Vec2(
-		emptySpritePosition.x,
-		emptySpritePosition.y));
-
-
-	if (selectedSprite->getNumberOfRunningActions() == 0 && 
-		emptySprite->getNumberOfRunningActions() == 0)
+	// check if the game has ben won
+	if (!gameWon)
 	{
-		int temp = tileList.at(tileID)->getPositionID();
+		//selected sprite
+		auto selectedSprite = tileList.at(tileID);
+		cocos2d::Vec2 selectedSpritePosition = tileList.at(tileID)->getPosition();
 
-		selectedSprite->runAction(moveSelectedSprite);
-		emptySprite->runAction(moveEmptySprite);
+		// empty sprite
+		auto emptySprite = tileList.at(empTileID);
+		cocos2d::Vec2 emptySpritePosition = tileList.at(empTileID)->getPosition();
 
-		// set the position value as new positions
-		tileList.at(tileID)->setPositionID(tileList.at(empTileID)->getPositionID());
 
-		// set the tile positions as new positions
-		tileList.at(empTileID)->setPositionID(temp);
+		auto moveEmptySprite = cocos2d::MoveTo::create(0.1f, cocos2d::Vec2(
+			selectedSpritePosition.x,
+			selectedSpritePosition.y));
+		auto moveSelectedSprite = cocos2d::MoveTo::create(0.1f, cocos2d::Vec2(
+			emptySpritePosition.x,
+			emptySpritePosition.y));
+
+
+		if (selectedSprite->getNumberOfRunningActions() == 0 &&
+			emptySprite->getNumberOfRunningActions() == 0)
+		{
+			int temp = tileList.at(tileID)->getPositionID();
+
+			selectedSprite->runAction(moveSelectedSprite);
+			emptySprite->runAction(moveEmptySprite);
+
+			// set the position value as new positions
+			tileList.at(tileID)->setPositionID(tileList.at(empTileID)->getPositionID());
+
+			// set the tile positions as new positions
+			tileList.at(empTileID)->setPositionID(temp);
+		}
 	}
 
 	// track amount of moves taken.
@@ -249,8 +255,8 @@ void GameScene::swapTiles(int tileID)
 	// check to see if the board is complete at this point
 	if (boardComplete())
 	{
-		// at this point bring up a message would u like to replay or main menu?
-		endGameMenu();
+		gameWon = true;
+		gameOverPopup();
 	}
 }
 
@@ -267,14 +273,12 @@ bool GameScene::boardComplete()
 	{
 		return true;
 	}
-
 	return false;
 }
 
-
-bool GameScene::endGameMenu()
+bool GameScene::gameOverPopup()
 {
-	// Create the play game menu item
+	// restart the game
 	cocos2d::MenuItemSprite* resetBoard = new cocos2d::MenuItemSprite();
 	resetBoard->initWithNormalSprite(
 		cocos2d::Sprite::create("PlayUnselected.png"),
@@ -282,14 +286,18 @@ bool GameScene::endGameMenu()
 		nullptr,
 		CC_CALLBACK_1(GameScene::resetCallback, this));
 
+	// exit back to the main menu
+	cocos2d::MenuItemSprite* returnToMenu = new cocos2d::MenuItemSprite();
+	returnToMenu->initWithNormalSprite(
+		cocos2d::Sprite::create("PlayUnselected.png"),
+		cocos2d::Sprite::create("PlaySelected.png"),
+		nullptr,
+		CC_CALLBACK_1(GameScene::returnCallback, this));
 
 	// Create the actual menu and assign the menu to the Puzzle game scene
-	cocos2d::Menu* menu = cocos2d::Menu::create(resetBoard, nullptr);
+	cocos2d::Menu* menu = cocos2d::Menu::create(resetBoard, returnToMenu, nullptr);
 	menu->alignItemsHorizontally();
-	this->addChild(menu, -10);
-	
-
-
+	this->addChild(menu, 1);
 
 	return false;
 }
@@ -297,5 +305,11 @@ bool GameScene::endGameMenu()
 void GameScene::resetCallback(cocos2d::Ref * sender)
 {
 	cocos2d::Director::getInstance()->replaceScene(
-		cocos2d::TransitionSlideInR::create(1, MainMenu::createScene()));
+		cocos2d::TransitionSlideInR::create(1, GameScene::createScene()));
+}
+
+void GameScene::returnCallback(cocos2d::Ref * sender)
+{
+	cocos2d::Director::getInstance()->replaceScene(
+		cocos2d::TransitionSlideInL::create(1, MainMenu::createScene()));
 }
