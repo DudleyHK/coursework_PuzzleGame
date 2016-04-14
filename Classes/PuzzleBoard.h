@@ -38,8 +38,9 @@ public:
 
 	bool checkInBounds(int w, int h) const;
 
-	int getAdjacentTile(int newIndexW, int newIndexH) const;
+	int getAdjacentTile() const;
 
+	void swapTiles(int adjacentPosID);
 
 
 private:
@@ -49,6 +50,8 @@ private:
 	float scaleHeight = 0.0f;
 	int imageWidth = 0;
 	int imageHeight = 0;
+	int newIndexW = 0;
+	int newIndexH = 0;
 	
 
 	const int empTileID = 3;

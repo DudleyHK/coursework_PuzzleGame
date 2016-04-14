@@ -99,7 +99,6 @@ int PuzzleBoard::produceRandValue() const
 
 bool PuzzleBoard::checkInBounds(int w, int h) const
 {
-
 	if ((h < 4 && h >= 0) &&
 		(w < 4 && w >= 0))
 	{
@@ -116,71 +115,83 @@ void PuzzleBoard::getDirection()
 	int emptyPosID = 0;
 	int empIndexW = 0;
 	int empIndexH = 0;
-	int newIndexW = 0;
-	int newIndexH = 0;
-	
 	bool isValid = false;
+	
+	
 
-	emptyPosID = tileList.at(empTileID)->getPositionID();
-	getCoordinates(emptyPosID, &empIndexW, &empIndexH);
-
-	// While a value space is not found. 
-	while (!isValid)
+	for (int i = 0; i < 100; i++)
 	{
-		randValue = produceRandValue();
+		isValid = false;
 
-		switch (randValue)
-		{
-		case 1: // Up 
-			newIndexW = empIndexW;
-			newIndexH = empIndexH + 1;
-			break;
-		case 2: // Down
-			newIndexW = empIndexW;
-			newIndexH = empIndexH - 1;
-			break;
-		case 3: // Left
-			newIndexW = empIndexW - 1;
-			newIndexH = empIndexH;
-			break;
-		case 4: // Right
-			newIndexW = empIndexW + 1;
-			newIndexH = empIndexH;
-			break;
-		default:
-			break;
-		}
+		emptyPosID = tileList.at(empTileID)->getPositionID();
+		getCoordinates(emptyPosID, &empIndexW, &empIndexH);
 
+		// While a value space is not found. 
+		while (!isValid)
+		{			
+			randValue = produceRandValue();
 
-		if(checkInBounds(newIndexW, newIndexH))
-		{
-			isValid = true;
-		}
-	}
+			switch (randValue)
+			{
+			case 1: // Up 
+				newIndexW = empIndexW;
+				newIndexH = empIndexH + 1;
+				break;
+			case 2: // Down
+				newIndexW = empIndexW;
+				newIndexH = empIndexH - 1;
+				break;
+			case 3: // Left
+				newIndexW = empIndexW - 1;
+				newIndexH = empIndexH;
+				break;
+			case 4: // Right
+				newIndexW = empIndexW + 1;
+				newIndexH = empIndexH;
+				break;
+			default:
+				break;
+			} // END SWITCH
+			isValid = checkInBounds(newIndexW, newIndexH);
+		} // END WHILE
 
-	adjacentPosID = getAdjacentTile(newIndexW, newIndexH);
+		adjacentPosID = tileList.at((newIndexH * 4) + newIndexW)->getPositionID();
+		swapTiles(adjacentPosID);
+	} // END FOR
 }
-
-
-int PuzzleBoard::getAdjacentTile(int newIndexW, int newIndexH) const
-{
-	// run loop to find the index in the list which has the same coordinates
-	// as i have passed in
-	for (unsigned int index = 0; index < tileList.size(); index++)
-	{
-		// when we get to theat positoin in the list. 
-		if((newIndexH * 4) + newIndexW == index)
-		{
-			// return its posID
-			return tileList.at(index)->getPositionID();
-		}
-	}
-	return -1;
-}
-
 
 // create a function that takes the adjacentPosID and the emptyPosID with these values I can swap the posIDs of both tiles.
 // and change their posX, posY before the game begins.
+void PuzzleBoard::swapTiles(int adjacentPosID)
+{
+	
+	/* =========================SWAP POSITIONS==================================== */
+	// save the values into temp variables
+	float tempEmpPosX = tileList.at(empTileID)->getPositionX();
+	float tempEmpPosY = tileList.at(empTileID)->getPositionY();
+
+	// swap the empty posX and posY for the adjacent posX and posY
+	tileList.at(empTileID)->setPositionX(
+		tileList.at((newIndexH * 4) + newIndexW)->getPositionX());
+
+	tileList.at(empTileID)->setPositionY(
+		tileList.at((newIndexH * 4) + newIndexW)->getPositionY());
+
+	// set the tile in the adjacent position to the position of the emptytile
+	tileList.at((newIndexH * 4) + newIndexW)->setPositionX(tempEmpPosX);
+	tileList.at((newIndexH * 4) + newIndexW)->setPositionY(tempEmpPosY);
+
+	/* ============================SWAP POSITION IDs============================== */
+	int tempAdjPosID = adjacentPosID;
+
+	// set the adjacent positions posID to the positionID of the emptyTile
+	tileList.at((newIndexH * 4) + newIndexW)->setPositionID(
+		tileList.at(empTileID)->getPositionID());
+
+	// set the tile positions as new positions
+	tileList.at(empTileID)->setPositionID(tempAdjPosID);
+}
+
 
 
 
