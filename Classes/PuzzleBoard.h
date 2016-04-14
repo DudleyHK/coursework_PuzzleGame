@@ -24,7 +24,7 @@ public:
 
 	/* =====GETTERS AND SETTERS===== */
 	void getSpriteList(std::vector<SingleTile*> *list);
-	void getCoordinates(int posID, int* w, int* h);
+	void getCoordinates(int posID, int* const w, int* const h);
 	/* ============================== */
 
 
@@ -56,10 +56,21 @@ public:
 	// @ -- Return: If they are valid return TRUE.
 	bool checkInBounds(int w, int h) const;
 
+	// @ -- Detail: Find the tile ID of the adjacent tile and use it to find its own 
+	//			tile ID. Change and use the adjacent position ID.
+	// @ -- Param: The adjacent position ID
+	// @ -- Return: The tileID of the adjacent tile.
+	int getAdjacentTileID(int* const adjacentPosID);
+
 	// @ -- Detail: Swaps the empty tile with the randomly selected place. Then swaps
 	//			the two tiles position IDs.
-	// @ -- Param: The posID of the tile which will be swapped with the empty tile.
-	void swap(int adjacentPosID);
+	// @ -- Param: The tileID and position ID of the adjacent tiles.
+	void swap(int adjacentTileID, int adjacentPosID);
+
+
+
+
+	void getCorrectTiles(int* const rightPlace);
 
 
 private:

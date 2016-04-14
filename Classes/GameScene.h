@@ -1,5 +1,9 @@
 /*
 
+// @ -- Detail:
+// @ -- Param:
+// @ -- Return:
+
 
 
 */
@@ -17,6 +21,9 @@ public:
 	// @ -- Detail: Create a new scene.
 	// @ -- Return: Created scene
 	static cocos2d::Scene* createScene();
+
+	
+	CREATE_FUNC(GameScene);
 	
 	GameScene();
 	~GameScene();
@@ -51,10 +58,10 @@ public:
 	//			used to determine if the current position being check is the empty tile.
 	//			This integer will be set to the positionID in questions if its valid,
 	//			otherwise it will stay as the unused value of -1.
-	void checkLeft(int _posID, int* n_posID);
-	void checkRight(int _posID, int* n_posID);
-	void checkUp(int _posID, int* n_posID);
-	void checkDown(int _posID, int* n_posID);
+	void checkLeft(int _posID, int* const n_posID);
+	void checkRight(int _posID, int* const n_posID);
+	void checkUp(int _posID, int* const n_posID);
+	void checkDown(int _posID, int* const n_posID);
 
 	// @ -- Detail: Function to check if the posID in question is the empty tile.
 	// @ -- Param: The posID of the position being checked.
@@ -66,11 +73,13 @@ public:
 	// @ -- Param: Pass in the tileID of the selected tile.
 	void swapTiles(int tileID);
 
-	// USE WHEN CREATING A BACKGROUND FOR THE SCENE
-	//void initBackground();
 
-	// implement the "static create()" method manually
-	CREATE_FUNC(GameScene);
+	// @ -- Detail:
+	// @ -- Param:
+	// @ -- Return:
+	bool boardComplete();
+
+
 
 private:
 	std::vector<SingleTile*> tileList;
@@ -78,6 +87,7 @@ private:
 
 	int hIndex = 0;
 	int wIndex = 0;
+	int numOfMoves = 0;
 
 	const int empTileID = 3;
 

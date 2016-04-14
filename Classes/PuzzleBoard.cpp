@@ -11,7 +11,7 @@
 
 PuzzleBoard::PuzzleBoard()
 {
-	srand((unsigned int)time(nullptr));
+	srand((unsigned int)(time(0)));
 }
 
 PuzzleBoard::~PuzzleBoard()
@@ -24,10 +24,10 @@ void PuzzleBoard::getSpriteList(std::vector<SingleTile*> *tileList)
 	*tileList = this->tileList;
 }
 
-void PuzzleBoard::getCoordinates(int posID, int* w, int* h)
+void PuzzleBoard::getCoordinates(int posID, int* const w, int* const h)
 {
-	*h  = posID / 4;
-	*w = posID - (4 * *h);
+	*h = posID / 4;
+	*w = posID - (*h * 4);
 }
 
 void PuzzleBoard::createImage()
@@ -97,14 +97,16 @@ bool PuzzleBoard::checkInBounds(int w, int h) const
 void PuzzleBoard::getDirection()
 {
 	int randValue = 0;
+	int adjacentTileID = 0;
 	int adjacentPosID = 0;
 	int emptyPosID = 0;
 	int empIndexW = 0;
 	int empIndexH = 0;
+	int rightPlace = 0;
 	bool isValid = false;
 	
 
-	for (int i = 0; i < 100; i++)
+	for (int i = 0; i < 2; i++)
 	{
 		isValid = false;
 
@@ -137,15 +139,43 @@ void PuzzleBoard::getDirection()
 			default:
 				break;
 			} // END SWITCH
-			isValid = checkInBounds(newIndexW, newIndexH);
-		} // END WHILE
 
-		adjacentPosID = tileList.at((newIndexH * 4) + newIndexW)->getPositionID();
-		swap(adjacentPosID);
+			adjacentTileID = getAdjacentTileID(&adjacentPosID);
+			if (adjacentTileID != -1)
+			{
+				isValid = checkInBounds(newIndexW, newIndexH);
+			}
+		} // END WHILE
+		
+		swap(adjacentTileID, adjacentPosID);
+		getCorrectTiles(&rightPlace);
+
+		// check how many positions are placed correctely
+		//if (rightPlace > (tileList.size() - (tileList.size() / 3)))
+		if(rightPlace == tileList.size())
+		{
+			// give the system another turn to fix it self.
+			i--;
+		}
 	} // END FOR
 }
 
-void PuzzleBoard::swap(int adjacentPosID)
+int PuzzleBoard::getAdjacentTileID(int* const adjacentPosID)
+{
+	*adjacentPosID = (newIndexH * 4) + newIndexW;
+
+	for (unsigned int index = 0; index < tileList.size(); index++)
+	{
+		if (tileList.at(index)->getPositionID() == *adjacentPosID)
+		{
+			return index;
+		}
+	}
+	return -1;
+}
+
+// change to tileID
+void PuzzleBoard::swap(int adjacentTileID, int adjacentPosID)
 {	
 	/* =========================SWAP POSITIONS==================================== */
 	// save the values into temp variables
@@ -154,20 +184,20 @@ void PuzzleBoard::swap(int adjacentPosID)
 
 	// swap the empty posX and posY for the adjacent posX and posY
 	tileList.at(empTileID)->setPositionX(
-		tileList.at((newIndexH * 4) + newIndexW)->getPositionX());
+		tileList.at(adjacentTileID)->getPositionX());
 
 	tileList.at(empTileID)->setPositionY(
-		tileList.at((newIndexH * 4) + newIndexW)->getPositionY());
+		tileList.at(adjacentTileID)->getPositionY());
 
 	// set the tile in the adjacent position to the position of the emptytile
-	tileList.at((newIndexH * 4) + newIndexW)->setPositionX(tempEmpPosX);
-	tileList.at((newIndexH * 4) + newIndexW)->setPositionY(tempEmpPosY);
+	tileList.at(adjacentTileID)->setPositionX(tempEmpPosX);
+	tileList.at(adjacentTileID)->setPositionY(tempEmpPosY);
 
 	/* ============================SWAP POSITION IDs============================== */
 	int tempAdjPosID = adjacentPosID;
 
 	// set the adjacent positions posID to the positionID of the emptyTile
-	tileList.at((newIndexH * 4) + newIndexW)->setPositionID(
+	tileList.at(adjacentTileID)->setPositionID(
 		tileList.at(empTileID)->getPositionID());
 
 	// set the tile positions as new positions
@@ -175,11 +205,16 @@ void PuzzleBoard::swap(int adjacentPosID)
 }
 
 
+void PuzzleBoard::getCorrectTiles(int* const rightPlace)
+{
+	*rightPlace = 0;
 
-
-
-
-
-
-
-
+	// count how many tiles are in the right place
+	for (unsigned int index = 0; index < tileList.size(); index++)
+	{
+		if (tileList.at(index)->getTileID() == tileList.at(index)->getPositionID())
+		{
+			*rightPlace += 1;
+		}
+	}
+}

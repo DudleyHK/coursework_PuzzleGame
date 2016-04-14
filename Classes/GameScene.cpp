@@ -60,7 +60,6 @@ bool GameScene::initLayer()
 		return false;
 	}
 
-	//initBackground();
 	addPuzzleBoard();
 	addEvent();
 
@@ -150,7 +149,7 @@ void GameScene::checkForEmpty(int tileID) // this is currently the same as posID
 	}
 }
 
-void GameScene::checkLeft(int _posID, int* n_posID)
+void GameScene::checkLeft(int _posID, int* const  n_posID)
 {
 	*n_posID = _posID;
 
@@ -163,7 +162,7 @@ void GameScene::checkLeft(int _posID, int* n_posID)
 	}
 }
 
-void GameScene::checkRight(int _posID, int* n_posID)
+void GameScene::checkRight(int _posID, int* const n_posID)
 {
 	*n_posID = _posID;
 
@@ -175,7 +174,7 @@ void GameScene::checkRight(int _posID, int* n_posID)
 	}
 }
 
-void GameScene::checkUp(int _posID, int* n_posID)
+void GameScene::checkUp(int _posID, int* const n_posID)
 {
 	*n_posID = _posID;
 
@@ -187,7 +186,7 @@ void GameScene::checkUp(int _posID, int* n_posID)
 	}
 }
 
-void GameScene::checkDown(int _posID, int* n_posID)
+void GameScene::checkDown(int _posID, int* const n_posID)
 {
 	*n_posID = _posID;
 
@@ -207,8 +206,6 @@ bool GameScene::getEmptyTilePos(int _posID)
 	}
 	return false;
 }
-
-
 
 void GameScene::swapTiles(int tileID)
 {
@@ -243,4 +240,34 @@ void GameScene::swapTiles(int tileID)
 		// set the tile positions as new positions
 		tileList.at(empTileID)->setPositionID(temp);
 	}
+
+	// track amount of moves taken.
+	numOfMoves++;
+
+	cocos2d::log("%i", numOfMoves);
+
+	// check to see if the board is complete at this point
+	if (boardComplete())
+	{
+		cocos2d::log("gameWon");
+
+		// at this point bring up a message would u like to replay or main menu?
+	}
+}
+
+
+// end state pseudocode -- call before every move -- this is so at the very beginning of the game the board can check if the board is set to its original position
+
+bool GameScene::boardComplete()
+{
+	int rightPlace = 0;
+
+	puzzleBoard->getCorrectTiles(&rightPlace);
+
+	if (rightPlace == tileList.size())
+	{
+		return true;
+	}
+
+	return false;
 }
