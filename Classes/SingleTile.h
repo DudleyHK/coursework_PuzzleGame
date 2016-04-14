@@ -39,14 +39,14 @@ public:
 	void initTile(unsigned int hIndex, unsigned int wIndex);
 
 private:
-	float xPosition = 0.0f;
-	float yPosition = 0.0f;
-	float scaleWidth = 0.0f;
-	float scaleHeight = 0.0f;
-	float tileHeight = 0.0f;
-	float tileWidth = 0.0f;
+	/* =====WHOLE IMAGE===== */
 	int imageWidth = 0;
 	int imageHeight = 0;
+	/* =====SINGLE TILE===== */
+	float xPosition = 0.0f;
+	float yPosition = 0.0f;
+	float tileHeight = 0.0f;
+	float tileWidth = 0.0f;
 	int positionID = 0;
 	int tileID = 0;
 };

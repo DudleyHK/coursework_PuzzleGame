@@ -63,13 +63,13 @@ public:
 	int getAdjacentTileID(int* const adjacentPosID);
 
 	// @ -- Detail: Swaps the empty tile with the randomly selected place. Then swaps
-	//			the two tiles position IDs.
+	//			the two tiles position IDs. If at the end of the shuffle the board is in
+	//			its original state give it one extra shuffle.
 	// @ -- Param: The tileID and position ID of the adjacent tiles.
-	void swap(int adjacentTileID, int adjacentPosID);
+	void swap(int adjacentTileID, int adjacentPosID); 
 
-
-
-
+	// @ -- Detail: for every tile ID and position ID that match add one to the counter. 
+	// @ -- Param: right place counter.
 	void getCorrectTiles(int* const rightPlace);
 
 

@@ -10,6 +10,7 @@
 #pragma once
 #include "cocos2d.h"
 #include "PuzzleBoard.h"
+#include "MainMenu.h"
 #include "Tags.h"
 #include <vector>
 
@@ -79,6 +80,16 @@ public:
 	// @ -- Return:
 	bool boardComplete();
 
+	// @ -- Detail:
+	// @ -- Param:
+	// @ -- Return:
+	bool endGameMenu();
+
+	// @ -- Detail:
+	// @ -- Param:
+	// @ -- Return:
+	void resetCallback(cocos2d::Ref* sender);
+
 
 
 private:
@@ -88,7 +99,7 @@ private:
 	int hIndex = 0;
 	int wIndex = 0;
 	int numOfMoves = 0;
-
 	const int empTileID = 3;
+	bool gameWon = false;
 
 };

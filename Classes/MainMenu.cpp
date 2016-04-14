@@ -1,9 +1,6 @@
 /*
-
-
-http://www.cocos2d-x.org/wiki/Coordinate_System
-
-https://blackboard.uwe.ac.uk/bbcswebdav/pid-4625508-dt-content-rid-8627132_2/courses/UFCFWA-30-1_15sep_1/Worksheet%2012.pdf // Work sheet 12
+// updatefunction actions
+http://www.gamefromscratch.com/post/2014/10/11/Cocos2d-x-Tutorial-Series-Game-loops-Updates-and-Action-Handling.aspx
 */
 #include "MainMenu.h"
 

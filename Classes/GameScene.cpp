@@ -249,9 +249,8 @@ void GameScene::swapTiles(int tileID)
 	// check to see if the board is complete at this point
 	if (boardComplete())
 	{
-		cocos2d::log("gameWon");
-
 		// at this point bring up a message would u like to replay or main menu?
+		endGameMenu();
 	}
 }
 
@@ -270,4 +269,33 @@ bool GameScene::boardComplete()
 	}
 
 	return false;
+}
+
+
+bool GameScene::endGameMenu()
+{
+	// Create the play game menu item
+	cocos2d::MenuItemSprite* resetBoard = new cocos2d::MenuItemSprite();
+	resetBoard->initWithNormalSprite(
+		cocos2d::Sprite::create("PlayUnselected.png"),
+		cocos2d::Sprite::create("PlaySelected.png"),
+		nullptr,
+		CC_CALLBACK_1(GameScene::resetCallback, this));
+
+
+	// Create the actual menu and assign the menu to the Puzzle game scene
+	cocos2d::Menu* menu = cocos2d::Menu::create(resetBoard, nullptr);
+	menu->alignItemsHorizontally();
+	this->addChild(menu, -10);
+	
+
+
+
+	return false;
+}
+
+void GameScene::resetCallback(cocos2d::Ref * sender)
+{
+	cocos2d::Director::getInstance()->replaceScene(
+		cocos2d::TransitionSlideInR::create(1, MainMenu::createScene()));
 }
