@@ -73,6 +73,7 @@ void GameScene::addPuzzleBoard()
 {
 	puzzleBoard->init();
 	puzzleBoard->getSpriteList(&tileList);
+	puzzleBoard->getDirection();
 
 	// Display puzzle.
 	for (unsigned int index = 0; index < tileList.size(); index++)
@@ -162,7 +163,7 @@ void GameScene::checkLeft(int _posID, int* n_posID)
 
 	// check 
 	// if either of these functions return false
-	if (!(checkInBounds(hIndex, (wIndex - 1)) && getEmptyTilePos(*n_posID)))
+	if (!(puzzleBoard->checkInBounds(hIndex, (wIndex - 1)) && getEmptyTilePos(*n_posID)))
 	{
 		// set newPos to an unused value
 		*n_posID = -1;
@@ -174,7 +175,7 @@ void GameScene::checkRight(int _posID, int* n_posID)
 	*n_posID = _posID;
 
 	// if either of these functions return false
-	if (!(checkInBounds(hIndex, (wIndex + 1)) && getEmptyTilePos(_posID)))
+	if (!(puzzleBoard->checkInBounds(hIndex, (wIndex + 1)) && getEmptyTilePos(_posID)))
 	{
 		// set newPos to an unused value
 		*n_posID = -1;
@@ -186,7 +187,7 @@ void GameScene::checkUp(int _posID, int* n_posID)
 	*n_posID = _posID;
 
 	// if either of these functions return false
-	if (!(checkInBounds((hIndex + 1), wIndex) && getEmptyTilePos(_posID)))
+	if (!(puzzleBoard->checkInBounds((hIndex + 1), wIndex) && getEmptyTilePos(_posID)))
 	{
 		// set newPos to an unused value
 		*n_posID = -1;
@@ -198,7 +199,7 @@ void GameScene::checkDown(int _posID, int* n_posID)
 	*n_posID = _posID;
 
 	// if either of these functions return false
-	if (!(checkInBounds((hIndex - 1), wIndex) && getEmptyTilePos(_posID)))
+	if (!(puzzleBoard->checkInBounds((hIndex - 1), wIndex) && getEmptyTilePos(_posID)))
 	{
 		// set newPos to an unused value
 		*n_posID = -1;
@@ -214,16 +215,7 @@ bool GameScene::getEmptyTilePos(int n_posID)
 	return false;
 }
 
-bool GameScene::checkInBounds(int _hIndex, int _wIndex)
-{
-	
-	if ((_hIndex < 4 && _hIndex >= 0) &&
-		(_wIndex < 4 && _wIndex >= 0))
-	{
-		return true;
-	}
-	return false;
-}
+
 
 void GameScene::swapTiles(int tileID, int emptyID)
 {

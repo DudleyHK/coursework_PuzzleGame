@@ -29,7 +29,7 @@ SingleTile * SingleTile::create()
 	return singleTile;
 }
 
-void SingleTile::setImageData(int imgHeight, int imgWidth)
+void SingleTile::setImageData(int imgHeight, int imgWidth) 
 {
 	this->imageHeight = imgHeight;
 	this->imageWidth = imgWidth;

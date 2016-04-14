@@ -1,9 +1,6 @@
-﻿C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V140\Microsoft.CppClean.targets(76,5): warning : The process cannot access the file 'c:\users\dudley\onedrive\c++\assignment 3\build\debug\int\vc140.idb' because it is being used by another process.
-  AppDelegate.cpp
-  GameScene.cpp
-  PuzzleBoard.cpp
-  MainMenu.cpp
-  SingleTile.cpp
-  main.cpp
-c:\users\dudley\onedrive\c++\assignment 3\classes\gamescene.cpp(218): error C2511: 'bool GameScene::checkInBounds(int,int) const': overloaded member function not found in 'GameScene'
-  c:\users\dudley\onedrive\c++\assignment 3\classes\gamescene.h(13): note: see declaration of 'GameScene'
+﻿  PuzzleBoard.cpp
+AppDelegate.obj : warning LNK4075: ignoring '/EDITANDCONTINUE' due to '/SAFESEH' specification
+     Creating library C:\Users\Dudley\OneDrive\C++\Assignment 3\\Build\Debug\PuzzleGame.lib and object C:\Users\Dudley\OneDrive\C++\Assignment 3\\Build\Debug\PuzzleGame.exp
+  PuzzleGame.vcxproj -> C:\Users\Dudley\OneDrive\C++\Assignment 3\\Build\Debug\PuzzleGame.exe
+  0 File(s) copied
+  0 File(s) copied

@@ -11,7 +11,7 @@
 
 PuzzleBoard::PuzzleBoard()
 {
-	;
+	srand((unsigned int)time(nullptr));
 }
 
 PuzzleBoard::~PuzzleBoard()
@@ -22,6 +22,12 @@ PuzzleBoard::~PuzzleBoard()
 void PuzzleBoard::getSpriteList(std::vector<SingleTile*> *tileList)
 {
 	*tileList = this->tileList;
+}
+
+void PuzzleBoard::getCoordinates(int posID, int* w, int* h)
+{
+	*h  = posID / 4;
+	*w = posID - (4 * *h);
 }
 
 // @ param - image file and the number of height/ width segments to be sliced
@@ -84,4 +90,103 @@ void PuzzleBoard::setTransparentTile()
 		}
 	}
 }
+
+int PuzzleBoard::produceRandValue() const
+{
+	return rand() % 4 + 1;
+}
+
+
+bool PuzzleBoard::checkInBounds(int w, int h) const
+{
+
+	if ((h < 4 && h >= 0) &&
+		(w < 4 && w >= 0))
+	{
+		return true;
+	}
+	return false;
+}
+
+
+void PuzzleBoard::getDirection()
+{
+	int randValue = 0;
+	int adjacentPosID = 0;
+	int emptyPosID = 0;
+	int empIndexW = 0;
+	int empIndexH = 0;
+	int newIndexW = 0;
+	int newIndexH = 0;
+	
+	bool isValid = false;
+
+	emptyPosID = tileList.at(empTileID)->getPositionID();
+	getCoordinates(emptyPosID, &empIndexW, &empIndexH);
+
+	// While a value space is not found. 
+	while (!isValid)
+	{
+		randValue = produceRandValue();
+
+		switch (randValue)
+		{
+		case 1: // Up 
+			newIndexW = empIndexW;
+			newIndexH = empIndexH + 1;
+			break;
+		case 2: // Down
+			newIndexW = empIndexW;
+			newIndexH = empIndexH - 1;
+			break;
+		case 3: // Left
+			newIndexW = empIndexW - 1;
+			newIndexH = empIndexH;
+			break;
+		case 4: // Right
+			newIndexW = empIndexW + 1;
+			newIndexH = empIndexH;
+			break;
+		default:
+			break;
+		}
+
+
+		if(checkInBounds(newIndexW, newIndexH))
+		{
+			isValid = true;
+		}
+	}
+
+	adjacentPosID = getAdjacentTile(newIndexW, newIndexH);
+}
+
+
+int PuzzleBoard::getAdjacentTile(int newIndexW, int newIndexH) const
+{
+	// run loop to find the index in the list which has the same coordinates
+	// as i have passed in
+	for (unsigned int index = 0; index < tileList.size(); index++)
+	{
+		// when we get to theat positoin in the list. 
+		if((newIndexH * 4) + newIndexW == index)
+		{
+			// return its posID
+			return tileList.at(index)->getPositionID();
+		}
+	}
+	return -1;
+}
+
+
+// create a function that takes the adjacentPosID and the emptyPosID with these values I can swap the posIDs of both tiles.
+// and change their posX, posY before the game begins.
+
+
+
+
+
+
+
+
 
