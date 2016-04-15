@@ -170,7 +170,6 @@ xcopy "$(SolutionDir)\cocos2d\bin\$(PlatformToolset)\$(Configuration)\*.dll" "$(
     <ResourceCompile Include="game.rc" />
   </ItemGroup>
   <ItemGroup>
-    <Image Include="..\..\..\Game Related Images\Sprites\Bear.jpg" />
     <Image Include="..\Resources\ExitNormal.png" />
     <Image Include="..\Resources\ExitSelected.png" />
     <Image Include="..\Resources\p_hamsterRunning.jpg" />

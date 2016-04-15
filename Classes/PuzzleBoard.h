@@ -82,6 +82,12 @@ private:
 	int imageHeight = 0;
 	int newIndexW = 0;
 	int newIndexH = 0;
+<<<<<<< HEAD
 	int listSize = 0;
 	int empTileID = 3;
+=======
+	
+
+	const int empTileID = 3;
+>>>>>>> parent of 74058df... Acheived: Settings layer added
 }; 

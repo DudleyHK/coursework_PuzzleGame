@@ -38,12 +38,11 @@ public:
 
 	// @ -- Detail: These two functions are called when the user selected a button in 
 	//			the scene. The menuStartGame() function calls call the Game Scene 
-	//			create() function. The menuSettingsCallback() function takes the player
-	//			to the Settings menu. The menuCloseCallback() function tells the Director
+	//			create() function. The menuCloseCallback() function tells the Director
 	//			to end the game safely.
 	void menuPlayCallback(cocos2d::Ref* sender);
-	void menuSettingsCallback(cocos2d::Ref* sender);
 	void menuCloseCallback(cocos2d::Ref* pSender);
+	void menuSettingsCallback(cocos2d::Ref* sender);
 
 private:
 	Settings* settings = new Settings();

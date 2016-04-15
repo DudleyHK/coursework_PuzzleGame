@@ -9,6 +9,7 @@
 class Settings : public cocos2d::Layer
 {
 public:
+
 	// @ -- Detail: Create a new scene.
 	// @ -- Return: Created scene
 	static cocos2d::Scene* createScene();
@@ -23,9 +24,8 @@ public:
 	// @ -- Return: If the layer has been initialised return TRUE.
 	virtual bool initLayer();
 
-	void backgroundAndTile();
-
-	void backButton() const;
+	// back button.
+	void backButton();
 
 	// height slider
 	// width slider.
