@@ -6,6 +6,7 @@
   SingleTile.cpp
   main.cpp
 <<<<<<< HEAD
+<<<<<<< HEAD
 c:\users\dudley\onedrive\c++\assignment 3\classes\puzzleboard.cpp(16): error C2679: binary '=': no operator found which takes a right-hand operand of type 'SingleTile *' (or there is no acceptable conversion)
   c:\users\dudley\onedrive\c++\assignment 3\classes\singletile.h(52): note: could be 'SingleTile &SingleTile::operator =(const SingleTile &)' (compiling source file ..\Classes\PuzzleBoard.cpp)
   c:\users\dudley\onedrive\c++\assignment 3\classes\puzzleboard.cpp(16): note: while trying to match the argument list '(SingleTile, SingleTile *)'
@@ -140,6 +141,8 @@ c:\users\dudley\onedrive\c++\assignment 3\classes\gamescene.cpp(275): error C222
   c:\users\dudley\onedrive\c++\assignment 3\classes\gamescene.cpp(275): note: type is 'SingleTile *'
   c:\users\dudley\onedrive\c++\assignment 3\classes\gamescene.cpp(275): note: did you intend to use '->' instead?
 =======
+=======
+>>>>>>> parent of 74058df... Acheived: Settings layer added
      Creating library C:\Users\Dudley\OneDrive\C++\Assignment 3\\Build\Debug\PuzzleGame.lib and object C:\Users\Dudley\OneDrive\C++\Assignment 3\\Build\Debug\PuzzleGame.exp
   PuzzleGame.vcxproj -> C:\Users\Dudley\OneDrive\C++\Assignment 3\\Build\Debug\PuzzleGame.exe
   0 File(s) copied

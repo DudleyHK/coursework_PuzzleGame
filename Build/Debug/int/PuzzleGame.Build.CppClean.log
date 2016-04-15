@@ -1,9 +1,17 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 c:\users\dudley\onedrive\c++\assignment 3\build\debug\int\singletile.obj
 c:\users\dudley\onedrive\c++\assignment 3\build\debug\int\settings.obj
 c:\users\dudley\onedrive\c++\assignment 3\build\debug\int\appdelegate.obj
 c:\users\dudley\onedrive\c++\assignment 3\build\debug\int\main.obj
 c:\users\dudley\onedrive\c++\assignment 3\build\debug\int\mainmenu.obj
+=======
+c:\users\dudley\onedrive\c++\assignment 3\build\debug\int\puzzleboard.obj
+c:\users\dudley\onedrive\c++\assignment 3\build\debug\int\mainmenu.obj
+c:\users\dudley\onedrive\c++\assignment 3\build\debug\int\singletile.obj
+c:\users\dudley\onedrive\c++\assignment 3\build\debug\int\appdelegate.obj
+c:\users\dudley\onedrive\c++\assignment 3\build\debug\int\main.obj
+>>>>>>> parent of 74058df... Acheived: Settings layer added
 =======
 c:\users\dudley\onedrive\c++\assignment 3\build\debug\int\puzzleboard.obj
 c:\users\dudley\onedrive\c++\assignment 3\build\debug\int\mainmenu.obj

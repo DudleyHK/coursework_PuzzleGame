@@ -83,7 +83,11 @@ void GameScene::addPuzzleBoard()
 	{
 		// display
 <<<<<<< HEAD
+<<<<<<< HEAD
 	//	this->addChild(-10);
+=======
+		this->addChild(tileList.at(index), -5);
+>>>>>>> parent of 74058df... Acheived: Settings layer added
 =======
 		this->addChild(tileList.at(index), -5);
 >>>>>>> parent of 74058df... Acheived: Settings layer added
