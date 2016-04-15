@@ -45,7 +45,8 @@ GameScene* GameScene::create(int hi)
 
 GameScene::GameScene()
 {
-	; // Empty
+	// set the number of tiles. 
+	listSize = 16;
 }
 
 GameScene::~GameScene()
@@ -70,15 +71,18 @@ bool GameScene::initLayer()
 
 void GameScene::addPuzzleBoard()
 {
+	// create a new single tile array
+	tileList = new SingleTile[listSize];			/////FIND AND DELETE ALL DYNAMIC MEMORY 
+
 	puzzleBoard->createImage();
-	puzzleBoard->getSpriteList(&tileList);
+	puzzleBoard->getSpriteList(tileList);
 	puzzleBoard->getDirection();
 
 	// Display puzzle.
-	for (unsigned int index = 0; index < tileList.size(); index++)
+	for (unsigned int index = 0; index < listSize; index++)
 	{
 		// display
-		this->addChild(tileList.at(index), -10);
+	//	this->addChild(-10);
 	}
 }
 

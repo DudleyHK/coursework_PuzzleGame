@@ -1,3 +1,140 @@
-﻿  PuzzleGame.vcxproj -> C:\Users\Dudley\OneDrive\C++\Assignment 3\\Build\Debug\PuzzleGame.exe
-  0 File(s) copied
-  0 File(s) copied
+﻿  AppDelegate.cpp
+  GameScene.cpp
+  PuzzleBoard.cpp
+  MainMenu.cpp
+  Settings.cpp
+  SingleTile.cpp
+  main.cpp
+c:\users\dudley\onedrive\c++\assignment 3\classes\puzzleboard.cpp(16): error C2679: binary '=': no operator found which takes a right-hand operand of type 'SingleTile *' (or there is no acceptable conversion)
+  c:\users\dudley\onedrive\c++\assignment 3\classes\singletile.h(52): note: could be 'SingleTile &SingleTile::operator =(const SingleTile &)' (compiling source file ..\Classes\PuzzleBoard.cpp)
+  c:\users\dudley\onedrive\c++\assignment 3\classes\puzzleboard.cpp(16): note: while trying to match the argument list '(SingleTile, SingleTile *)'
+c:\users\dudley\onedrive\c++\assignment 3\classes\puzzleboard.cpp(63): error C2679: binary '=': no operator found which takes a right-hand operand of type 'SingleTile *' (or there is no acceptable conversion)
+  c:\users\dudley\onedrive\c++\assignment 3\classes\singletile.h(52): note: could be 'SingleTile &SingleTile::operator =(const SingleTile &)' (compiling source file ..\Classes\PuzzleBoard.cpp)
+  c:\users\dudley\onedrive\c++\assignment 3\classes\puzzleboard.cpp(63): note: while trying to match the argument list '(SingleTile, SingleTile *)'
+c:\users\dudley\onedrive\c++\assignment 3\classes\puzzleboard.cpp(72): error C2228: left of '.size' must have class/struct/union
+  c:\users\dudley\onedrive\c++\assignment 3\classes\puzzleboard.cpp(72): note: type is 'SingleTile *'
+  c:\users\dudley\onedrive\c++\assignment 3\classes\puzzleboard.cpp(72): note: did you intend to use '->' instead?
+c:\users\dudley\onedrive\c++\assignment 3\classes\puzzleboard.cpp(77): error C2228: left of '.at' must have class/struct/union
+  c:\users\dudley\onedrive\c++\assignment 3\classes\puzzleboard.cpp(77): note: type is 'SingleTile *'
+  c:\users\dudley\onedrive\c++\assignment 3\classes\puzzleboard.cpp(77): note: did you intend to use '->' instead?
+c:\users\dudley\onedrive\c++\assignment 3\classes\puzzleboard.cpp(77): error C2227: left of '->setOpacity' must point to class/struct/union/generic type
+c:\users\dudley\onedrive\c++\assignment 3\classes\puzzleboard.cpp(115): error C2228: left of '.at' must have class/struct/union
+  c:\users\dudley\onedrive\c++\assignment 3\classes\puzzleboard.cpp(115): note: type is 'SingleTile *'
+  c:\users\dudley\onedrive\c++\assignment 3\classes\puzzleboard.cpp(115): note: did you intend to use '->' instead?
+c:\users\dudley\onedrive\c++\assignment 3\classes\puzzleboard.cpp(115): error C2227: left of '->getPositionID' must point to class/struct/union/generic type
+c:\users\dudley\onedrive\c++\assignment 3\classes\puzzleboard.cpp(157): error C2228: left of '.size' must have class/struct/union
+  c:\users\dudley\onedrive\c++\assignment 3\classes\puzzleboard.cpp(157): note: type is 'SingleTile *'
+  c:\users\dudley\onedrive\c++\assignment 3\classes\puzzleboard.cpp(157): note: did you intend to use '->' instead?
+c:\users\dudley\onedrive\c++\assignment 3\classes\puzzleboard.cpp(169): error C2228: left of '.size' must have class/struct/union
+  c:\users\dudley\onedrive\c++\assignment 3\classes\puzzleboard.cpp(169): note: type is 'SingleTile *'
+  c:\users\dudley\onedrive\c++\assignment 3\classes\puzzleboard.cpp(169): note: did you intend to use '->' instead?
+c:\users\dudley\onedrive\c++\assignment 3\classes\puzzleboard.cpp(171): error C2228: left of '.at' must have class/struct/union
+  c:\users\dudley\onedrive\c++\assignment 3\classes\puzzleboard.cpp(171): note: type is 'SingleTile *'
+  c:\users\dudley\onedrive\c++\assignment 3\classes\puzzleboard.cpp(171): note: did you intend to use '->' instead?
+c:\users\dudley\onedrive\c++\assignment 3\classes\puzzleboard.cpp(171): error C2227: left of '->getPositionID' must point to class/struct/union/generic type
+c:\users\dudley\onedrive\c++\assignment 3\classes\puzzleboard.cpp(184): error C2228: left of '.at' must have class/struct/union
+  c:\users\dudley\onedrive\c++\assignment 3\classes\puzzleboard.cpp(184): note: type is 'SingleTile *'
+  c:\users\dudley\onedrive\c++\assignment 3\classes\puzzleboard.cpp(184): note: did you intend to use '->' instead?
+c:\users\dudley\onedrive\c++\assignment 3\classes\puzzleboard.cpp(184): error C2227: left of '->getPositionX' must point to class/struct/union/generic type
+c:\users\dudley\onedrive\c++\assignment 3\classes\puzzleboard.cpp(185): error C2228: left of '.at' must have class/struct/union
+  c:\users\dudley\onedrive\c++\assignment 3\classes\puzzleboard.cpp(185): note: type is 'SingleTile *'
+  c:\users\dudley\onedrive\c++\assignment 3\classes\puzzleboard.cpp(185): note: did you intend to use '->' instead?
+c:\users\dudley\onedrive\c++\assignment 3\classes\puzzleboard.cpp(185): error C2227: left of '->getPositionY' must point to class/struct/union/generic type
+c:\users\dudley\onedrive\c++\assignment 3\classes\puzzleboard.cpp(188): error C2228: left of '.at' must have class/struct/union
+  c:\users\dudley\onedrive\c++\assignment 3\classes\puzzleboard.cpp(188): note: type is 'SingleTile *'
+  c:\users\dudley\onedrive\c++\assignment 3\classes\puzzleboard.cpp(188): note: did you intend to use '->' instead?
+c:\users\dudley\onedrive\c++\assignment 3\classes\puzzleboard.cpp(188): error C2227: left of '->setPositionX' must point to class/struct/union/generic type
+c:\users\dudley\onedrive\c++\assignment 3\classes\puzzleboard.cpp(189): error C2228: left of '.at' must have class/struct/union
+  c:\users\dudley\onedrive\c++\assignment 3\classes\puzzleboard.cpp(189): note: type is 'SingleTile *'
+  c:\users\dudley\onedrive\c++\assignment 3\classes\puzzleboard.cpp(189): note: did you intend to use '->' instead?
+c:\users\dudley\onedrive\c++\assignment 3\classes\puzzleboard.cpp(189): error C2227: left of '->getPositionX' must point to class/struct/union/generic type
+c:\users\dudley\onedrive\c++\assignment 3\classes\puzzleboard.cpp(191): error C2228: left of '.at' must have class/struct/union
+  c:\users\dudley\onedrive\c++\assignment 3\classes\puzzleboard.cpp(191): note: type is 'SingleTile *'
+  c:\users\dudley\onedrive\c++\assignment 3\classes\puzzleboard.cpp(191): note: did you intend to use '->' instead?
+c:\users\dudley\onedrive\c++\assignment 3\classes\puzzleboard.cpp(191): error C2227: left of '->setPositionY' must point to class/struct/union/generic type
+c:\users\dudley\onedrive\c++\assignment 3\classes\puzzleboard.cpp(192): error C2228: left of '.at' must have class/struct/union
+  c:\users\dudley\onedrive\c++\assignment 3\classes\puzzleboard.cpp(192): note: type is 'SingleTile *'
+  c:\users\dudley\onedrive\c++\assignment 3\classes\puzzleboard.cpp(192): note: did you intend to use '->' instead?
+c:\users\dudley\onedrive\c++\assignment 3\classes\puzzleboard.cpp(192): error C2227: left of '->getPositionY' must point to class/struct/union/generic type
+c:\users\dudley\onedrive\c++\assignment 3\classes\puzzleboard.cpp(195): error C2228: left of '.at' must have class/struct/union
+  c:\users\dudley\onedrive\c++\assignment 3\classes\puzzleboard.cpp(195): note: type is 'SingleTile *'
+  c:\users\dudley\onedrive\c++\assignment 3\classes\puzzleboard.cpp(195): note: did you intend to use '->' instead?
+c:\users\dudley\onedrive\c++\assignment 3\classes\puzzleboard.cpp(195): error C2227: left of '->setPositionX' must point to class/struct/union/generic type
+c:\users\dudley\onedrive\c++\assignment 3\classes\puzzleboard.cpp(196): error C2228: left of '.at' must have class/struct/union
+  c:\users\dudley\onedrive\c++\assignment 3\classes\puzzleboard.cpp(196): note: type is 'SingleTile *'
+  c:\users\dudley\onedrive\c++\assignment 3\classes\puzzleboard.cpp(196): note: did you intend to use '->' instead?
+c:\users\dudley\onedrive\c++\assignment 3\classes\puzzleboard.cpp(196): error C2227: left of '->setPositionY' must point to class/struct/union/generic type
+c:\users\dudley\onedrive\c++\assignment 3\classes\puzzleboard.cpp(202): error C2228: left of '.at' must have class/struct/union
+  c:\users\dudley\onedrive\c++\assignment 3\classes\puzzleboard.cpp(202): note: type is 'SingleTile *'
+  c:\users\dudley\onedrive\c++\assignment 3\classes\puzzleboard.cpp(202): note: did you intend to use '->' instead?
+c:\users\dudley\onedrive\c++\assignment 3\classes\puzzleboard.cpp(202): error C2227: left of '->setPositionID' must point to class/struct/union/generic type
+c:\users\dudley\onedrive\c++\assignment 3\classes\puzzleboard.cpp(203): error C2228: left of '.at' must have class/struct/union
+  c:\users\dudley\onedrive\c++\assignment 3\classes\puzzleboard.cpp(203): note: type is 'SingleTile *'
+  c:\users\dudley\onedrive\c++\assignment 3\classes\puzzleboard.cpp(203): note: did you intend to use '->' instead?
+c:\users\dudley\onedrive\c++\assignment 3\classes\puzzleboard.cpp(203): error C2227: left of '->getPositionID' must point to class/struct/union/generic type
+c:\users\dudley\onedrive\c++\assignment 3\classes\puzzleboard.cpp(206): error C2228: left of '.at' must have class/struct/union
+  c:\users\dudley\onedrive\c++\assignment 3\classes\puzzleboard.cpp(206): note: type is 'SingleTile *'
+  c:\users\dudley\onedrive\c++\assignment 3\classes\puzzleboard.cpp(206): note: did you intend to use '->' instead?
+c:\users\dudley\onedrive\c++\assignment 3\classes\puzzleboard.cpp(206): error C2227: left of '->setPositionID' must point to class/struct/union/generic type
+c:\users\dudley\onedrive\c++\assignment 3\classes\puzzleboard.cpp(215): error C2228: left of '.size' must have class/struct/union
+  c:\users\dudley\onedrive\c++\assignment 3\classes\puzzleboard.cpp(215): note: type is 'SingleTile *'
+  c:\users\dudley\onedrive\c++\assignment 3\classes\puzzleboard.cpp(215): note: did you intend to use '->' instead?
+c:\users\dudley\onedrive\c++\assignment 3\classes\puzzleboard.cpp(217): error C2228: left of '.at' must have class/struct/union
+  c:\users\dudley\onedrive\c++\assignment 3\classes\puzzleboard.cpp(217): note: type is 'SingleTile *'
+  c:\users\dudley\onedrive\c++\assignment 3\classes\puzzleboard.cpp(217): note: did you intend to use '->' instead?
+c:\users\dudley\onedrive\c++\assignment 3\classes\puzzleboard.cpp(217): error C2227: left of '->getTileID' must point to class/struct/union/generic type
+c:\users\dudley\onedrive\c++\assignment 3\classes\puzzleboard.cpp(217): error C2227: left of '->getPositionID' must point to class/struct/union/generic type
+c:\users\dudley\onedrive\c++\assignment 3\classes\gamescene.cpp(82): warning C4018: '<': signed/unsigned mismatch
+c:\users\dudley\onedrive\c++\assignment 3\classes\gamescene.cpp(114): error C2228: left of '.at' must have class/struct/union
+  c:\users\dudley\onedrive\c++\assignment 3\classes\gamescene.cpp(114): note: type is 'SingleTile *'
+  c:\users\dudley\onedrive\c++\assignment 3\classes\gamescene.cpp(114): note: did you intend to use '->' instead?
+c:\users\dudley\onedrive\c++\assignment 3\classes\gamescene.cpp(115): error C2227: left of '->getBoundingBox' must point to class/struct/union/generic type
+c:\users\dudley\onedrive\c++\assignment 3\classes\gamescene.cpp(115): error C2228: left of '.containsPoint' must have class/struct/union
+c:\users\dudley\onedrive\c++\assignment 3\classes\gamescene.cpp(129): error C2228: left of '.at' must have class/struct/union
+  c:\users\dudley\onedrive\c++\assignment 3\classes\gamescene.cpp(129): note: type is 'SingleTile *'
+  c:\users\dudley\onedrive\c++\assignment 3\classes\gamescene.cpp(129): note: did you intend to use '->' instead?
+c:\users\dudley\onedrive\c++\assignment 3\classes\gamescene.cpp(129): error C2227: left of '->getPositionID' must point to class/struct/union/generic type
+c:\users\dudley\onedrive\c++\assignment 3\classes\gamescene.cpp(209): error C2228: left of '.at' must have class/struct/union
+  c:\users\dudley\onedrive\c++\assignment 3\classes\gamescene.cpp(209): note: type is 'SingleTile *'
+  c:\users\dudley\onedrive\c++\assignment 3\classes\gamescene.cpp(209): note: did you intend to use '->' instead?
+c:\users\dudley\onedrive\c++\assignment 3\classes\gamescene.cpp(209): error C2227: left of '->getPositionID' must point to class/struct/union/generic type
+c:\users\dudley\onedrive\c++\assignment 3\classes\gamescene.cpp(222): error C2228: left of '.at' must have class/struct/union
+  c:\users\dudley\onedrive\c++\assignment 3\classes\gamescene.cpp(222): note: type is 'SingleTile *'
+  c:\users\dudley\onedrive\c++\assignment 3\classes\gamescene.cpp(222): note: did you intend to use '->' instead?
+c:\users\dudley\onedrive\c++\assignment 3\classes\gamescene.cpp(223): error C2228: left of '.at' must have class/struct/union
+  c:\users\dudley\onedrive\c++\assignment 3\classes\gamescene.cpp(223): note: type is 'SingleTile *'
+  c:\users\dudley\onedrive\c++\assignment 3\classes\gamescene.cpp(223): note: did you intend to use '->' instead?
+c:\users\dudley\onedrive\c++\assignment 3\classes\gamescene.cpp(223): error C2227: left of '->getPosition' must point to class/struct/union/generic type
+c:\users\dudley\onedrive\c++\assignment 3\classes\gamescene.cpp(226): error C2228: left of '.at' must have class/struct/union
+  c:\users\dudley\onedrive\c++\assignment 3\classes\gamescene.cpp(226): note: type is 'SingleTile *'
+  c:\users\dudley\onedrive\c++\assignment 3\classes\gamescene.cpp(226): note: did you intend to use '->' instead?
+c:\users\dudley\onedrive\c++\assignment 3\classes\gamescene.cpp(227): error C2228: left of '.at' must have class/struct/union
+  c:\users\dudley\onedrive\c++\assignment 3\classes\gamescene.cpp(227): note: type is 'SingleTile *'
+  c:\users\dudley\onedrive\c++\assignment 3\classes\gamescene.cpp(227): note: did you intend to use '->' instead?
+c:\users\dudley\onedrive\c++\assignment 3\classes\gamescene.cpp(227): error C2227: left of '->getPosition' must point to class/struct/union/generic type
+c:\users\dudley\onedrive\c++\assignment 3\classes\gamescene.cpp(238): error C3536: 'selectedSprite': cannot be used before it is initialized
+c:\users\dudley\onedrive\c++\assignment 3\classes\gamescene.cpp(238): error C2227: left of '->getNumberOfRunningActions' must point to class/struct/union/generic type
+  c:\users\dudley\onedrive\c++\assignment 3\classes\gamescene.cpp(238): note: type is 'int'
+c:\users\dudley\onedrive\c++\assignment 3\classes\gamescene.cpp(239): error C3536: 'emptySprite': cannot be used before it is initialized
+c:\users\dudley\onedrive\c++\assignment 3\classes\gamescene.cpp(239): error C2227: left of '->getNumberOfRunningActions' must point to class/struct/union/generic type
+  c:\users\dudley\onedrive\c++\assignment 3\classes\gamescene.cpp(239): note: type is 'int'
+c:\users\dudley\onedrive\c++\assignment 3\classes\gamescene.cpp(241): error C2228: left of '.at' must have class/struct/union
+  c:\users\dudley\onedrive\c++\assignment 3\classes\gamescene.cpp(241): note: type is 'SingleTile *'
+  c:\users\dudley\onedrive\c++\assignment 3\classes\gamescene.cpp(241): note: did you intend to use '->' instead?
+c:\users\dudley\onedrive\c++\assignment 3\classes\gamescene.cpp(241): error C2227: left of '->getPositionID' must point to class/struct/union/generic type
+c:\users\dudley\onedrive\c++\assignment 3\classes\gamescene.cpp(243): error C2227: left of '->runAction' must point to class/struct/union/generic type
+  c:\users\dudley\onedrive\c++\assignment 3\classes\gamescene.cpp(243): note: type is 'int'
+c:\users\dudley\onedrive\c++\assignment 3\classes\gamescene.cpp(244): error C2227: left of '->runAction' must point to class/struct/union/generic type
+  c:\users\dudley\onedrive\c++\assignment 3\classes\gamescene.cpp(244): note: type is 'int'
+c:\users\dudley\onedrive\c++\assignment 3\classes\gamescene.cpp(247): error C2228: left of '.at' must have class/struct/union
+  c:\users\dudley\onedrive\c++\assignment 3\classes\gamescene.cpp(247): note: type is 'SingleTile *'
+  c:\users\dudley\onedrive\c++\assignment 3\classes\gamescene.cpp(247): note: did you intend to use '->' instead?
+c:\users\dudley\onedrive\c++\assignment 3\classes\gamescene.cpp(247): error C2227: left of '->setPositionID' must point to class/struct/union/generic type
+c:\users\dudley\onedrive\c++\assignment 3\classes\gamescene.cpp(247): error C2227: left of '->getPositionID' must point to class/struct/union/generic type
+c:\users\dudley\onedrive\c++\assignment 3\classes\gamescene.cpp(250): error C2228: left of '.at' must have class/struct/union
+  c:\users\dudley\onedrive\c++\assignment 3\classes\gamescene.cpp(250): note: type is 'SingleTile *'
+  c:\users\dudley\onedrive\c++\assignment 3\classes\gamescene.cpp(250): note: did you intend to use '->' instead?
+c:\users\dudley\onedrive\c++\assignment 3\classes\gamescene.cpp(250): error C2227: left of '->setPositionID' must point to class/struct/union/generic type
+c:\users\dudley\onedrive\c++\assignment 3\classes\gamescene.cpp(275): error C2228: left of '.size' must have class/struct/union
+  c:\users\dudley\onedrive\c++\assignment 3\classes\gamescene.cpp(275): note: type is 'SingleTile *'
+  c:\users\dudley\onedrive\c++\assignment 3\classes\gamescene.cpp(275): note: did you intend to use '->' instead?

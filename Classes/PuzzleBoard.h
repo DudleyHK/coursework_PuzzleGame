@@ -18,12 +18,12 @@
 class PuzzleBoard
 {
 public:
-	PuzzleBoard();
+	PuzzleBoard(int listSize);
 	~PuzzleBoard();
 
 
 	/* =====GETTERS AND SETTERS===== */
-	void getSpriteList(std::vector<SingleTile*> *list);
+	void getSpriteList(SingleTile* tileList);
 	void getCoordinates(int posID, int* const w, int* const h);
 	/* ============================== */
 
@@ -74,7 +74,7 @@ public:
 
 
 private:
-	std::vector<SingleTile*> tileList;
+	SingleTile* tileList = nullptr;
 
 	float scaleWidth = 0.0f;
 	float scaleHeight = 0.0f;
@@ -82,6 +82,6 @@ private:
 	int imageHeight = 0;
 	int newIndexW = 0;
 	int newIndexH = 0;
-	
+	int listSize = 0;
 	int empTileID = 3;
 }; 

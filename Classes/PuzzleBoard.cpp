@@ -19,9 +19,9 @@ PuzzleBoard::~PuzzleBoard()
 	; // Empty
 }
 
-void PuzzleBoard::getSpriteList(std::vector<SingleTile*> *tileList)
+void PuzzleBoard::getSpriteList(SingleTile* tileList)
 {
-	*tileList = this->tileList;
+	tileList = this->tileList;
 }
 
 void PuzzleBoard::getCoordinates(int posID, int* const w, int* const h)
@@ -47,6 +47,7 @@ void PuzzleBoard::createImage()
 and number of height segments set in the settings function*/
 void PuzzleBoard::sliceImage(cocos2d::Sprite* puzzleImage)
 {
+	int counter = 0;
 	// Run through each tile that needs to be created. 
 	for (unsigned int heightIndex = 0; heightIndex < 4; heightIndex++)
 	{
@@ -58,16 +59,18 @@ void PuzzleBoard::sliceImage(cocos2d::Sprite* puzzleImage)
 			singleTile->setImageData(imageHeight, imageWidth);
 			singleTile->initTile(heightIndex, widthIndex);
 
-			tileList.push_back(singleTile);
+			//tileList.push_back(singleTile);
+			tileList[counter] = singleTile;
+
+			counter++;
 		}
 	}
-
 	setTransparentTile();
 }
 
 void PuzzleBoard::setTransparentTile()
 {
-	for (unsigned int index = 0; index <= tileList.size(); index++)
+	for (unsigned int index = 0; index <= listSize; index++)
 	{
 		/*The number of width segmenets - 1*/			//////CHECK
 		if (index == 3)
@@ -110,7 +113,7 @@ void PuzzleBoard::getDirection()
 	{
 		isValid = false;
 
-		emptyPosID = tileList.at(empTileID)->getPositionID();
+		emptyPosID = tileList[empTileID]->getPositionID();
 		getCoordinates(emptyPosID, &empIndexW, &empIndexH);
 
 		// While a value space is not found. 
