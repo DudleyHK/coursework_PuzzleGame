@@ -84,6 +84,7 @@ private:
 	int newIndexH = 0;
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 	int listSize = 0;
 	int empTileID = 3;
 =======
@@ -96,4 +97,8 @@ private:
 
 	const int empTileID = 3;
 >>>>>>> parent of 74058df... Acheived: Settings layer added
+=======
+	int listSize = 0;
+	int empTileID = 3;
+>>>>>>> parent of aefb930... Revert "Acheived: Settings layer added"
 }; 

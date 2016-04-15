@@ -7,6 +7,9 @@
   main.cpp
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> parent of aefb930... Revert "Acheived: Settings layer added"
 c:\users\dudley\onedrive\c++\assignment 3\classes\puzzleboard.cpp(16): error C2679: binary '=': no operator found which takes a right-hand operand of type 'SingleTile *' (or there is no acceptable conversion)
   c:\users\dudley\onedrive\c++\assignment 3\classes\singletile.h(52): note: could be 'SingleTile &SingleTile::operator =(const SingleTile &)' (compiling source file ..\Classes\PuzzleBoard.cpp)
   c:\users\dudley\onedrive\c++\assignment 3\classes\puzzleboard.cpp(16): note: while trying to match the argument list '(SingleTile, SingleTile *)'
@@ -140,6 +143,7 @@ c:\users\dudley\onedrive\c++\assignment 3\classes\gamescene.cpp(250): error C222
 c:\users\dudley\onedrive\c++\assignment 3\classes\gamescene.cpp(275): error C2228: left of '.size' must have class/struct/union
   c:\users\dudley\onedrive\c++\assignment 3\classes\gamescene.cpp(275): note: type is 'SingleTile *'
   c:\users\dudley\onedrive\c++\assignment 3\classes\gamescene.cpp(275): note: did you intend to use '->' instead?
+<<<<<<< HEAD
 =======
 =======
 >>>>>>> parent of 74058df... Acheived: Settings layer added
@@ -148,3 +152,5 @@ c:\users\dudley\onedrive\c++\assignment 3\classes\gamescene.cpp(275): error C222
   0 File(s) copied
   0 File(s) copied
 >>>>>>> parent of 74058df... Acheived: Settings layer added
+=======
+>>>>>>> parent of aefb930... Revert "Acheived: Settings layer added"
