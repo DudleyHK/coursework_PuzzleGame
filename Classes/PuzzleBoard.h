@@ -83,6 +83,5 @@ private:
 	int newIndexW = 0;
 	int newIndexH = 0;
 	
-
-	const int empTileID = 3;
+	int empTileID = 3;
 }; 

@@ -17,7 +17,7 @@ cocos2d::Scene * GameScene::createScene()
 	auto playLayer = GameScene::create();
 
 	// add layer as a child to a scene
-	playScene->addChild(playLayer, -50);
+	playScene->addChild(playLayer, -150);
 	playLayer->initLayer();
 
 	// return the scene
@@ -78,7 +78,7 @@ void GameScene::addPuzzleBoard()
 	for (unsigned int index = 0; index < tileList.size(); index++)
 	{
 		// display
-		this->addChild(tileList.at(index), -5);
+		this->addChild(tileList.at(index), -10);
 	}
 }
 
@@ -266,7 +266,6 @@ void GameScene::swapTiles(int tileID)
 bool GameScene::boardComplete()
 {
 	int rightPlace = 0;
-
 	puzzleBoard->getCorrectTiles(&rightPlace);
 
 	if (rightPlace == tileList.size())
@@ -276,7 +275,7 @@ bool GameScene::boardComplete()
 	return false;
 }
 
-bool GameScene::gameOverPopup()
+void GameScene::gameOverPopup()
 {
 	// restart the game
 	cocos2d::MenuItemSprite* resetBoard = new cocos2d::MenuItemSprite();
@@ -297,9 +296,7 @@ bool GameScene::gameOverPopup()
 	// Create the actual menu and assign the menu to the Puzzle game scene
 	cocos2d::Menu* menu = cocos2d::Menu::create(resetBoard, returnToMenu, nullptr);
 	menu->alignItemsHorizontally();
-	this->addChild(menu, 1);
-
-	return false;
+	this->addChild(menu, 10);
 }
 
 void GameScene::resetCallback(cocos2d::Ref * sender)

@@ -84,5 +84,8 @@
     <Image Include="..\Resources\p_hamsterRunning.jpg">
       <Filter>resource</Filter>
     </Image>
+    <Image Include="..\..\..\Game Related Images\Sprites\Bear.jpg">
+      <Filter>resource</Filter>
+    </Image>
   </ItemGroup>
 </Project>

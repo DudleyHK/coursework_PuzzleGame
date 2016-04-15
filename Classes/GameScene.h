@@ -66,31 +66,25 @@ public:
 	// @ -- Return: If it is the empty tile return TRUE.
 	bool getEmptyTilePos(int _posID);
 
-	// @ -- Detail: Create animation of the selected tile moving if the game is not worn. 
-	//			Swap selected posID and empty posID.
+	// @ -- Detail: If the game won boolean is FALSE create animation of the selected
+	//			tile moving if the game is not worn. Swap selected posID and empty 
+	//			posID. At then end of this function set game won boolean to TRUE.
 	// @ -- Param: Pass in the tileID of the selected tile.
 	void swapTiles(int tileID);
 
-
-	// @ -- Detail:
-	// @ -- Param:
-	// @ -- Return:
+	// @ -- Detail: Call a function to iterate through each position checking the number
+	//			of correctly placed tiles. 
+	// @ -- Return: If the number of correctly placed tiles matches the number of tiles in
+	//			the list return TRUE.
 	bool boardComplete();
 
-	// @ -- Detail:
-	// @ -- Param:
-	// @ -- Return:
-	bool gameOverPopup();
+	// @ -- Detail: Displays options for the player to either reset the game or return to
+	//			the main menu.
+	void gameOverPopup();
 
-	// @ -- Detail:
-	// @ -- Param:
-	// @ -- Return:
+	// @ -- Detail: The resetCallback() function replaces the the scene with a newly shuffled
+	//			board. The returnCallback() function returns the player back to the main menu.
 	void resetCallback(cocos2d::Ref* sender);
-
-	
-	// @ -- Detail:
-	// @ -- Param:
-	// @ -- Return:
 	void returnCallback(cocos2d::Ref* sender);
 
 private:
