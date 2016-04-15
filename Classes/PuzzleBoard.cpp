@@ -19,9 +19,9 @@ PuzzleBoard::~PuzzleBoard()
 	; // Empty
 }
 
-void PuzzleBoard::getSpriteList(SingleTile* tileList)
+void PuzzleBoard::getSpriteList(std::vector<SingleTile*> *tileList)
 {
-	tileList = this->tileList;
+	*tileList = this->tileList;
 }
 
 void PuzzleBoard::getCoordinates(int posID, int* const w, int* const h)
@@ -47,7 +47,6 @@ void PuzzleBoard::createImage()
 and number of height segments set in the settings function*/
 void PuzzleBoard::sliceImage(cocos2d::Sprite* puzzleImage)
 {
-	int counter = 0;
 	// Run through each tile that needs to be created. 
 	for (unsigned int heightIndex = 0; heightIndex < 4; heightIndex++)
 	{
@@ -59,18 +58,16 @@ void PuzzleBoard::sliceImage(cocos2d::Sprite* puzzleImage)
 			singleTile->setImageData(imageHeight, imageWidth);
 			singleTile->initTile(heightIndex, widthIndex);
 
-			//tileList.push_back(singleTile);
-			tileList[counter] = singleTile;
-
-			counter++;
+			tileList.push_back(singleTile);
 		}
 	}
+
 	setTransparentTile();
 }
 
 void PuzzleBoard::setTransparentTile()
 {
-	for (unsigned int index = 0; index <= listSize; index++)
+	for (unsigned int index = 0; index <= tileList.size(); index++)
 	{
 		/*The number of width segmenets - 1*/			//////CHECK
 		if (index == 3)
@@ -107,18 +104,18 @@ void PuzzleBoard::getDirection()
 	int empIndexH = 0;
 	int rightPlace = 0;
 	bool isValid = false;
-	
+
 
 	for (int i = 0; i < 2; i++)
 	{
 		isValid = false;
 
-		emptyPosID = tileList[empTileID]->getPositionID();
+		emptyPosID = tileList.at(empTileID)->getPositionID();
 		getCoordinates(emptyPosID, &empIndexW, &empIndexH);
 
 		// While a value space is not found. 
 		while (!isValid)
-		{			
+		{
 			randValue = produceRandValue();
 
 			switch (randValue)
@@ -149,13 +146,13 @@ void PuzzleBoard::getDirection()
 				isValid = checkInBounds(newIndexW, newIndexH);
 			}
 		} // END WHILE
-		
+
 		swap(adjacentTileID, adjacentPosID);
 		getCorrectTiles(&rightPlace);
 
 		// check how many positions are placed correctely
 		//if (rightPlace > (tileList.size() - (tileList.size() / 3)))
-		if(rightPlace == tileList.size())
+		if (rightPlace == tileList.size())
 		{
 			// give the system another turn to fix it self.
 			i--;
@@ -179,7 +176,7 @@ int PuzzleBoard::getAdjacentTileID(int* const adjacentPosID)
 
 // change to tileID
 void PuzzleBoard::swap(int adjacentTileID, int adjacentPosID)
-{	
+{
 	/* =========================SWAP POSITIONS==================================== */
 	// save the values into temp variables
 	float tempEmpPosX = tileList.at(empTileID)->getPositionX();

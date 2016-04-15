@@ -18,12 +18,12 @@
 class PuzzleBoard
 {
 public:
-	PuzzleBoard(int listSize);
+	PuzzleBoard();
 	~PuzzleBoard();
 
 
 	/* =====GETTERS AND SETTERS===== */
-	void getSpriteList(SingleTile* tileList);
+	void getSpriteList(std::vector<SingleTile*> *list);
 	void getCoordinates(int posID, int* const w, int* const h);
 	/* ============================== */
 
@@ -66,7 +66,7 @@ public:
 	//			the two tiles position IDs. If at the end of the shuffle the board is in
 	//			its original state give it one extra shuffle.
 	// @ -- Param: The tileID and position ID of the adjacent tiles.
-	void swap(int adjacentTileID, int adjacentPosID); 
+	void swap(int adjacentTileID, int adjacentPosID);
 
 	// @ -- Detail: for every tile ID and position ID that match add one to the counter. 
 	// @ -- Param: right place counter.
@@ -74,7 +74,7 @@ public:
 
 
 private:
-	SingleTile* tileList = nullptr;
+	std::vector<SingleTile*> tileList;
 
 	float scaleWidth = 0.0f;
 	float scaleHeight = 0.0f;
@@ -82,23 +82,6 @@ private:
 	int imageHeight = 0;
 	int newIndexW = 0;
 	int newIndexH = 0;
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-	int listSize = 0;
-	int empTileID = 3;
-=======
-	
 
-	const int empTileID = 3;
->>>>>>> parent of 74058df... Acheived: Settings layer added
-=======
-	
-
-	const int empTileID = 3;
->>>>>>> parent of 74058df... Acheived: Settings layer added
-=======
-	int listSize = 0;
 	int empTileID = 3;
->>>>>>> parent of aefb930... Revert "Acheived: Settings layer added"
-}; 
+};

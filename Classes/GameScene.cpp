@@ -28,25 +28,24 @@ cocos2d::Scene * GameScene::createScene()
 /* CREATE_FUNC(GameScene) --- create scene with parameters
 GameScene* GameScene::create(int hi)
 {
-	GameScene *pRet = new(std::nothrow) GameScene();
-	if (pRet && pRet->init())
-	{
-		pRet->autorelease();
-		return pRet;
-	}
-	else
-	{
-		delete pRet;
-		pRet = NULL;
-		return NULL;
-	}
+GameScene *pRet = new(std::nothrow) GameScene();
+if (pRet && pRet->init())
+{
+pRet->autorelease();
+return pRet;
+}
+else
+{
+delete pRet;
+pRet = NULL;
+return NULL;
+}
 }
 */
 
 GameScene::GameScene()
 {
-	// set the number of tiles. 
-	listSize = 16;
+	; // Empty
 }
 
 GameScene::~GameScene()
@@ -71,30 +70,15 @@ bool GameScene::initLayer()
 
 void GameScene::addPuzzleBoard()
 {
-	// create a new single tile array
-	tileList = new SingleTile[listSize];			/////FIND AND DELETE ALL DYNAMIC MEMORY 
-
 	puzzleBoard->createImage();
-	puzzleBoard->getSpriteList(tileList);
+	puzzleBoard->getSpriteList(&tileList);
 	puzzleBoard->getDirection();
 
 	// Display puzzle.
-	for (unsigned int index = 0; index < listSize; index++)
+	for (unsigned int index = 0; index < tileList.size(); index++)
 	{
 		// display
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-	//	this->addChild(-10);
-=======
-		this->addChild(tileList.at(index), -5);
->>>>>>> parent of 74058df... Acheived: Settings layer added
-=======
-		this->addChild(tileList.at(index), -5);
->>>>>>> parent of 74058df... Acheived: Settings layer added
-=======
-	//	this->addChild(-10);
->>>>>>> parent of aefb930... Revert "Acheived: Settings layer added"
+		this->addChild(tileList.at(index), -10);
 	}
 }
 
@@ -126,7 +110,7 @@ bool GameScene::onTouchBegan(cocos2d::Touch* click, cocos2d::Event* event)
 			if (tileList.at((4 * heightIndex) + widthIndex)->
 				getBoundingBox().containsPoint(point))
 			{
-				checkForEmpty((4 * heightIndex) + widthIndex); 
+				checkForEmpty((4 * heightIndex) + widthIndex);
 
 				return true;
 			}

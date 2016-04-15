@@ -22,7 +22,7 @@ public:
 	static cocos2d::Scene* createScene();
 
 	CREATE_FUNC(GameScene);
-	
+
 	GameScene();
 	~GameScene();
 
@@ -88,13 +88,13 @@ public:
 	void returnCallback(cocos2d::Ref* sender);
 
 private:
+	std::vector<SingleTile*> tileList;
 	PuzzleBoard* puzzleBoard = new PuzzleBoard();									///////////////NEW KEYWORD
 
 	int hIndex = 0;
 	int wIndex = 0;
 	int numOfMoves = 0;
-	int listSize = 0;
-	int empTileID = 3;
+	const int empTileID = 3;
 	bool gameWon = false;
-	SingleTile* tileList;
+
 };
