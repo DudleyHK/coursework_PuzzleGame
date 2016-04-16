@@ -14,7 +14,7 @@
 #include <ctime>
 #include <vector>
 
-
+///////////////////////////////////////////////// NOTHING HAS BEEN UPDATED
 class PuzzleBoard
 {
 public:
@@ -23,8 +23,9 @@ public:
 
 
 	/* =====GETTERS AND SETTERS===== */
-	void getSpriteList(std::vector<SingleTile*> *list);
-	void getCoordinates(int posID, int* const w, int* const h);
+	void getSpriteList(std::vector<SingleTile*> *tileList);
+	void getCoordinates(int emptyPosID, int* const h, int* const w);
+	void setGridSize(int height, int width);
 	/* ============================== */
 
 
@@ -78,10 +79,12 @@ private:
 
 	float scaleWidth = 0.0f;
 	float scaleHeight = 0.0f;
+	int heightSegments = 0;
+	int widthSegments = 0;
 	int imageWidth = 0;
 	int imageHeight = 0;
 	int newIndexW = 0;
 	int newIndexH = 0;
 
-	int empTileID = 3;
+	int empTileID = 0;
 };

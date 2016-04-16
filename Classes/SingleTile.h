@@ -11,11 +11,11 @@
 #pragma once
 #include "cocos2d.h"
 
-
+///////////////////////////////////////////////// NOTHING HAS BEEN UPDATED
 class SingleTile : public cocos2d::Sprite
 {
 public:
-	SingleTile();
+	SingleTile(int heightSegs, int widthSegs);
 	~SingleTile();
 
 	/* =====GETTERS AND SETTERS===== */
@@ -32,7 +32,7 @@ public:
 	// @ -- Detail: Create an instance of the class. Notify the object of the image which 
 	//			will be used to construct the tile sprite. 
 	// @ -- Param: Puzzle image sprite.
-	static SingleTile* create();
+	static SingleTile* create(int heightSegs, int widthSegs);
 
 	// @ -- Detail: Set the size ratios for a single tile.
 	// @ -- Param: The coordinates of the tile being created. 
@@ -42,6 +42,8 @@ private:
 	/* =====WHOLE IMAGE===== */
 	int imageWidth = 0;
 	int imageHeight = 0;
+	int heightSegments = 0;
+	int widthSegments = 0;
 	/* =====SINGLE TILE===== */
 	float xPosition = 0.0f;
 	float yPosition = 0.0f;

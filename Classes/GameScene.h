@@ -1,5 +1,4 @@
 /*
-
 // @ -- Detail:
 // @ -- Param:
 // @ -- Return:
@@ -12,24 +11,30 @@
 #include "MainMenu.h"
 #include <vector>
 
-
+///////////////////////////////////////////////// NOTHING HAS BEEN UPDATED
 class GameScene : public cocos2d::Layer
 {
 public:
 
 	// @ -- Detail: Create a new scene.
 	// @ -- Return: Created scene
-	static cocos2d::Scene* createScene();
+	static cocos2d::Scene* createScene(int heightSegs, int widthSegs);
 
+	// @ -- Detail:
+	// @ -- Param:
+	// @ -- Return:
 	CREATE_FUNC(GameScene);
 
 	GameScene();
 	~GameScene();
 
+	/////EXPLAIN
+	void setGridSize(int heightSegments, int widthSegments);
+
 	// @ -- Detail: Check if the layer has been initialised and call functions
 	//			to setup the Game Scene.
 	// @ -- Return: If the layer has been initialised return TRUE.
-	virtual bool initLayer();
+	virtual bool initLayer(int heightSegments, int widthSegments);
 
 	// @ -- Detail: Passing information to the Puzzle Board and displaying the tiles.
 	//			This also calls a function to shuffle the Puzzle Board.
@@ -93,8 +98,10 @@ private:
 
 	int hIndex = 0;
 	int wIndex = 0;
+	int heightSegments = 0;
+	int widthSegments = 0;
 	int numOfMoves = 0;
-	const int empTileID = 3;
+	int empTileID = 0;
 	bool gameWon = false;
 
 };

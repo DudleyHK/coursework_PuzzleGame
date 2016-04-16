@@ -7,9 +7,9 @@
 */
 #pragma once
 #include "GameScene.h"
-#include "Settings.h"
 
 
+///////////////////////////////////////////////// NOTHING HAS BEEN UPDATED
 class MainMenu : public cocos2d::Layer
 {
 public:
@@ -42,9 +42,13 @@ public:
 	//			to the Settings menu. The menuCloseCallback() function tells the Director
 	//			to end the game safely.
 	void menuPlayCallback(cocos2d::Ref* sender);
-	void menuSettingsCallback(cocos2d::Ref* sender);
 	void menuCloseCallback(cocos2d::Ref* pSender);
+	void setupSmallGrid(cocos2d::Ref* sender);
+	void setupMediumGrid(cocos2d::Ref* sender);
+	void setupLargeGrid(cocos2d::Ref* sender);
 
 private:
-	Settings* settings = new Settings();
+	//GameScene* gameScene = new GameScene;
+	int heightSegments = 4;
+	int widthSegments = 4;
 };

@@ -84,18 +84,34 @@ void MainMenu::menuButtons()
 		CC_CALLBACK_1(MainMenu::menuCloseCallback, this));
 
 
-	// Create the exit game menu item, this will exit the app
-	cocos2d::MenuItemSprite* mainMenuSettings = new cocos2d::MenuItemSprite();
-	mainMenuSettings->initWithNormalSprite(
-		cocos2d::Sprite::create("ExitNormal.png"),
-		cocos2d::Sprite::create("ExitSelected.png"),
+	// ============== SELECTGRIDSIZE ================ //
+	cocos2d::MenuItemSprite* smallGrid = new cocos2d::MenuItemSprite();
+	smallGrid->initWithNormalSprite(
+		cocos2d::Sprite::create("PlayUnselected.png"),
+		cocos2d::Sprite::create("PlaySelected.png"),
 		nullptr,
-		CC_CALLBACK_1(MainMenu::menuSettingsCallback, this));
+		CC_CALLBACK_1(MainMenu::setupSmallGrid, this));
+
+	cocos2d::MenuItemSprite* mediumGrid = new cocos2d::MenuItemSprite();
+	mediumGrid->initWithNormalSprite(
+		cocos2d::Sprite::create("PlayUnselected.png"),
+		cocos2d::Sprite::create("PlaySelected.png"),
+		nullptr,
+		CC_CALLBACK_1(MainMenu::setupMediumGrid, this));
+
+	cocos2d::MenuItemSprite* largeGrid = new cocos2d::MenuItemSprite();
+	largeGrid->initWithNormalSprite(
+		cocos2d::Sprite::create("PlayUnselected.png"),
+		cocos2d::Sprite::create("PlaySelected.png"),
+		nullptr,
+		CC_CALLBACK_1(MainMenu::setupLargeGrid, this));
 
 	// Create the actual menu and assign the menu to the Puzzle game scene
 	cocos2d::Menu* mainMenu = cocos2d::Menu::create(
 		runGameScene,
-		mainMenuSettings, 
+		smallGrid,
+		mediumGrid,
+		largeGrid,
 		mainMenuExit, 
 		nullptr);
 	mainMenu->alignItemsVertically();
@@ -106,19 +122,35 @@ void MainMenu::menuButtons()
 void MainMenu::menuPlayCallback(cocos2d::Ref* sender)
 {
 	cocos2d::Director::getInstance()->replaceScene(
-		cocos2d::TransitionSlideInR::create(1, GameScene::createScene()));
-}
-
-void MainMenu::menuSettingsCallback(cocos2d::Ref* sender)
-{
-	cocos2d::Director::getInstance()->replaceScene(
-		cocos2d::TransitionSlideInR::create(1, Settings::createScene()));
+		cocos2d::TransitionSlideInR::create(1,
+			GameScene::createScene(
+				heightSegments,
+				widthSegments)));
 }
 
 void MainMenu::menuCloseCallback(cocos2d::Ref* pSender)
 {
 	cocos2d::Director::getInstance()->end();
 }
+
+void MainMenu::setupSmallGrid(cocos2d::Ref* sender)
+{
+	heightSegments = 3;
+	widthSegments = 3;
+}
+
+void MainMenu::setupMediumGrid(cocos2d::Ref* sender)
+{
+	heightSegments = 4;
+	widthSegments = 4;
+}
+
+void MainMenu::setupLargeGrid(cocos2d::Ref* sender)
+{
+	heightSegments = 5;
+	widthSegments = 5;
+}
+
 
 
 

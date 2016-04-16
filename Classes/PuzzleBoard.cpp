@@ -24,10 +24,17 @@ void PuzzleBoard::getSpriteList(std::vector<SingleTile*> *tileList)
 	*tileList = this->tileList;
 }
 
-void PuzzleBoard::getCoordinates(int posID, int* const w, int* const h)
+void PuzzleBoard::getCoordinates(int emptyPosID, int* const h, int* const w)
 {
-	*h = posID / 4;
-	*w = posID - (*h * 4);
+	*h = emptyPosID / widthSegments;
+	*w = emptyPosID - (*h * widthSegments);
+}
+
+void PuzzleBoard::setGridSize(int heightSegs, int widthSegs)
+{
+	heightSegments = heightSegs;
+	widthSegments = widthSegs;
+	empTileID = widthSegments - 1;
 }
 
 void PuzzleBoard::createImage()
@@ -48,11 +55,11 @@ and number of height segments set in the settings function*/
 void PuzzleBoard::sliceImage(cocos2d::Sprite* puzzleImage)
 {
 	// Run through each tile that needs to be created. 
-	for (unsigned int heightIndex = 0; heightIndex < 4; heightIndex++)
+	for (unsigned int heightIndex = 0; heightIndex < heightSegments; heightIndex++)
 	{
-		for (unsigned int widthIndex = 0; widthIndex < 4; widthIndex++)
+		for (unsigned int widthIndex = 0; widthIndex < widthSegments; widthIndex++)
 		{
-			SingleTile* singleTile = SingleTile::create();
+			SingleTile* singleTile = SingleTile::create(heightSegments, widthSegments);
 
 			//cocos2d::Sprite::create(puzzleImage/*pass in the relevant settings information*/);//////////// NEW KEYWPORD	//////////// NEW KEYWPORD	//////////// NEW KEYWPORD
 			singleTile->setImageData(imageHeight, imageWidth);
@@ -69,8 +76,7 @@ void PuzzleBoard::setTransparentTile()
 {
 	for (unsigned int index = 0; index <= tileList.size(); index++)
 	{
-		/*The number of width segmenets - 1*/			//////CHECK
-		if (index == 3)
+		if (index == (widthSegments - 1))
 		{
 			tileList.at(index)->setOpacity(0);
 		}
@@ -85,8 +91,8 @@ int PuzzleBoard::produceRandValue() const
 
 bool PuzzleBoard::checkInBounds(int w, int h) const
 {
-	if ((h < 4 && h >= 0) &&
-		(w < 4 && w >= 0))
+	if ((h < heightSegments && h >= 0) &&
+		(w < widthSegments && w >= 0))
 	{
 		return true;
 	}
@@ -105,13 +111,13 @@ void PuzzleBoard::getDirection()
 	int rightPlace = 0;
 	bool isValid = false;
 
-
+	// number of shuffles
 	for (int i = 0; i < 2; i++)
 	{
 		isValid = false;
 
 		emptyPosID = tileList.at(empTileID)->getPositionID();
-		getCoordinates(emptyPosID, &empIndexW, &empIndexH);
+		getCoordinates(emptyPosID, &empIndexH, &empIndexW);
 
 		// While a value space is not found. 
 		while (!isValid)
@@ -154,7 +160,7 @@ void PuzzleBoard::getDirection()
 		//if (rightPlace > (tileList.size() - (tileList.size() / 3)))
 		if (rightPlace == tileList.size())
 		{
-			// give the system another turn to fix it self.
+			// give the system another turn to fix its self.
 			i--;
 		}
 	} // END FOR
@@ -162,7 +168,7 @@ void PuzzleBoard::getDirection()
 
 int PuzzleBoard::getAdjacentTileID(int* const adjacentPosID)
 {
-	*adjacentPosID = (newIndexH * 4) + newIndexW;
+	*adjacentPosID = (newIndexH * widthSegments) + newIndexW;
 
 	for (unsigned int index = 0; index < tileList.size(); index++)
 	{

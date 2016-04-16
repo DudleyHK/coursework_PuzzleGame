@@ -4,9 +4,10 @@
 #include "SingleTile.h"
 
 
-SingleTile::SingleTile()
+SingleTile::SingleTile(int heightSegs, int widthSegs)
 {
-	 // do the relevant calculation to get the number of tiles 
+	this->heightSegments = heightSegs;
+	this->widthSegments = widthSegs;
 }
 
 SingleTile::~SingleTile()
@@ -14,9 +15,9 @@ SingleTile::~SingleTile()
 	; // Empty
 }
 
-SingleTile * SingleTile::create()
+SingleTile * SingleTile::create(int heightSegs, int widthSegs)
 {
-	SingleTile* singleTile = new SingleTile(/*pass in the relevant settings information*/);
+	SingleTile* singleTile = new SingleTile(heightSegs, widthSegs);
 
 	if (!singleTile->initWithFile("p_hamsterRunning.jpg"))
 	{
@@ -47,8 +48,8 @@ void SingleTile::setTileID(int _tileID)
 
 void SingleTile::setTileSize()
 {
-	tileHeight = imageHeight / 4;
-	tileWidth = imageWidth / 4;
+	tileHeight = imageHeight / heightSegments;
+	tileWidth = imageWidth / widthSegments;
 }
 
 int SingleTile::getTileHeight()
@@ -76,19 +77,22 @@ void SingleTile::initTile(unsigned int hIndex, unsigned int wIndex)
 	setTileSize();
 
 	cocos2d::Vec2 tile = cocos2d::Vec2(tileWidth, tileHeight);
-
 	xPosition = tile.x * wIndex;
 	yPosition = tile.y * hIndex;
-	setScaleX((500.0f / imageWidth) * 0.98);
+	setScaleX((500.0f / imageWidth) * 0.98);//was 0.98
 	setScaleY((500.0f / imageHeight) * 0.98); 
 
-
-	setTextureRect(cocos2d::Rect(xPosition, (imageHeight - yPosition) - tile.y,
-		tile.x, tile.y));
+	setTextureRect(cocos2d::Rect(
+		xPosition, 
+		(imageHeight - yPosition) - tile.y, 
+		tile.x, 
+		tile.y));
 
 	setAnchorPoint(cocos2d::Vec2::ANCHOR_BOTTOM_LEFT);
-	setPosition(cocos2d::Vec2((500 / 4) * wIndex, (500 / 4) * hIndex));
+	setPosition(cocos2d::Vec2(
+		(500 / widthSegments) * wIndex, 
+		(500 / widthSegments) * hIndex));
 
-	positionID = (hIndex * 4) + wIndex;
-	tileID = (hIndex * 4) + wIndex;
+	positionID = (hIndex * widthSegments) + wIndex;
+	tileID = (hIndex * widthSegments) + wIndex;
 }

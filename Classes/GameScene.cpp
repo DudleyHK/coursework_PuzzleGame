@@ -1,16 +1,10 @@
 /*
 
-
-
-https://blackboard.uwe.ac.uk/bbcswebdav/pid-4634231-dt-content-rid-8695402_2/courses/UFCFWA-30-1_15sep_1/Worksheet%2013%283%29.pdf
-
-Sprite Guide
-http://cocos2d-x.org/documentation/programmers-guide/3/index.html
 */
 
 #include "GameScene.h"
 
-cocos2d::Scene * GameScene::createScene()
+cocos2d::Scene * GameScene::createScene(int heightSegs, int widthSegs)
 {
 	// 'scene' & 'layer' are autoreleased objects
 	cocos2d::Scene* playScene = cocos2d::Scene::create();
@@ -18,30 +12,11 @@ cocos2d::Scene * GameScene::createScene()
 
 	// add layer as a child to a scene
 	playScene->addChild(playLayer, -150);
-	playLayer->initLayer();
+	playLayer->initLayer(heightSegs, widthSegs);
 
 	// return the scene
 	return playScene;
 }
-
-
-/* CREATE_FUNC(GameScene) --- create scene with parameters
-GameScene* GameScene::create(int hi)
-{
-GameScene *pRet = new(std::nothrow) GameScene();
-if (pRet && pRet->init())
-{
-pRet->autorelease();
-return pRet;
-}
-else
-{
-delete pRet;
-pRet = NULL;
-return NULL;
-}
-}
-*/
 
 GameScene::GameScene()
 {
@@ -53,7 +28,15 @@ GameScene::~GameScene()
 	; // Empty
 }
 
-bool GameScene::initLayer()
+void GameScene::setGridSize(int heightSegs, int widthSegs)
+{
+	this->heightSegments = heightSegs;
+	this->widthSegments = widthSegs;
+	empTileID = widthSegments - 1;
+	puzzleBoard->setGridSize(heightSegments, widthSegments);
+}
+
+bool GameScene::initLayer(int heightSegs, int widthSegs)
 {
 	gameWon = false;
 
@@ -62,6 +45,7 @@ bool GameScene::initLayer()
 		return false;
 	}
 
+	setGridSize(heightSegs, widthSegs);
 	addPuzzleBoard();
 	addEvent();
 
@@ -102,15 +86,15 @@ bool GameScene::onTouchBegan(cocos2d::Touch* click, cocos2d::Event* event)
 	point = cocos2d::Director::getInstance()->convertToGL(point);
 
 	// run through the tile list
-	for (unsigned int heightIndex = 0; heightIndex < 4; heightIndex++)
+	for (unsigned int heightIndex = 0; heightIndex < heightSegments; heightIndex++)
 	{
-		for (unsigned int widthIndex = 0; widthIndex < 4; widthIndex++)
+		for (unsigned int widthIndex = 0; widthIndex < widthSegments; widthIndex++)
 		{
 			//if any sprite contains the point coordinates.
-			if (tileList.at((4 * heightIndex) + widthIndex)->
+			if (tileList.at((widthSegments * heightIndex) + widthIndex)->
 				getBoundingBox().containsPoint(point))
 			{
-				checkForEmpty((4 * heightIndex) + widthIndex);
+				checkForEmpty((widthSegments * heightIndex) + widthIndex);
 
 				return true;
 			}
@@ -125,8 +109,8 @@ void GameScene::checkForEmpty(int tileID) // this is currently the same as posID
 	int posID = tileList.at(tileID)->getPositionID();
 
 	//save for variable as global varibale   //this may not ned to be done /////////////////////CHHHECK
-	hIndex = posID / 4;
-	wIndex = posID - (4 * hIndex);
+	hIndex = posID / widthSegments;
+	wIndex = posID - (widthSegments * hIndex);
 
 	checkLeft(posID - 1, &n_posID);
 	if (n_posID == -1)
@@ -134,10 +118,10 @@ void GameScene::checkForEmpty(int tileID) // this is currently the same as posID
 		checkRight(posID + 1, &n_posID);
 		if (n_posID == -1)
 		{
-			checkUp(posID + 4 /* 4 = number of seg width*/, &n_posID);
+			checkUp(posID + widthSegments, &n_posID);
 			if (n_posID == -1)
 			{
-				checkDown(posID - 4 /* 4 = number of seg width*/, &n_posID);
+				checkDown(posID - widthSegments, &n_posID);
 				if (n_posID == -1)
 				{
 					; // empty tile not found, player cannot move this tile
@@ -302,7 +286,10 @@ void GameScene::gameOverPopup()
 void GameScene::resetCallback(cocos2d::Ref * sender)
 {
 	cocos2d::Director::getInstance()->replaceScene(
-		cocos2d::TransitionSlideInR::create(1, GameScene::createScene()));
+		cocos2d::TransitionSlideInR::create(1, 
+			GameScene::createScene(
+				heightSegments,
+				widthSegments)));
 }
 
 void GameScene::returnCallback(cocos2d::Ref * sender)
