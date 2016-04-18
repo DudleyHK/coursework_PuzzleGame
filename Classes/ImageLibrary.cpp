@@ -1,7 +1,7 @@
 /*
-
-
-
+	Solution: ImageLibrary.cpp
+	Author: Dudley Dawes
+	Date: 19/04/16
 */
 #include "ImageLibrary.h"
 

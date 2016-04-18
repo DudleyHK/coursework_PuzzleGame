@@ -1,13 +1,9 @@
 /*
-
-
-
-
-
+	Solution: PuzzleBoard.cpp
+	Author: Dudley Dawes
+	Date: 19/04/16
 */
 #include "PuzzleBoard.h"
-
-
 
 PuzzleBoard::PuzzleBoard()
 {
@@ -34,6 +30,7 @@ void PuzzleBoard::setGridSize(int heightSegs, int widthSegs)
 {
 	heightSegments = heightSegs;
 	widthSegments = widthSegs;
+
 	empTileID = widthSegments - 1;
 }
 
@@ -49,21 +46,20 @@ void PuzzleBoard::createImage()
 	puzzleImage->setAnchorPoint(cocos2d::Vec2(0, 0));
 	puzzleImage->setPosition(cocos2d::Director::getInstance()->getVisibleOrigin());
 
-	// set the height and width of the image
 	imageWidth = puzzleImage->getBoundingBox().size.width;
 	imageHeight = puzzleImage->getBoundingBox().size.height;
 
 	sliceImage(puzzleImage);
 }
 
-/*This funciton needs to replace 4 with the number of width segments
-and number of height segments set in the settings function*/
 void PuzzleBoard::sliceImage(cocos2d::Sprite* puzzleImage)
 {
 	// Run through each tile that needs to be created. 
-	for (unsigned int heightIndex = 0; heightIndex < heightSegments; heightIndex++)
+	for (unsigned int heightIndex = 0; heightIndex < (unsigned int) heightSegments;
+	heightIndex++)
 	{
-		for (unsigned int widthIndex = 0; widthIndex < widthSegments; widthIndex++)
+		for (unsigned int widthIndex = 0; widthIndex < (unsigned int) widthSegments;
+		widthIndex++)
 		{
 			SingleTile* singleTile = SingleTile::create(
 				heightSegments, 
@@ -120,7 +116,7 @@ void PuzzleBoard::getDirection()
 	bool isValid = false;
 
 	// number of shuffles
-	for (int i = 0; i < 2; i++)
+	for (int numberOfShuffles = 0; numberOfShuffles < 100; numberOfShuffles++)
 	{
 		isValid = false;
 
@@ -167,9 +163,9 @@ void PuzzleBoard::getDirection()
 		// check how many positions are placed correctely
 		if (rightPlace == tileList.size())
 		{
-			i--;
+			numberOfShuffles--; // decrement shuffle counter
 		}
-	} // END FOR
+	} // END SHUFFLE
 }
 
 int PuzzleBoard::getAdjacentTileID(int* const adjacentPosID)
@@ -186,7 +182,6 @@ int PuzzleBoard::getAdjacentTileID(int* const adjacentPosID)
 	return -1;
 }
 
-// change to tileID
 void PuzzleBoard::swap(int adjacentTileID, int adjacentPosID)
 {
 	/* =========================SWAP POSITIONS==================================== */
@@ -221,7 +216,6 @@ void PuzzleBoard::getCorrectTiles(int* const rightPlace)
 {
 	*rightPlace = 0;
 
-	// count how many tiles are in the right place
 	for (unsigned int index = 0; index < tileList.size(); index++)
 	{
 		if (tileList.at(index)->getTileID() == tileList.at(index)->getPositionID())

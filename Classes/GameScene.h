@@ -1,46 +1,44 @@
 /*
-// @ -- Detail:
-// @ -- Param:
-// @ -- Return:
-
-
-
+	Solution: GameScene.h
+	Author: Dudley Dawes
+	Date: 19/04/16
 */
 #pragma once
 #include "PuzzleBoard.h"
 #include "MainMenu.h"
 #include <vector>
 
-///////////////////////////////////////////////// NOTHING HAS BEEN UPDATED
+
 class GameScene : public cocos2d::Layer
 {
 public:
+	CREATE_FUNC(GameScene);
+	GameScene();
+	~GameScene();
 
 	// @ -- Detail: Create a new scene.
-	// @ -- Return: Created scene
+	// @ -- Param: Number of height/ width segments. The image code and instance of the
+	//			imageLibrary class.
+	// @ -- Return: Created scene.
 	static cocos2d::Scene* createScene(
 		int heightSegs, 
 		int widthSegs, 
 		int imageCode, 
 		ImageLib* imgLib);
 
-	// @ -- Detail:
-	// @ -- Param:
-	// @ -- Return:
-	CREATE_FUNC(GameScene);
-
-	GameScene();
-	~GameScene();
-
-	/////EXPLAIN
+	/* =====GETTERS AND SETTERS===== */
 	void setGridSize(int heightSegments, int widthSegments);
 	void setWindowSize();
 	void setPuzzleImage(int imgCode, ImageLib* imgLib);
+	/* ============================== */
 
+	// @ -- Detail: Add a tile and the background
 	void backgroundAndTile();
 
-	// @ -- Detail: Check if the layer has been initialised and call functions
-	//			to setup the Game Scene.
+	// @ -- Detail: Check if the layer has been initialised. Call getters and setters, 
+	//			intialise the scene and create an event listener.
+	// @ -- Param: The number of height/ width segments, image code and an instance of the
+	//			imageLibrary class.
 	// @ -- Return: If the layer has been initialised return TRUE.
 	bool initLayer(
 		int heightSegments, 
@@ -91,16 +89,18 @@ public:
 
 	// @ -- Detail: Call a function to iterate through each position checking the number
 	//			of correctly placed tiles. 
-	// @ -- Return: If the number of correctly placed tiles matches the number of tiles in
-	//			the list return TRUE.
+	// @ -- Return: If the number of correctly placed tiles matches the total number of 
+	//			tiles return TRUE.
 	bool boardComplete();
 
-	// @ -- Detail: Displays options for the player to either reset the game or return to
-	//			the main menu.
+	// @ -- Detail: Displays options for the player to either reset the game, return to
+	//			the main menu or reshuffle. It then places the buttons in the scene.
 	void menuOptions();
 
 	// @ -- Detail: The resetCallback() function replaces the the scene with a newly shuffled
 	//			board. The returnCallback() function returns the player back to the main menu.
+	//			If the game is NOT won and the shuffle button has been click less than 5 times 
+	//			the reshuffleCallback() will call a function to reshuffle the board.
 	void resetCallback(cocos2d::Ref* sender);
 	void returnCallback(cocos2d::Ref* sender);
 	void reshuffleCallback(cocos2d::Ref* sender);
@@ -109,7 +109,7 @@ private:
 	std::vector<SingleTile*> tileList;
 	cocos2d::Size windowSize;
 	PuzzleBoard* puzzleBoard = new PuzzleBoard();
-	ImageLib* imageLib = new ImageLib(); ///////////////NEW KEYWORD
+	ImageLib* imageLib = new ImageLib();
 
 	int hIndex = 0;
 	int wIndex = 0;

@@ -1,17 +1,13 @@
 /*
-
-
-// @ -- Detail:
-// @ -- Param:
-// @ -- Return:
-
-
+	Solution: SingleTile.h
+	Author: Dudley Dawes
+	Date: 19/04/16
 */
 
 #pragma once
 #include "cocos2d.h"
 
-///////////////////////////////////////////////// NOTHING HAS BEEN UPDATED
+
 class SingleTile : public cocos2d::Sprite
 {
 public:
@@ -32,7 +28,7 @@ public:
 
 	// @ -- Detail: Create an instance of the class. Notify the object of the image which 
 	//			will be used to construct the tile sprite. 
-	// @ -- Param: Puzzle image sprite.
+	// @ -- Param: Puzzle image sprite and the number of height/ width segements
 	static SingleTile* create(int heightSegs, int widthSegs, cocos2d::Sprite* img);
 
 	// @ -- Detail: Set the size ratios for a single tile.

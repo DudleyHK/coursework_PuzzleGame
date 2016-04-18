@@ -1,3 +1,8 @@
+/*
+	Solution: AppDelegate.cpp
+	Author: Dudley Dawes
+	Date: 19/04/16
+*/
 #include "AppDelegate.h"
 
 
@@ -29,10 +34,10 @@ bool AppDelegate::applicationDidFinishLaunching()
 
 void AppDelegate::applicationDidEnterBackground() 
 {
-
+	; //Empty
 }
 
 void AppDelegate::applicationWillEnterForeground() 
 {
-
+	; // Empty
 }

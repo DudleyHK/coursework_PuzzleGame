@@ -1,5 +1,7 @@
 /*
-
+	Solution: SingleTile.cpp
+	Author: Dudley Dawes
+	Date: 19/04/16
 */
 #include "SingleTile.h"
 
@@ -89,7 +91,7 @@ void SingleTile::initTile(unsigned int hIndex, 	unsigned int wIndex)
 	setTextureRect(cocos2d::Rect(xPosition, (imageHeight - yPosition) - tile.y, 
 		tile.x, tile.y));
 
-	setAnchorPoint(cocos2d::Vec2(0,0));//////////////////////
+	setAnchorPoint(cocos2d::Vec2(0,0));
 	setPosition(cocos2d::Vec2(
 		(500 / widthSegments) * wIndex, 
 		(500 / widthSegments) * hIndex));

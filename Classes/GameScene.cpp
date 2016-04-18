@@ -1,5 +1,7 @@
 /*
-
+	Solution: GameScene.cpp
+	Author: Dudley Dawes
+	Date: 19/04/16
 */
 
 #include "GameScene.h"
@@ -15,10 +17,9 @@ cocos2d::Scene * GameScene::createScene(
 	auto playLayer = GameScene::create();
 
 	// add layer as a child to a scene
-	playScene->addChild(playLayer, -150);
+	playScene->addChild(playLayer, 0);
 	playLayer->initLayer(heightSegs, widthSegs, imageCode, imgLib);
 
-	// return the scene
 	return playScene;
 }
 
@@ -30,7 +31,7 @@ GameScene::GameScene()
 
 GameScene::~GameScene()
 {
-	; // Empty // delete data// delete data// delete data// delete data// delete data// delete data// delete data// delete data// delete data// delete data// delete data
+	;// empty
 }
 
 void GameScene::setGridSize(int heightSegs, int widthSegs)
@@ -38,12 +39,12 @@ void GameScene::setGridSize(int heightSegs, int widthSegs)
 	this->heightSegments = heightSegs;
 	this->widthSegments = widthSegs;
 	empTileID = widthSegments - 1;
+
 	puzzleBoard->setGridSize(heightSegments, widthSegments);
 }
 
 void GameScene::setWindowSize()
 {
-	// get width and height of the window
 	cocos2d::Size size = cocos2d::Director::getInstance()->getVisibleSize();
 	windowSize = size;
 }
@@ -88,8 +89,7 @@ void GameScene::addPuzzleBoard()
 	// Display puzzle.
 	for (unsigned int index = 0; index < tileList.size(); index++)
 	{
-		// display
-		this->addChild(tileList.at(index), -10);
+		this->addChild(tileList.at(index), 2);
 	}
 }
 
@@ -100,14 +100,14 @@ void GameScene::backgroundAndTile()
 		"Puzzle Game",
 		"fonts/FunSized.ttf", 60.0f);
 	title->setPosition(cocos2d::Vec2(windowSize.width / 2.0f, windowSize.height / 1.1f));
-	this->addChild(title, -50);
+	this->addChild(title, 3);
 
-	// Add in a menu splash screen
+	// Add bakground
 	auto menuBackground = cocos2d::Sprite::create("BambooBackground.JPG ");
 	menuBackground->setScale(0.25);
 	menuBackground->setAnchorPoint(cocos2d::Vec2(0, 0));
 	menuBackground->setPosition(cocos2d::Vec2(0, 0));
-	this->addChild(menuBackground, -100);
+	this->addChild(menuBackground, 1);
 }
 
 void GameScene::menuOptions()
@@ -136,16 +136,16 @@ void GameScene::menuOptions()
 		nullptr,
 		CC_CALLBACK_1(GameScene::reshuffleCallback, this));
 
-	// placement
+	// Layout
 	cocos2d::Menu* options = cocos2d::Menu::create(resetBoard, returnToMenu, nullptr);
 	options->setPosition(windowSize.width / 1.15f, windowSize.height / 1.5f);
 	options->alignItemsVerticallyWithPadding(50.0f);
-	this->addChild(options, 10);
+	this->addChild(options, 4);
 
 	cocos2d::Menu* reshuffleButton = cocos2d::Menu::create(reshuffle, nullptr);
 	reshuffleButton->setPosition(windowSize.width / 1.15f, windowSize.height / 5.0f);
 	reshuffleButton->alignItemsVertically();
-	this->addChild(reshuffleButton, 10);
+	this->addChild(reshuffleButton, 4);
 }
 
 void GameScene::resetCallback(cocos2d::Ref * sender)
@@ -167,13 +167,10 @@ void GameScene::returnCallback(cocos2d::Ref * sender)
 
 void GameScene::reshuffleCallback(cocos2d::Ref * sender)
 {
-	if (!gameWon)
+	if ((!gameWon) && (reshuffCounter < 5))
 	{
-		if (reshuffCounter < 5) /////////////////////////////////////////////////////// use &&
-		{
-			puzzleBoard->getDirection();
-			reshuffCounter++;
-		}
+		puzzleBoard->getDirection();
+		reshuffCounter++;
 	}
 }
 
@@ -196,10 +193,9 @@ bool GameScene::onTouchBegan(cocos2d::Touch* click, cocos2d::Event* event)
 	// convert these coordinates into world coordinates
 	point = cocos2d::Director::getInstance()->convertToGL(point);
 
-	// run through the tile list
-	for (unsigned int heightIndex = 0; heightIndex < heightSegments; heightIndex++)
+	for (unsigned int heightIndex = 0; heightIndex < (unsigned int)heightSegments; heightIndex++)
 	{
-		for (unsigned int widthIndex = 0; widthIndex < widthSegments; widthIndex++)
+		for (unsigned int widthIndex = 0; widthIndex < (unsigned int)widthSegments; widthIndex++)
 		{
 			//if any sprite contains the point coordinates.
 			if (tileList.at((widthSegments * heightIndex) + widthIndex)->
@@ -214,7 +210,7 @@ bool GameScene::onTouchBegan(cocos2d::Touch* click, cocos2d::Event* event)
 	return false;
 }
 
-void GameScene::checkForEmpty(int tileID) // this is currently the same as posID
+void GameScene::checkForEmpty(int tileID)
 {
 	int n_posID = -1;
 	int posID = tileList.at(tileID)->getPositionID();
@@ -249,8 +245,6 @@ void GameScene::checkLeft(int _posID, int* const  n_posID)
 {
 	*n_posID = _posID;
 
-	// check 
-	// if either of these functions return false
 	if (!(puzzleBoard->checkInBounds(hIndex, (wIndex - 1)) && getEmptyTilePos(*n_posID)))
 	{
 		// set newPos to an unused value
@@ -262,7 +256,6 @@ void GameScene::checkRight(int _posID, int* const n_posID)
 {
 	*n_posID = _posID;
 
-	// if either of these functions return false
 	if (!(puzzleBoard->checkInBounds(hIndex, (wIndex + 1)) && getEmptyTilePos(_posID)))
 	{
 		// set newPos to an unused value
@@ -274,7 +267,6 @@ void GameScene::checkUp(int _posID, int* const n_posID)
 {
 	*n_posID = _posID;
 
-	// if either of these functions return false
 	if (!(puzzleBoard->checkInBounds((hIndex + 1), wIndex) && getEmptyTilePos(_posID)))
 	{
 		// set newPos to an unused value
@@ -286,7 +278,6 @@ void GameScene::checkDown(int _posID, int* const n_posID)
 {
 	*n_posID = _posID;
 
-	// if either of these functions return false
 	if (!(puzzleBoard->checkInBounds((hIndex - 1), wIndex) && getEmptyTilePos(_posID)))
 	{
 		// set newPos to an unused value
@@ -305,17 +296,13 @@ bool GameScene::getEmptyTilePos(int _posID)
 
 void GameScene::swapTiles(int tileID)
 {
-	// check if the game has ben won
 	if (!gameWon)
 	{
-		//selected sprite
 		auto selectedSprite = tileList.at(tileID);
 		cocos2d::Vec2 selectedSpritePosition = tileList.at(tileID)->getPosition();
 
-		// empty sprite
 		auto emptySprite = tileList.at(empTileID);
 		cocos2d::Vec2 emptySpritePosition = tileList.at(empTileID)->getPosition();
-
 
 		auto moveEmptySprite = cocos2d::MoveTo::create(0.1f, cocos2d::Vec2(
 			selectedSpritePosition.x,
@@ -323,7 +310,6 @@ void GameScene::swapTiles(int tileID)
 		auto moveSelectedSprite = cocos2d::MoveTo::create(0.1f, cocos2d::Vec2(
 			emptySpritePosition.x,
 			emptySpritePosition.y));
-
 
 		if (selectedSprite->getNumberOfRunningActions() == 0 &&
 			emptySprite->getNumberOfRunningActions() == 0)
@@ -341,7 +327,6 @@ void GameScene::swapTiles(int tileID)
 		}
 	}
 
-	// track amount of moves taken.
 	numOfMoves++;
 
 	// check to see if the board is complete at this point
@@ -349,18 +334,18 @@ void GameScene::swapTiles(int tileID)
 	{
 		gameWon = true;
 
-		// Print out the title
+		// Print message
 		cocos2d::Label* congrats = cocos2d::Label::createWithTTF(
 			"CONGRATULATIONS!",
 			"fonts/FunSized.ttf", 40.0f);
 		congrats->setPosition(cocos2d::Vec2(windowSize.width / 2.0f, windowSize.height / 2.0f));
-		this->addChild(congrats, 100);
+		this->addChild(congrats, 3);
 
 		cocos2d::Label* win = cocos2d::Label::createWithTTF(
 			"YOU WIN!!",
 			"fonts/FunSized.ttf", 40.0f);
 		win->setPosition(cocos2d::Vec2(windowSize.width / 2.0f, windowSize.height / 2.5f));
-		this->addChild(win, 100);
+		this->addChild(win, 3);
 	}
 }
 

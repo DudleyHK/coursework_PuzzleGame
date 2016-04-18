@@ -1,5 +1,9 @@
+/*
+	Solution: AppDelegate.h
+	Author: Dudley Dawes
+	Date: 19/04/16
+*/
 #pragma once
-
 #include "cocos2d.h"
 #include "MainMenu.h"
 

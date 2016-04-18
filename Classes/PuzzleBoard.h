@@ -1,11 +1,7 @@
 /*
-
-
-
-// @ -- Detail:
-// @ -- Param:
-// @ -- Return:
-
+	Solution: MainMenu.h
+	Author: Dudley Dawes
+	Date: 19/04/16
 */
 #pragma once
 #include "cocos2d.h"
@@ -15,13 +11,12 @@
 #include <ctime>
 #include <vector>
 
-///////////////////////////////////////////////// NOTHING HAS BEEN UPDATED
+
 class PuzzleBoard
 {
 public:
 	PuzzleBoard();
 	~PuzzleBoard();
-
 
 	/* =====GETTERS AND SETTERS===== */
 	void getSpriteList(std::vector<SingleTile*> *tileList);
