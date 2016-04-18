@@ -73,5 +73,11 @@
     <Image Include="..\Resources\p_mountainsSelect.JPG">
       <Filter>resource</Filter>
     </Image>
+    <Image Include="..\Resources\PictureFrame.jpg">
+      <Filter>resource</Filter>
+    </Image>
+    <Image Include="..\Resources\BambooBackground.JPG">
+      <Filter>resource</Filter>
+    </Image>
   </ItemGroup>
 </Project>

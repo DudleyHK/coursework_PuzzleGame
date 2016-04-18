@@ -24,12 +24,13 @@ cocos2d::Scene * GameScene::createScene(
 
 GameScene::GameScene()
 {
-	; // Empty
+	gameWon = false;
+	reshuffCounter = 0;
 }
 
 GameScene::~GameScene()
 {
-	; // Empty
+	; // Empty // delete data// delete data// delete data// delete data// delete data// delete data// delete data// delete data// delete data// delete data// delete data
 }
 
 void GameScene::setGridSize(int heightSegs, int widthSegs)
@@ -38,6 +39,13 @@ void GameScene::setGridSize(int heightSegs, int widthSegs)
 	this->widthSegments = widthSegs;
 	empTileID = widthSegments - 1;
 	puzzleBoard->setGridSize(heightSegments, widthSegments);
+}
+
+void GameScene::setWindowSize()
+{
+	// get width and height of the window
+	cocos2d::Size size = cocos2d::Director::getInstance()->getVisibleSize();
+	windowSize = size;
 }
 
 void GameScene::setPuzzleImage(int imgCode, ImageLib* imgLib)
@@ -53,15 +61,18 @@ bool GameScene::initLayer(
 	int imageCode, 
 	ImageLib* imgLib)
 {
-	gameWon = false;
-
 	if (!Layer::init())
 	{
 		return false;
 	}
 
+	setWindowSize();
 	setGridSize(heightSegs, widthSegs);
 	setPuzzleImage(imageCode, imgLib);
+
+	backgroundAndTile();
+	menuOptions();
+
 	addPuzzleBoard();
 	addEvent();
 
@@ -79,6 +90,90 @@ void GameScene::addPuzzleBoard()
 	{
 		// display
 		this->addChild(tileList.at(index), -10);
+	}
+}
+
+void GameScene::backgroundAndTile()
+{
+	// Print out the title
+	cocos2d::Label* title = cocos2d::Label::createWithTTF(
+		"Puzzle Game",
+		"fonts/FunSized.ttf", 60.0f);
+	title->setPosition(cocos2d::Vec2(windowSize.width / 2.0f, windowSize.height / 1.1f));
+	this->addChild(title, -50);
+
+	// Add in a menu splash screen
+	auto menuBackground = cocos2d::Sprite::create("BambooBackground.JPG ");
+	menuBackground->setScale(0.25);
+	menuBackground->setAnchorPoint(cocos2d::Vec2(0, 0));
+	menuBackground->setPosition(cocos2d::Vec2(0, 0));
+	this->addChild(menuBackground, -100);
+}
+
+void GameScene::menuOptions()
+{
+	// restart the game
+	cocos2d::MenuItemSprite* resetBoard = new cocos2d::MenuItemSprite();
+	resetBoard->initWithNormalSprite(
+		cocos2d::Sprite::create("PlayUnselected.png"),
+		cocos2d::Sprite::create("PlaySelected.png"),
+		nullptr,
+		CC_CALLBACK_1(GameScene::resetCallback, this));
+
+	// exit back to the main menu
+	cocos2d::MenuItemSprite* returnToMenu = new cocos2d::MenuItemSprite();
+	returnToMenu->initWithNormalSprite(
+		cocos2d::Sprite::create("PlayUnselected.png"),
+		cocos2d::Sprite::create("PlaySelected.png"),
+		nullptr,
+		CC_CALLBACK_1(GameScene::returnCallback, this));
+
+	// reshuffle
+	cocos2d::MenuItemSprite* reshuffle = new cocos2d::MenuItemSprite();
+	reshuffle->initWithNormalSprite(
+		cocos2d::Sprite::create("PlayUnselected.png"),
+		cocos2d::Sprite::create("PlaySelected.png"),
+		nullptr,
+		CC_CALLBACK_1(GameScene::reshuffleCallback, this));
+
+	// placement
+	cocos2d::Menu* options = cocos2d::Menu::create(resetBoard, returnToMenu, nullptr);
+	options->setPosition(windowSize.width / 1.15f, windowSize.height / 1.5f);
+	options->alignItemsVerticallyWithPadding(50.0f);
+	this->addChild(options, 10);
+
+	cocos2d::Menu* reshuffleButton = cocos2d::Menu::create(reshuffle, nullptr);
+	reshuffleButton->setPosition(windowSize.width / 1.15f, windowSize.height / 5.0f);
+	reshuffleButton->alignItemsVertically();
+	this->addChild(reshuffleButton, 10);
+}
+
+void GameScene::resetCallback(cocos2d::Ref * sender)
+{
+	cocos2d::Director::getInstance()->replaceScene(
+		cocos2d::TransitionSlideInR::create(1,
+			GameScene::createScene(
+				heightSegments,
+				widthSegments,
+				imageCode,
+				imageLib)));
+}
+
+void GameScene::returnCallback(cocos2d::Ref * sender)
+{
+	cocos2d::Director::getInstance()->replaceScene(
+		cocos2d::TransitionSlideInL::create(1, MainMenu::createScene()));
+}
+
+void GameScene::reshuffleCallback(cocos2d::Ref * sender)
+{
+	if (!gameWon)
+	{
+		if (reshuffCounter < 5) /////////////////////////////////////////////////////// use &&
+		{
+			puzzleBoard->getDirection();
+			reshuffCounter++;
+		}
 	}
 }
 
@@ -256,12 +351,22 @@ void GameScene::swapTiles(int tileID)
 	if (boardComplete())
 	{
 		gameWon = true;
-		gameOverPopup();
+
+		// Print out the title
+		cocos2d::Label* congrats = cocos2d::Label::createWithTTF(
+			"CONGRATULATIONS!",
+			"fonts/FunSized.ttf", 40.0f);
+		congrats->setPosition(cocos2d::Vec2(windowSize.width / 2.0f, windowSize.height / 2.0f));
+		this->addChild(congrats, 100);
+
+		cocos2d::Label* win = cocos2d::Label::createWithTTF(
+			"YOU WIN!!",
+			"fonts/FunSized.ttf", 40.0f);
+		win->setPosition(cocos2d::Vec2(windowSize.width / 2.0f, windowSize.height / 2.5f));
+		this->addChild(win, 100);
 	}
 }
 
-
-// end state pseudocode -- call before every move -- this is so at the very beginning of the game the board can check if the board is set to its original position
 
 bool GameScene::boardComplete()
 {
@@ -273,45 +378,4 @@ bool GameScene::boardComplete()
 		return true;
 	}
 	return false;
-}
-
-void GameScene::gameOverPopup()
-{
-	// restart the game
-	cocos2d::MenuItemSprite* resetBoard = new cocos2d::MenuItemSprite();
-	resetBoard->initWithNormalSprite(
-		cocos2d::Sprite::create("PlayUnselected.png"),
-		cocos2d::Sprite::create("PlaySelected.png"),
-		nullptr,
-		CC_CALLBACK_1(GameScene::resetCallback, this));
-
-	// exit back to the main menu
-	cocos2d::MenuItemSprite* returnToMenu = new cocos2d::MenuItemSprite();
-	returnToMenu->initWithNormalSprite(
-		cocos2d::Sprite::create("PlayUnselected.png"),
-		cocos2d::Sprite::create("PlaySelected.png"),
-		nullptr,
-		CC_CALLBACK_1(GameScene::returnCallback, this));
-
-	// Create the actual menu and assign the menu to the Puzzle game scene
-	cocos2d::Menu* menu = cocos2d::Menu::create(resetBoard, returnToMenu, nullptr);
-	menu->alignItemsHorizontally();
-	this->addChild(menu, 10);
-}
-
-void GameScene::resetCallback(cocos2d::Ref * sender)
-{
-	cocos2d::Director::getInstance()->replaceScene(
-		cocos2d::TransitionSlideInR::create(1, 
-			GameScene::createScene(
-				heightSegments,
-				widthSegments, 
-				imageCode,
-				imageLib)));
-}
-
-void GameScene::returnCallback(cocos2d::Ref * sender)
-{
-	cocos2d::Director::getInstance()->replaceScene(
-		cocos2d::TransitionSlideInL::create(1, MainMenu::createScene()));
 }

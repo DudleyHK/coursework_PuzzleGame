@@ -26,9 +26,7 @@ void MainMenu::setWindowSize()
 {
 	// get width and height of the window
 	cocos2d::Size size = cocos2d::Director::getInstance()->getVisibleSize();
-
 	windowSize = size;
-
 }
 
 

@@ -1,4 +1,6 @@
-﻿  MainMenu.cpp
+﻿  GameScene.cpp
+c:\users\dudley\onedrive\c++\assignment 3\classes\gamescene.cpp(200): warning C4018: '<': signed/unsigned mismatch
+c:\users\dudley\onedrive\c++\assignment 3\classes\gamescene.cpp(202): warning C4018: '<': signed/unsigned mismatch
   PuzzleGame.vcxproj -> C:\Users\Dudley\OneDrive\C++\Assignment 3\\Build\Debug\PuzzleGame.exe
   0 File(s) copied
   0 File(s) copied

@@ -167,6 +167,8 @@ xcopy "$(SolutionDir)\cocos2d\bin\$(PlatformToolset)\$(Configuration)\*.dll" "$(
     <ClInclude Include="main.h" />
   </ItemGroup>
   <ItemGroup>
+    <Image Include="..\Resources\BambooBackground.JPG" />
+    <Image Include="..\Resources\PictureFrame.jpg" />
     <Image Include="..\Resources\p_hamsterRunning.jpg" />
     <Image Include="..\Resources\p_hamsterRunningSelect.jpg" />
     <Image Include="..\Resources\p_mountains.JPG" />

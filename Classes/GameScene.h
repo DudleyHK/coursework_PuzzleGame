@@ -34,7 +34,10 @@ public:
 
 	/////EXPLAIN
 	void setGridSize(int heightSegments, int widthSegments);
+	void setWindowSize();
 	void setPuzzleImage(int imgCode, ImageLib* imgLib);
+
+	void backgroundAndTile();
 
 	// @ -- Detail: Check if the layer has been initialised and call functions
 	//			to setup the Game Scene.
@@ -94,15 +97,17 @@ public:
 
 	// @ -- Detail: Displays options for the player to either reset the game or return to
 	//			the main menu.
-	void gameOverPopup();
+	void menuOptions();
 
 	// @ -- Detail: The resetCallback() function replaces the the scene with a newly shuffled
 	//			board. The returnCallback() function returns the player back to the main menu.
 	void resetCallback(cocos2d::Ref* sender);
 	void returnCallback(cocos2d::Ref* sender);
+	void reshuffleCallback(cocos2d::Ref* sender);
 
 private:
 	std::vector<SingleTile*> tileList;
+	cocos2d::Size windowSize;
 	PuzzleBoard* puzzleBoard = new PuzzleBoard();
 	ImageLib* imageLib = new ImageLib(); ///////////////NEW KEYWORD
 
@@ -110,6 +115,7 @@ private:
 	int wIndex = 0;
 	int heightSegments = 0;
 	int widthSegments = 0;
+	int reshuffCounter = 0;
 	int numOfMoves = 0;
 	int empTileID = 0;
 	int imageCode = 0;

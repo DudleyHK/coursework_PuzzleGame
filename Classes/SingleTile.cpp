@@ -76,23 +76,20 @@ int SingleTile::getPositionID()
 	return positionID;
 }
 
-void SingleTile::initTile(unsigned int hIndex, unsigned int wIndex)
+void SingleTile::initTile(unsigned int hIndex, 	unsigned int wIndex)
 {
 	setTileSize();
 
 	cocos2d::Vec2 tile = cocos2d::Vec2(tileWidth, tileHeight);
 	xPosition = tile.x * wIndex;
 	yPosition = tile.y * hIndex;
-	setScaleX((500.0f / imageWidth) * 0.98);//was 0.98
+	setScaleX((500.0f / imageWidth) * 0.98);
 	setScaleY((500.0f / imageHeight) * 0.98); 
 
-	setTextureRect(cocos2d::Rect(
-		xPosition, 
-		(imageHeight - yPosition) - tile.y, 
-		tile.x, 
-		tile.y));
+	setTextureRect(cocos2d::Rect(xPosition, (imageHeight - yPosition) - tile.y, 
+		tile.x, tile.y));
 
-	setAnchorPoint(cocos2d::Vec2::ANCHOR_BOTTOM_LEFT);
+	setAnchorPoint(cocos2d::Vec2(0,0));//////////////////////
 	setPosition(cocos2d::Vec2(
 		(500 / widthSegments) * wIndex, 
 		(500 / widthSegments) * hIndex));
