@@ -172,8 +172,8 @@ void MainMenu::selectImg()
 	img01->setScaleY((500.0f / imageLib->getPuzzleImg(1)->
 		getBoundingBox().size.height) * 0.5);
 
-	imageSelection->setPosition(windowSize.width / 1.5f, windowSize.height / 2.0f);
-	imageSelection->alignItemsVerticallyWithPadding(1.0f);
+	imageSelection->setPosition(windowSize.width / 1.15f, windowSize.height / 2.25f);
+	imageSelection->alignItemsVerticallyWithPadding(50.0f);
 	this->addChild(imageSelection, 10);
 }
 
