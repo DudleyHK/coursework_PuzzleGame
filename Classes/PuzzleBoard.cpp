@@ -165,10 +165,8 @@ void PuzzleBoard::getDirection()
 		getCorrectTiles(&rightPlace);
 
 		// check how many positions are placed correctely
-		//if (rightPlace > (tileList.size() - (tileList.size() / 3)))
 		if (rightPlace == tileList.size())
 		{
-			// give the system another turn to fix its self.
 			i--;
 		}
 	} // END FOR

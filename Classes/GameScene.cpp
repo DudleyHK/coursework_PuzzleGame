@@ -218,8 +218,7 @@ void GameScene::checkForEmpty(int tileID) // this is currently the same as posID
 {
 	int n_posID = -1;
 	int posID = tileList.at(tileID)->getPositionID();
-
-	//save for variable as global varibale   //this may not ned to be done /////////////////////CHHHECK
+	
 	hIndex = posID / widthSegments;
 	wIndex = posID - (widthSegments * hIndex);
 
@@ -344,8 +343,6 @@ void GameScene::swapTiles(int tileID)
 
 	// track amount of moves taken.
 	numOfMoves++;
-
-	cocos2d::log("%i", numOfMoves);
 
 	// check to see if the board is complete at this point
 	if (boardComplete())
