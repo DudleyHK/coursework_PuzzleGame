@@ -10,6 +10,7 @@
 #pragma once
 #include "cocos2d.h"
 #include "SingleTile.h"
+#include "ImageLibrary.h"
 #include <cstdlib>
 #include <ctime>
 #include <vector>
@@ -26,6 +27,7 @@ public:
 	void getSpriteList(std::vector<SingleTile*> *tileList);
 	void getCoordinates(int emptyPosID, int* const h, int* const w);
 	void setGridSize(int height, int width);
+	void setPuzzleImage(int imgCode, ImageLib* imgLib);
 	/* ============================== */
 
 
@@ -75,7 +77,9 @@ public:
 
 
 private:
+	ImageLib* imageLib = new ImageLib();
 	std::vector<SingleTile*> tileList;
+	cocos2d::Sprite* puzzleImage = nullptr;
 
 	float scaleWidth = 0.0f;
 	float scaleHeight = 0.0f;
@@ -85,6 +89,6 @@ private:
 	int imageHeight = 0;
 	int newIndexW = 0;
 	int newIndexH = 0;
-
 	int empTileID = 0;
+	int imageCode = 0;
 };

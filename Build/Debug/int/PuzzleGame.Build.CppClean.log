@@ -1,8 +1,9 @@
 c:\users\dudley\onedrive\c++\assignment 3\build\debug\int\main.obj
 c:\users\dudley\onedrive\c++\assignment 3\build\debug\int\gamescene.obj
-c:\users\dudley\onedrive\c++\assignment 3\build\debug\int\mainmenu.obj
 c:\users\dudley\onedrive\c++\assignment 3\build\debug\int\appdelegate.obj
 c:\users\dudley\onedrive\c++\assignment 3\build\debug\int\singletile.obj
+c:\users\dudley\onedrive\c++\assignment 3\build\debug\int\mainmenu.obj
+c:\users\dudley\onedrive\c++\assignment 3\build\debug\int\imagelibrary.obj
 c:\users\dudley\onedrive\c++\assignment 3\build\debug\int\puzzleboard.obj
 c:\users\dudley\onedrive\c++\assignment 3\build\debug\int\vc140.pdb
 c:\users\dudley\onedrive\c++\assignment 3\build\debug\puzzlegame.ilk
@@ -10,7 +11,7 @@ c:\users\dudley\onedrive\c++\assignment 3\build\debug\puzzlegame.exe
 c:\users\dudley\onedrive\c++\assignment 3\build\debug\puzzlegame.pdb
 c:\users\dudley\onedrive\c++\assignment 3\build\debug\puzzlegame.lib
 c:\users\dudley\onedrive\c++\assignment 3\build\debug\puzzlegame.exp
-c:\users\dudley\onedrive\c++\assignment 3\build\debug\int\game.res
+c:\users\dudley\onedrive\c++\assignment 3\project\puzzlegame.cab
 c:\users\dudley\onedrive\c++\assignment 3\build\debug\int\vc140.idb
 c:\users\dudley\onedrive\c++\assignment 3\\build\debug\puzzlegame.pdb
 c:\users\dudley\onedrive\c++\assignment 3\\build\debug\puzzlegame.exe
@@ -22,6 +23,3 @@ c:\users\dudley\onedrive\c++\assignment 3\build\debug\int\puzzlegame.tlog\link.c
 c:\users\dudley\onedrive\c++\assignment 3\build\debug\int\puzzlegame.tlog\link.read.1.tlog
 c:\users\dudley\onedrive\c++\assignment 3\build\debug\int\puzzlegame.tlog\link.write.1.tlog
 c:\users\dudley\onedrive\c++\assignment 3\build\debug\int\puzzlegame.tlog\puzzlegame.write.1u.tlog
-c:\users\dudley\onedrive\c++\assignment 3\build\debug\int\puzzlegame.tlog\rc.command.1.tlog
-c:\users\dudley\onedrive\c++\assignment 3\build\debug\int\puzzlegame.tlog\rc.read.1.tlog
-c:\users\dudley\onedrive\c++\assignment 3\build\debug\int\puzzlegame.tlog\rc.write.1.tlog

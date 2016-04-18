@@ -18,7 +18,11 @@ public:
 
 	// @ -- Detail: Create a new scene.
 	// @ -- Return: Created scene
-	static cocos2d::Scene* createScene(int heightSegs, int widthSegs);
+	static cocos2d::Scene* createScene(
+		int heightSegs, 
+		int widthSegs, 
+		int imageCode, 
+		ImageLib* imgLib);
 
 	// @ -- Detail:
 	// @ -- Param:
@@ -30,11 +34,16 @@ public:
 
 	/////EXPLAIN
 	void setGridSize(int heightSegments, int widthSegments);
+	void setPuzzleImage(int imgCode, ImageLib* imgLib);
 
 	// @ -- Detail: Check if the layer has been initialised and call functions
 	//			to setup the Game Scene.
 	// @ -- Return: If the layer has been initialised return TRUE.
-	virtual bool initLayer(int heightSegments, int widthSegments);
+	bool initLayer(
+		int heightSegments, 
+		int widthSegments, 
+		int imageCode, 
+		ImageLib* imgLib);
 
 	// @ -- Detail: Passing information to the Puzzle Board and displaying the tiles.
 	//			This also calls a function to shuffle the Puzzle Board.
@@ -94,7 +103,8 @@ public:
 
 private:
 	std::vector<SingleTile*> tileList;
-	PuzzleBoard* puzzleBoard = new PuzzleBoard();									///////////////NEW KEYWORD
+	PuzzleBoard* puzzleBoard = new PuzzleBoard();
+	ImageLib* imageLib = new ImageLib(); ///////////////NEW KEYWORD
 
 	int hIndex = 0;
 	int wIndex = 0;
@@ -102,6 +112,7 @@ private:
 	int widthSegments = 0;
 	int numOfMoves = 0;
 	int empTileID = 0;
+	int imageCode = 0;
 	bool gameWon = false;
 
 };

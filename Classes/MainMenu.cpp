@@ -22,6 +22,15 @@ cocos2d::Scene* MainMenu::createScene()
 	return menuScene;
 }
 
+void MainMenu::setWindowSize()
+{
+	// get width and height of the window
+	cocos2d::Size size = cocos2d::Director::getInstance()->getVisibleSize();
+
+	windowSize = size;
+
+}
+
 
 MainMenu::MainMenu()
 {
@@ -42,8 +51,10 @@ bool MainMenu::initLayer()
 		return false;
 	}
 
+	setWindowSize();
 	backgroundAndTitle();
-	menuButtons();
+	playAndQuit();
+	selectImg();
 
 	return true;
 }
@@ -51,26 +62,28 @@ bool MainMenu::initLayer()
 void MainMenu::backgroundAndTitle()
 {
 	// Print out the title
-	cocos2d::Label* title = cocos2d::Label::createWithTTF("Puzzle Game", "fonts/FunSized.ttf", 40);
-	title->setPosition(cocos2d::Vec2(320, 400));
+	cocos2d::Label* title = cocos2d::Label::createWithTTF(
+		"Puzzle Game", 
+		"fonts/FunSized.ttf", 60.0f);
+	title->setPosition(cocos2d::Vec2(windowSize.width / 2.0f, windowSize.height / 1.1f));
 	this->addChild(title, -50);
 
 	// Add in a menu splash screen
-	auto menuBackground = cocos2d::Sprite::create("WoodFence.png");
-	menuBackground->setScale(1.5);
+	auto menuBackground = cocos2d::Sprite::create("BambooBackground.JPG ");
+	menuBackground->setScale(0.25);
 	menuBackground->setAnchorPoint(cocos2d::Vec2(0, 0));
 	menuBackground->setPosition(cocos2d::Vec2(0, 0));
 	this->addChild(menuBackground, -100);
 }
 
 
-void MainMenu::menuButtons()
+void MainMenu::playAndQuit()
 {
 	// Create the play game menu item
 	cocos2d::MenuItemSprite* runGameScene = new cocos2d::MenuItemSprite();
 	runGameScene->initWithNormalSprite(
-		cocos2d::Sprite::create("PlayUnselected.png"),
-		cocos2d::Sprite::create("PlaySelected.png"),
+		cocos2d::Sprite::create("PlayNormal.jpg"),
+		cocos2d::Sprite::create("PlaySelected.jpg"),
 		nullptr,
 		CC_CALLBACK_1(MainMenu::menuPlayCallback, this));
 
@@ -83,8 +96,21 @@ void MainMenu::menuButtons()
 		nullptr,
 		CC_CALLBACK_1(MainMenu::menuCloseCallback, this));
 
+	// Create the actual menu and assign the menu to the Puzzle game scene
+	cocos2d::Menu* buttonLayout = cocos2d::Menu::create(
+		runGameScene,
+		mainMenuExit,
+		nullptr);
+	buttonLayout->setPosition(windowSize.width / 5.5f, windowSize.height / 1.5f);
+	buttonLayout->alignItemsVerticallyWithPadding(50.0f);
+	this->addChild(buttonLayout, 10);
 
-	// ============== SELECTGRIDSIZE ================ //
+	// add other buttons
+	selectGridSize();
+}
+
+void MainMenu::selectGridSize()
+{
 	cocos2d::MenuItemSprite* smallGrid = new cocos2d::MenuItemSprite();
 	smallGrid->initWithNormalSprite(
 		cocos2d::Sprite::create("PlayUnselected.png"),
@@ -107,15 +133,48 @@ void MainMenu::menuButtons()
 		CC_CALLBACK_1(MainMenu::setupLargeGrid, this));
 
 	// Create the actual menu and assign the menu to the Puzzle game scene
-	cocos2d::Menu* mainMenu = cocos2d::Menu::create(
-		runGameScene,
+	cocos2d::Menu* gridSizeLayout = cocos2d::Menu::create(
 		smallGrid,
 		mediumGrid,
 		largeGrid,
-		mainMenuExit, 
 		nullptr);
-	mainMenu->alignItemsVertically();
-	this->addChild(mainMenu, 10);
+	gridSizeLayout->setPosition(windowSize.width / 2.0f, windowSize.height / 2.5f);
+	gridSizeLayout->alignItemsVerticallyWithPadding(75.0f);
+	this->addChild(gridSizeLayout, 10);
+}
+
+void MainMenu::selectImg()
+{
+	imageLib->initLibrary();
+
+	cocos2d::MenuItemSprite* img00 = new cocos2d::MenuItemSprite();
+	img00->initWithNormalSprite(
+		cocos2d::Sprite::create("p_hamsterRunning.jpg"),
+		cocos2d::Sprite::create("p_hamsterRunningSelect.jpg"),
+		nullptr,
+		CC_CALLBACK_1(MainMenu::selectImg00, this));
+
+	cocos2d::MenuItemSprite* img01 = new cocos2d::MenuItemSprite();
+	img01->initWithNormalSprite(
+		cocos2d::Sprite::create("p_mountains.jpg"),
+		cocos2d::Sprite::create("p_mountainsSelect.jpg"),
+		nullptr,
+		CC_CALLBACK_1(MainMenu::selectImg01, this));
+
+	// Create the actual menu and assign the menu to the Puzzle game scene
+	cocos2d::Menu* imageSelection = cocos2d::Menu::create(img00, img01, nullptr);
+	img00->setScaleX((500.0f / imageLib->getPuzzleImg(0)->
+		getBoundingBox().size.width) * 0.5);
+	img00->setScaleY((500.0f / imageLib->getPuzzleImg(0)->
+		getBoundingBox().size.height) * 0.5);
+	img01->setScaleX((500.0f / imageLib->getPuzzleImg(1)->
+		getBoundingBox().size.width) * 0.5);
+	img01->setScaleY((500.0f / imageLib->getPuzzleImg(1)->
+		getBoundingBox().size.height) * 0.5);
+
+	imageSelection->setPosition(windowSize.width / 1.5f, windowSize.height / 2.0f);
+	imageSelection->alignItemsVerticallyWithPadding(1.0f);
+	this->addChild(imageSelection, 10);
 }
 
 
@@ -125,7 +184,9 @@ void MainMenu::menuPlayCallback(cocos2d::Ref* sender)
 		cocos2d::TransitionSlideInR::create(1,
 			GameScene::createScene(
 				heightSegments,
-				widthSegments)));
+				widthSegments, 
+				imageCode, 
+				imageLib)));
 }
 
 void MainMenu::menuCloseCallback(cocos2d::Ref* pSender)
@@ -151,7 +212,15 @@ void MainMenu::setupLargeGrid(cocos2d::Ref* sender)
 	widthSegments = 5;
 }
 
+void MainMenu::selectImg00(cocos2d::Ref* sender)
+{
+	imageCode = 0;
+}
 
+void MainMenu::selectImg01(cocos2d::Ref* sender)
+{
+	imageCode = 1;
+}
 
 
 

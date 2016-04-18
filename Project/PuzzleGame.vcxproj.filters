@@ -19,6 +19,9 @@
     <ClCompile Include="..\Classes\MainMenu.cpp">
       <Filter>src</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\ImageLibrary.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -39,6 +42,9 @@
     <ClInclude Include="..\Classes\MainMenu.h">
       <Filter>hdr</Filter>
     </ClInclude>
+    <ClInclude Include="..\Classes\ImageLibrary.h">
+      <Filter>hdr</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="resource">
@@ -55,30 +61,16 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ResourceCompile Include="game.rc">
-      <Filter>resource</Filter>
-    </ResourceCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <Image Include="..\Resources\PatternPictureFrame.jpg">
-      <Filter>resource</Filter>
-    </Image>
-    <Image Include="..\Resources\PlaySelected.png">
-      <Filter>resource</Filter>
-    </Image>
-    <Image Include="..\Resources\PlayUnselected.png">
-      <Filter>resource</Filter>
-    </Image>
-    <Image Include="..\Resources\ExitNormal.png">
-      <Filter>resource</Filter>
-    </Image>
-    <Image Include="..\Resources\ExitSelected.png">
-      <Filter>resource</Filter>
-    </Image>
     <Image Include="..\Resources\p_hamsterRunning.jpg">
       <Filter>resource</Filter>
     </Image>
-    <Image Include="..\..\..\Game Related Images\Sprites\Bear.jpg">
+    <Image Include="..\Resources\p_hamsterRunningSelect.jpg">
+      <Filter>resource</Filter>
+    </Image>
+    <Image Include="..\Resources\p_mountains.JPG">
+      <Filter>resource</Filter>
+    </Image>
+    <Image Include="..\Resources\p_mountainsSelect.JPG">
       <Filter>resource</Filter>
     </Image>
   </ItemGroup>

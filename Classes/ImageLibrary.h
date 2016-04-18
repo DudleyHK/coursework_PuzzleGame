@@ -6,13 +6,18 @@
 */
 #pragma once
 #include "cocos2d.h"
-USING_NS_CC;
 
-
-namespace ImageLib
+class ImageLib
 {
-	cocos2d::Vector<Sprite*> imageList;
+public:
 
-	void setTags();
-	auto getImage(const unsigned int index);
+	ImageLib();
+	~ImageLib();
+
+	void initLibrary();
+	cocos2d::Sprite* getPuzzleImg(int code);
+
+private:
+	int const NUMBER_OF_IMAGES = 2;
+	cocos2d::Sprite* imgList = nullptr;
 };

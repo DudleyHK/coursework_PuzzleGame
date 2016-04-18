@@ -37,9 +37,15 @@ void PuzzleBoard::setGridSize(int heightSegs, int widthSegs)
 	empTileID = widthSegments - 1;
 }
 
+void PuzzleBoard::setPuzzleImage(int imgCode, ImageLib* imgLib)
+{
+	this->imageCode = imgCode;
+	puzzleImage = cocos2d::Sprite::createWithTexture(
+		imgLib->getPuzzleImg(imageCode)->getTexture());
+}
+
 void PuzzleBoard::createImage()
 {
-	auto puzzleImage = cocos2d::Sprite::create("p_hamsterRunning.jpg");
 	puzzleImage->setAnchorPoint(cocos2d::Vec2(0, 0));
 	puzzleImage->setPosition(cocos2d::Director::getInstance()->getVisibleOrigin());
 
@@ -59,9 +65,11 @@ void PuzzleBoard::sliceImage(cocos2d::Sprite* puzzleImage)
 	{
 		for (unsigned int widthIndex = 0; widthIndex < widthSegments; widthIndex++)
 		{
-			SingleTile* singleTile = SingleTile::create(heightSegments, widthSegments);
+			SingleTile* singleTile = SingleTile::create(
+				heightSegments, 
+				widthSegments, 
+				puzzleImage);
 
-			//cocos2d::Sprite::create(puzzleImage/*pass in the relevant settings information*/);//////////// NEW KEYWPORD	//////////// NEW KEYWPORD	//////////// NEW KEYWPORD
 			singleTile->setImageData(imageHeight, imageWidth);
 			singleTile->initTile(heightIndex, widthIndex);
 

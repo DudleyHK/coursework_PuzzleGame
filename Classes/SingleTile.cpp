@@ -15,19 +15,23 @@ SingleTile::~SingleTile()
 	; // Empty
 }
 
-SingleTile * SingleTile::create(int heightSegs, int widthSegs)
+SingleTile * SingleTile::create(int heightSegs, int widthSegs, cocos2d::Sprite* img)
 {
 	SingleTile* singleTile = new SingleTile(heightSegs, widthSegs);
 
-	if (!singleTile->initWithFile("p_hamsterRunning.jpg"))
+	if (!singleTile->initWithTexture(img->getTexture()))
 	{
 		CC_SAFE_DELETE(singleTile);
 		return nullptr;
 	}
-
 	singleTile->autorelease();
 
 	return singleTile;
+}
+
+void SingleTile::setPuzzleImage(cocos2d::Sprite* img)
+{
+	this->puzzleImage = img;
 }
 
 void SingleTile::setImageData(int imgHeight, int imgWidth)

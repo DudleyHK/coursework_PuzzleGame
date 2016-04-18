@@ -151,6 +151,7 @@ xcopy "$(SolutionDir)\cocos2d\bin\$(PlatformToolset)\$(Configuration)\*.dll" "$(
   <ItemGroup>
     <ClCompile Include="..\Classes\AppDelegate.cpp" />
     <ClCompile Include="..\Classes\GameScene.cpp" />
+    <ClCompile Include="..\Classes\ImageLibrary.cpp" />
     <ClCompile Include="..\Classes\PuzzleBoard.cpp" />
     <ClCompile Include="..\Classes\MainMenu.cpp" />
     <ClCompile Include="..\Classes\SingleTile.cpp" />
@@ -159,22 +160,17 @@ xcopy "$(SolutionDir)\cocos2d\bin\$(PlatformToolset)\$(Configuration)\*.dll" "$(
   <ItemGroup>
     <ClInclude Include="..\Classes\AppDelegate.h" />
     <ClInclude Include="..\Classes\GameScene.h" />
+    <ClInclude Include="..\Classes\ImageLibrary.h" />
     <ClInclude Include="..\Classes\PuzzleBoard.h" />
     <ClInclude Include="..\Classes\MainMenu.h" />
     <ClInclude Include="..\Classes\SingleTile.h" />
     <ClInclude Include="main.h" />
   </ItemGroup>
   <ItemGroup>
-    <ResourceCompile Include="game.rc" />
-  </ItemGroup>
-  <ItemGroup>
-    <Image Include="..\..\..\Game Related Images\Sprites\Bear.jpg" />
-    <Image Include="..\Resources\ExitNormal.png" />
-    <Image Include="..\Resources\ExitSelected.png" />
     <Image Include="..\Resources\p_hamsterRunning.jpg" />
-    <Image Include="..\Resources\PatternPictureFrame.jpg" />
-    <Image Include="..\Resources\PlayUnselected.png" />
-    <Image Include="..\Resources\PlaySelected.png" />
+    <Image Include="..\Resources\p_hamsterRunningSelect.jpg" />
+    <Image Include="..\Resources\p_mountains.JPG" />
+    <Image Include="..\Resources\p_mountainsSelect.JPG" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

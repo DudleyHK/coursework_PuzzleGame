@@ -4,7 +4,11 @@
 
 #include "GameScene.h"
 
-cocos2d::Scene * GameScene::createScene(int heightSegs, int widthSegs)
+cocos2d::Scene * GameScene::createScene(
+	int heightSegs, 
+	int widthSegs, 
+	int imageCode, 
+	ImageLib* imgLib)
 {
 	// 'scene' & 'layer' are autoreleased objects
 	cocos2d::Scene* playScene = cocos2d::Scene::create();
@@ -12,7 +16,7 @@ cocos2d::Scene * GameScene::createScene(int heightSegs, int widthSegs)
 
 	// add layer as a child to a scene
 	playScene->addChild(playLayer, -150);
-	playLayer->initLayer(heightSegs, widthSegs);
+	playLayer->initLayer(heightSegs, widthSegs, imageCode, imgLib);
 
 	// return the scene
 	return playScene;
@@ -36,7 +40,18 @@ void GameScene::setGridSize(int heightSegs, int widthSegs)
 	puzzleBoard->setGridSize(heightSegments, widthSegments);
 }
 
-bool GameScene::initLayer(int heightSegs, int widthSegs)
+void GameScene::setPuzzleImage(int imgCode, ImageLib* imgLib)
+{
+	this->imageCode = imgCode;
+	this->imageLib = imgLib;
+	puzzleBoard->setPuzzleImage(imgCode, imgLib);
+}
+
+bool GameScene::initLayer(
+	int heightSegs, 
+	int widthSegs, 
+	int imageCode, 
+	ImageLib* imgLib)
 {
 	gameWon = false;
 
@@ -46,6 +61,7 @@ bool GameScene::initLayer(int heightSegs, int widthSegs)
 	}
 
 	setGridSize(heightSegs, widthSegs);
+	setPuzzleImage(imageCode, imgLib);
 	addPuzzleBoard();
 	addEvent();
 
@@ -289,7 +305,9 @@ void GameScene::resetCallback(cocos2d::Ref * sender)
 		cocos2d::TransitionSlideInR::create(1, 
 			GameScene::createScene(
 				heightSegments,
-				widthSegments)));
+				widthSegments, 
+				imageCode,
+				imageLib)));
 }
 
 void GameScene::returnCallback(cocos2d::Ref * sender)

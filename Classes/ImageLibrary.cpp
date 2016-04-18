@@ -3,21 +3,39 @@
 
 
 */
-#pragma once
-#include "cocos2d.h"
 #include "ImageLibrary.h"
-using namespace ImageLib;
 
-
-//SEE LECTURE 15
-
-/*
-void ImageLib::
-
+ImageLib::ImageLib()
 {
-	cocos2d::Sprite* p_hamster = Sprite::create("p_hamsterRunning.jpg");
-	p_hamster->setTag(1);
+	// Empty  
+}
 
-	cocos2d::Sprite* p_picFrame = Sprite::create("PatternPictureFrame.jpg");
-	p_picFrame->setTag(2);
-}*/
+ImageLib::~ImageLib()
+{
+	// Empty
+}
+
+void ImageLib::initLibrary()
+{
+	imgList = new cocos2d::Sprite[NUMBER_OF_IMAGES];
+
+	imgList[0].initWithFile("p_hamsterRunning.jpg");
+	imgList[1].initWithFile("p_mountains.JPG");
+
+	for (int index = 0; index < NUMBER_OF_IMAGES; index++)
+	{
+		imgList[index].setTag(index);
+	}
+}
+
+cocos2d::Sprite* ImageLib::getPuzzleImg(int code)
+{
+	for (int index = 0; index < NUMBER_OF_IMAGES; index++)
+	{
+		if (imgList[index].getTag() == code)
+		{
+			return &imgList[index];
+		}
+	}
+	return nullptr;
+}

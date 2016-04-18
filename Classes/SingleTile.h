@@ -19,6 +19,7 @@ public:
 	~SingleTile();
 
 	/* =====GETTERS AND SETTERS===== */
+	void setPuzzleImage(cocos2d::Sprite* img);
 	void setImageData(int imgHeight, int imgWidth);
 	void setPositionID(int posID);
 	void setTileID(int tileID);
@@ -32,7 +33,7 @@ public:
 	// @ -- Detail: Create an instance of the class. Notify the object of the image which 
 	//			will be used to construct the tile sprite. 
 	// @ -- Param: Puzzle image sprite.
-	static SingleTile* create(int heightSegs, int widthSegs);
+	static SingleTile* create(int heightSegs, int widthSegs, cocos2d::Sprite* img);
 
 	// @ -- Detail: Set the size ratios for a single tile.
 	// @ -- Param: The coordinates of the tile being created. 
@@ -40,6 +41,7 @@ public:
 
 private:
 	/* =====WHOLE IMAGE===== */
+	cocos2d::Sprite* puzzleImage;
 	int imageWidth = 0;
 	int imageHeight = 0;
 	int heightSegments = 0;
